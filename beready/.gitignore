@@ -1,0 +1,7 @@
+# Ignorar arquivos e pastas locais
+/vendor
+/node_modules
+.env
+*.log
+*.sql
+.DS_Store
