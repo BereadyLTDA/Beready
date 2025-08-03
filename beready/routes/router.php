@@ -39,6 +39,24 @@ switch ($request) {
         }
         break;
 
+      case '/tags':
+        require_once './controllers/TagController.php';
+        if ($method == 'GET') {
+            listarTags();
+        } elseif ($method == 'POST') {
+            criarTag();
+        }
+        break;
+
+    case '/historico':
+        require_once './controllers/HistoricoController.php';
+        if ($method == 'GET') {
+            listarHistorico();
+        } elseif ($method == 'POST') {
+            registrarBusca();
+        }
+        break;
+
     default:
         http_response_code(404);
         echo json_encode(['erro' => 'Rota não encontrada']);
