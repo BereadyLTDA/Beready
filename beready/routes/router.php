@@ -14,7 +14,8 @@ switch ($request) {
         if ($method === 'GET') {
             $controller->listarUsuarios();
         } elseif ($method === 'POST') {
-            $controller->criarUsuario($_POST);
+            // supondo criarUsuario com dois parâmetros email, senha
+            $controller->criarUsuario($_POST['email'], $_POST['senha']);
         }
         break;
 
@@ -30,9 +31,9 @@ switch ($request) {
         if ($method === 'GET') {
             $controller->listarFlashcards();
         } elseif ($method === 'POST') {
-            $controller->criarFlashcard($_POST);
+            $controller->criarFlashcard();
         } elseif ($method === 'DELETE') {
-            $controller->deletarFlashcard(); // precisaria tratar ID aqui também
+            $controller->deletarFlashcard();
         }
         break;
 
@@ -41,7 +42,7 @@ switch ($request) {
         if ($method === 'GET') {
             $controller->listarProgresso();
         } elseif ($method === 'POST') {
-            $controller->marcarProgresso($_POST);
+            $controller->marcarProgresso();
         }
         break;
 
@@ -50,7 +51,7 @@ switch ($request) {
         if ($method === 'GET') {
             $controller->listarTags();
         } elseif ($method === 'POST') {
-            $controller->criarTag($_POST);
+            $controller->criarTag();
         }
         break;
 
@@ -59,7 +60,7 @@ switch ($request) {
         if ($method === 'GET') {
             $controller->listarHistorico();
         } elseif ($method === 'POST') {
-            $controller->registrarBusca($_POST);
+            $controller->registrarBusca();
         }
         break;
 
