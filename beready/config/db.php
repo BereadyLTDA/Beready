@@ -1,13 +1,13 @@
 <?php
-// Configuração de conexão com o banco de dados
-$host = "localhost";
-$user = "root";
-$password = "";
-$dbname = "beready";
+$host = 'localhost';
+$db = 'beready';
+$user = 'root';
+$pass = '';
 
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erro na conexão: " . $e->getMessage());
 }
 ?>

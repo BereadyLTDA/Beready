@@ -19,6 +19,26 @@ switch ($request) {
         }
         break;
 
+    case '/flashcards':
+        require_once './controllers/FlashcardController.php';
+        if ($method == 'GET') {
+            listarFlashcards();
+        } elseif ($method == 'POST') {
+            criarFlashcard();
+        } elseif ($method == 'DELETE') {
+            deletarFlashcard();
+        }
+        break;
+
+    case '/progresso':
+        require_once './controllers/ProgressoController.php';
+        if ($method == 'GET') {
+            listarProgresso();
+        } elseif ($method == 'POST') {
+            marcarProgresso();
+        }
+        break;
+
     default:
         http_response_code(404);
         echo json_encode(['erro' => 'Rota não encontrada']);
