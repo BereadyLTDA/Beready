@@ -1,4 +1,6 @@
 <?php
+require_once '../core/Database.php';
+require_once '../exceptions/AppException.php';
 require_once './models/Tag.php';
 
 function listarTags() {
