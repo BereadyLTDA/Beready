@@ -48,6 +48,50 @@ class UsuarioController
             echo "Erro ao registrar: " . $e->getMessage();
         }
     }
+
+    // Método para criar usuário (sem redirecionamento)
+    public function criarUsuario($email, $senha)
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+
+            // Verifica se já existe o e-mail
+            $stmt = $db->prepare("SELECT * FROM usuarios WHERE email = ?");
+            $stmt->execute([$email]);
+            if ($stmt->fetch()) {
+                throw new AppException("E-mail já cadastrado.");
+            }
+
+            $hash = password_hash($senha, PASSWORD_DEFAULT);
+            $stmt = $db->prepare("INSERT INTO usuarios (email, senha) VALUES (?, ?)");
+            $stmt->execute([$email, $hash]);
+
+            echo "Usuário criado com sucesso.";
+        } catch (AppException $e) {
+            echo "Erro ao criar usuário: " . $e->getMessage();
+        }
+    }
+
+    // Método para listar todos os usuários
+    public function listarUsuarios()
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+            $stmt = $db->query("SELECT id, email FROM usuarios");
+            $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!$usuarios) {
+                echo "Nenhum usuário encontrado.";
+                return;
+            }
+
+            foreach ($usuarios as $usuario) {
+                echo "ID: " . $usuario['id'] . " - Email: " . $usuario['email'] . "<br>";
+            }
+        } catch (Exception $e) {
+            echo "Erro ao listar usuários: " . $e->getMessage();
+        }
+    }
 }
 
 // Roteamento simples
@@ -64,6 +108,12 @@ switch ($action) {
             exit;
         }
         $controller->registrar($_POST['email'], $_POST['senha']);
+        break;
+    case 'criarUsuario':
+        $controller->criarUsuario($_POST['email'], $_POST['senha']);
+        break;
+    case 'listarUsuarios':
+        $controller->listarUsuarios();
         break;
     default:
         echo "Ação não reconhecida.";
