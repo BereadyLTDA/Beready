@@ -1,0 +1,76 @@
+/* styles/views/users/login.css */
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.login-card {
+  max-width: 450px;
+  width: 100%;
+}
+
+.login-header {
+  text-align: center;
+}
+
+.login-header .header-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(124, 58, 237, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.login-header .header-icon svg {
+  color: #7c3aed;
+}
+
+.login-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.login-forgot-link {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.login-forgot-link a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.login-forgot-link a:hover {
+  text-decoration: underline;
+}
+
+.login-register-link {
+  text-align: center;
+  color: #6b7280;
+}
+
+.login-register-link a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-register-link a:hover {
+  text-decoration: underline;
+}

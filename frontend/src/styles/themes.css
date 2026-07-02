@@ -1,0 +1,404 @@
+/* ============================================
+   TEMA CLARO (PADRÃO) - CORES SUAVES
+   ============================================ */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --hero-bg: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+}
+
+/* Aplicar tema claro */
+.dashboard-container,
+.flashcards-page,
+.quizes-page,
+.prompts-page,
+.tags-page,
+.progresso-page,
+.preferencias-page,
+.profile-container,
+.profile-edit-page,
+.login-page,
+.register-page {
+  background: var(--bg-primary) !important;
+}
+
+/* Cards no tema claro */
+.stat-card,
+.progress-card,
+.dashboard-feature-card,
+.flashcard-card,
+.quiz-card,
+.prompt-card,
+.tag-card,
+.preferencias-form,
+.profile-card,
+.register-card,
+.login-card,
+.profile-edit-form {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+/* Textos no tema claro (exceto nome e email do perfil que ficam brancos) */
+.welcome-title,
+.stat-value,
+.feature-title,
+.quiz-card-title,
+.prompt-text,
+.tag-name,
+.question-text,
+.answer-text,
+.login-title,
+.card-title {
+  color: var(--text-primary) !important;
+}
+
+.welcome-subtitle,
+.stat-label,
+.feature-description,
+.quiz-card-description,
+.prompt-meta,
+.tag-description,
+.answer-label,
+.question-label,
+.login-subtitle,
+.form-label,
+.form-hint {
+  color: var(--text-secondary) !important;
+}
+
+/* ============================================
+   PERFIL - NOME E EMAIL SEMPRE BRANCOS
+   ============================================ */
+.profile-name,
+.profile-email,
+.register-subtitle,
+.register-title {
+  color: white !important;
+}
+
+.dark-mode .profile-name,
+.dark-mode .profile-email {
+  color: white !important;
+}
+
+/* Demais textos do perfil seguem o tema */
+.profile-info-value,
+.profile-info-label,
+.card-title {
+  color: var(--text-primary, #1e293b) !important;
+}
+
+.dark-mode .profile-info-value,
+.dark-mode .profile-info-label,
+.dark-mode .card-title {
+  color: var(--text-primary, #f1f5f9) !important;
+}
+
+/* ============================================
+   TEMA ESCURO - MODERNO
+   ============================================ */
+.dark-mode {
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --hero-bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+}
+
+.dark-mode {
+  background: var(--bg-primary) !important;
+}
+
+.dark-mode .dashboard-container,
+.dark-mode .flashcards-page,
+.dark-mode .quizes-page,
+.dark-mode .prompts-page,
+.dark-mode .tags-page,
+.dark-mode .progresso-page,
+.dark-mode .preferencias-page,
+.dark-mode .profile-container,
+.dark-mode .profile-edit-page,
+.dark-mode .login-page,
+.dark-mode .register-page {
+  background: var(--bg-primary) !important;
+}
+
+.dark-mode .stat-card,
+.dark-mode .progress-card,
+.dark-mode .dashboard-feature-card,
+.dark-mode .flashcard-card,
+.dark-mode .quiz-card,
+.dark-mode .prompt-card,
+.dark-mode .tag-card,
+.dark-mode .preferencias-form,
+.dark-mode .profile-card,
+.dark-mode .register-card,
+.dark-mode .login-card,
+.dark-mode .profile-edit-form {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .welcome-title,
+.dark-mode .stat-value,
+.dark-mode .feature-title,
+.dark-mode .quiz-card-title,
+.dark-mode .prompt-text,
+.dark-mode .tag-name,
+.dark-mode .question-text,
+.dark-mode .answer-text,
+.dark-mode .register-title,
+.dark-mode .login-title,
+.dark-mode .card-title {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .welcome-subtitle,
+.dark-mode .stat-label,
+.dark-mode .feature-description,
+.dark-mode .quiz-card-description,
+.dark-mode .prompt-meta,
+.dark-mode .tag-description,
+.dark-mode .answer-label,
+.dark-mode .question-label,
+.dark-mode .register-subtitle,
+.dark-mode .login-subtitle,
+.dark-mode .form-label,
+.dark-mode .form-hint {
+  color: var(--text-secondary) !important;
+}
+
+/* Headers dos cards no escuro */
+.dark-mode .prompt-header,
+.dark-mode .quiz-card-footer,
+.dark-mode .flashcard-footer,
+.dark-mode .prompt-footer,
+.dark-mode .card-header,
+.dark-mode .register-header,
+.dark-mode .login-header {
+  background: #0f172a !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Formulários no escuro */
+.dark-mode .form-input,
+.dark-mode .form-textarea,
+.dark-mode .form-select {
+  background: #0f172a !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .form-input:focus,
+.dark-mode .form-textarea:focus,
+.dark-mode .form-select:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Botões no escuro */
+.dark-mode .btn-cancel {
+  background: #334155 !important;
+  color: var(--text-secondary) !important;
+}
+
+.dark-mode .btn-cancel:hover {
+  background: #475569 !important;
+}
+
+/* Hero sections */
+.dark-mode .flashcards-hero,
+.dark-mode .quizes-hero,
+.dark-mode .prompts-hero,
+.dark-mode .tags-hero,
+.dark-mode .progresso-hero,
+.dark-mode .preferencias-hero,
+.dark-mode .profile-edit-hero {
+  background: var(--hero-bg) !important;
+}
+
+/* Botão voltar */
+.dark-mode .hero-back-btn {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+}
+
+.dark-mode .hero-back-btn:hover {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Seções internas */
+.dark-mode .register-section,
+.dark-mode .login-section,
+.dark-mode .form-card {
+  background: #0f172a !important;
+  border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   CORREÇÃO DO PERFIL - TEMA ESCURO (INFO)
+   ============================================ */
+
+.dark-mode .profile-info-value,
+.dark-mode .profile-info-label,
+.dark-mode .card-title {
+  color: var(--text-primary, #f1f5f9) !important;
+}
+
+.dark-mode .profile-info-label {
+  color: var(--text-secondary, #94a3b8) !important;
+}
+
+.dark-mode .profile-card {
+  background: var(--bg-card, #1e293b) !important;
+  border: 1px solid var(--border-color, #334155) !important;
+}
+
+.dark-mode .profile-header {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+}
+
+.dark-mode .profile-header-background {
+  opacity: 0.3;
+}
+
+.dark-mode .profile-status-active {
+  background: #065f46 !important;
+  color: #d1fae5 !important;
+}
+
+.dark-mode .profile-status-inactive {
+  background: #991b1b !important;
+  color: #fee2e2 !important;
+}
+
+/* Modal de exclusão no tema escuro */
+.dark-mode .modal-container {
+  background: var(--bg-card, #1e293b) !important;
+}
+
+.dark-mode .modal-header {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+}
+
+.dark-mode .modal-body p {
+  color: var(--text-primary, #f1f5f9) !important;
+}
+
+.dark-mode .modal-warning {
+  color: #f87171 !important;
+}
+
+.dark-mode .confirm-input {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: var(--text-primary, #f1f5f9) !important;
+}
+
+.dark-mode .confirm-input:focus {
+  border-color: #3b82f6 !important;
+}
+
+.dark-mode .modal-btn-cancel {
+  background: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+.dark-mode .modal-btn-cancel:hover {
+  background: #475569 !important;
+}
+
+.dark-mode .modal-btn-delete {
+  background: #dc2626 !important;
+}
+
+.dark-mode .modal-btn-delete:hover:not(:disabled) {
+  background: #b91c1c !important;
+}
+
+/* ============================================
+   MODO DALTÔNICO
+   ============================================ */
+.daltonico-mode .stat-icon.bg-blue-100,
+.daltonico-mode .stat-icon.bg-green-100,
+.daltonico-mode .stat-icon.bg-purple-100,
+.daltonico-mode .stat-icon.bg-yellow-100 {
+  background: #4a5568 !important;
+}
+
+.daltonico-mode .bg-blue-500,
+.daltonico-mode .bg-green-500,
+.daltonico-mode .bg-purple-500,
+.daltonico-mode .bg-orange-500,
+.daltonico-mode .bg-indigo-500,
+.daltonico-mode .bg-gray-500 {
+  background: #4a5568 !important;
+}
+
+.daltonico-mode .trend-up {
+  background: #4a5568 !important;
+  color: #a0aec0 !important;
+}
+
+.daltonico-mode .trend-down {
+  background: #5a4a4a !important;
+  color: #c0a0a0 !important;
+}
+
+.daltonico-mode .progress-bar {
+  background: linear-gradient(90deg, #4a5568 0%, #718096 100%) !important;
+}
+
+.daltonico-mode .btn-primary,
+.daltonico-mode .hero-btn,
+.daltonico-mode .btn-study,
+.daltonico-mode .btn-save {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+}
+
+.daltonico-mode .badge {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
+}
+
+.daltonico-mode .feature-link,
+.daltonico-mode .progress-cta {
+  color: #a0aec0 !important;
+}
+
+/* Dark mode para alerts */
+.dark-mode .alert {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.dark-mode .alert.success {
+  background: linear-gradient(135deg, #065f46, #047857) !important;
+}
+
+.dark-mode .alert.error {
+  background: linear-gradient(135deg, #991b1b, #b91c1c) !important;
+}
+
+.dark-mode .alert.warning {
+  background: linear-gradient(135deg, #92400e, #b45309) !important;
+}
+
+.dark-mode .alert.info {
+  background: linear-gradient(135deg, #1e3a8a, #1e40af) !important;
+}
+
+.dark-mode .alert-message {
+  color: white !important;
+}

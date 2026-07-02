@@ -1,0 +1,92 @@
+/* styles/components/input.css */
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container.has-icon .input-field {
+  padding-left: 3rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: #374151;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  outline: none;
+}
+
+.input-field:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.input-container.has-error .input-field {
+  border-color: #ef4444;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  width: 1.25rem;
+  height: 1.25rem;
+  pointer-events: none;
+}
+
+.input-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-toggle:hover {
+  color: #374151;
+}
+
+.input-error {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #ef4444;
+}
+
+.input-hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}

@@ -1,151 +1,250 @@
-# 📘 BeReady — Plataforma de Aprendizado de Inglês por Contextualização Visual
+# 📘 BeReady - Plataforma de Aprendizado de Inglês
 
-**BeReady** é uma aplicação web desenvolvida em **PHP**, focada em facilitar o aprendizado de inglês por meio de flashcards visuais, organização por tags, acompanhamento de progresso e histórico de estudo.  
-O sistema segue o padrão arquitetural **MVC (Model-View-Controller)**, garantindo organização, modularidade e facilidade de manutenção.
-
----
-
-## 🚀 Tecnologias Utilizadas
-
-- **PHP 8.x** — Lógica do servidor
-- **MySQL** — Armazenamento de dados
-- **XAMPP** — Ambiente de desenvolvimento local com Apache e MySQL
-- **HTML/CSS** — Construção das views (em andamento)
-- **Git/GitHub** — Controle de versão e colaboração em equipe
+Aplicação web para aprendizado de inglês por contextualização visual, utilizando flashcards, quizzes, traduções e recursos interativos.
 
 ---
 
-## 📁 Estrutura do Projeto
+# 🛠 Tecnologias Utilizadas
 
-O projeto está estruturado da seguinte forma:
+## Back-end
 
-```plaintext
-/
-├── config/         # Arquivos de configuração (ex: database.php)
-├── controllers/    # Camada responsável pelo processamento das requisições
-├── core/           # Funcionalidades centrais, como conexão com o banco
-├── exceptions/     # Classes de exceções personalizadas
-├── models/         # Regras de negócio e manipulação dos dados
-├── router/         # Roteador principal da aplicação
-├── views/          # Telas e componentes visuais (ex: login, dashboard)
-└── index.php       # Arquivo inicial do projeto
-```
+- CakePHP 5
+- PHP 8+
+- PostgreSQL / Supabase
 
----
+## Front-end
 
-## ⚙️ Pré-requisitos para Execução
+- Vue.js 3
+- TypeScript
+- Vite
+- Pinia
 
-Certifique-se de ter o seguinte ambiente configurado:
+## Banco de Dados
 
-- XAMPP instalado
-- PHP na versão 8 ou superior
-- MySQL ativado (phpMyAdmin incluso no XAMPP)
-- Git instalado (Download Git)
+- PostgreSQL
+- Supabase
 
 ---
 
-## 🔄 Configuração e Execução no XAMPP com GitHub
+# 📂 Estrutura do Projeto
 
-### 1️⃣ Clonando o repositório para o XAMPP
-
-Para rodar o projeto localmente e sincronizar com o GitHub:
-
-1. Abra o Git Bash.
-2. Vá até a pasta `htdocs` do XAMPP:
-
-```bash
-cd /c/xampp/htdocs
-```
-
-3. Clone o repositório da organização:
-
-```bash
-git clone https://github.com/BereadyLTDA/Beready.git
-```
-
-Agora a pasta do projeto estará dentro do `htdocs`, pronta para rodar no navegador.
-
-### 2️⃣ Executando no navegador
-
-1. Inicie o Apache e MySQL no XAMPP Control Panel.
-2. No navegador, acesse:
-
-```
-http://localhost/Beready
-```
-
-### 3️⃣ Mantendo sincronizado com o GitHub
-
-Se você alterar qualquer arquivo e quiser enviar para o GitHub:
-
-```bash
-git add .
-git commit -m "Descrição das alterações"
-git push origin main
-```
-
-Para atualizar o código local com o que está no GitHub:
-
-```bash
-git pull origin main
+```txt
+backend/   → API CakePHP
+frontend/  → Interface Vue.js
 ```
 
 ---
 
-## 👥 Permissões para todos os membros da organização fazerem commit
+# 🚀 Requisitos
 
-1. No GitHub, acesse o repositório.
-2. Vá em `Settings > Collaborators and teams`.
-3. Adicione o time ou usuário e defina a permissão `Write` ou `Admin`.
+Antes de começar, instale:
 
-Todos os membros com permissão `Write` podem fazer commits diretamente na branch.
+- PHP 8.2+
+- Composer
+- Node.js 20+
+- NPM
+- PostgreSQL ou Supabase
+- Git
 
 ---
 
-## 💻 Criando o projeto direto no XAMPP e vinculando ao GitHub
-
-Caso prefira criar o projeto no seu próprio PC já dentro da pasta `htdocs` e sincronizar com o GitHub:
-
-1. Crie a pasta do projeto:
+# 📥 Clonar o Projeto
 
 ```bash
-cd /c/xampp/htdocs
-mkdir Beready
-cd Beready
-```
-
-2. Inicialize o Git:
-
-```bash
-git init
-```
-
-3. Conecte ao repositório remoto:
-
-```bash
-git remote add origin https://github.com/BereadyLTDA/Beready.git
-```
-
-4. Baixe os arquivos já existentes no GitHub para sua pasta:
-
-```bash
-git pull origin main
-```
-
-Agora você pode alterar o código, rodar no localhost e sincronizar usando:
-
-```bash
-git add .
-git commit -m "Alterações feitas"
-git push origin main
+git clone https://github.com/BraianGaspar/Beready_Projeto.git
+cd Beready_Projeto
 ```
 
 ---
 
-## 📌 Observação sobre as pastas views
+# 🐘 Configuração do Banco de Dados
 
-Se as pastas dentro de `views` não estiverem aparecendo no navegador, verifique:
+O projeto utiliza PostgreSQL via Supabase.
 
-- Se o roteador (`router`) está configurado para redirecionar corretamente.
-- Se o Apache possui permissão de leitura na pasta.
-- Se os arquivos `.htaccess` ou regras de reescrita não estão bloqueando o acesso direto.
+## Configurar conexão
+
+Edite o arquivo:
+
+```txt
+backend/config/app_local.php
+```
+
+Exemplo:
+
+```php
+'Datasources' => [
+    'default' => [
+        'className' => 'Cake\Database\Connection',
+        'driver' => 'Cake\Database\Driver\Postgres',
+        'persistent' => false,
+        'host' => 'db.supabase.co',
+        'username' => 'postgres',
+        'password' => 'SUA_SENHA',
+        'database' => 'postgres',
+        'encoding' => 'utf8',
+        'timezone' => 'UTC',
+        'cacheMetadata' => true,
+    ],
+],
+```
+
+---
+
+# 🔒 Segurança do Banco
+
+Recomendações importantes:
+
+- Ativar Row Level Security (RLS) no Supabase
+- Nunca expor `service_role_key`
+- Utilizar variáveis `.env`
+- Não subir credenciais para o GitHub
+- Configurar políticas de acesso nas tabelas
+
+---
+
+# ⚙️ Configuração do Backend (CakePHP)
+
+## Acessar pasta backend
+
+```bash
+cd backend
+```
+
+---
+
+## Instalar dependências
+
+```bash
+composer install
+```
+
+---
+
+## Rodar migrations
+
+```bash
+bin/cake migrations migrate
+```
+
+No Windows:
+
+```bash
+php bin/cake.php migrations migrate
+```
+
+---
+
+## Iniciar servidor backend
+
+```bash
+bin/cake server
+```
+
+Ou no Windows:
+
+```bash
+php bin/cake.php server
+```
+
+Backend disponível em:
+
+```txt
+http://localhost:8765
+```
+
+---
+
+# 🎨 Configuração do Frontend (Vue.js)
+
+> ⚠️ Abra outro terminal para rodar o frontend simultaneamente.
+
+## Acessar pasta frontend
+
+```bash
+cd frontend
+```
+
+---
+
+## Instalar dependências
+
+```bash
+npm install
+```
+
+---
+
+## Rodar ambiente de desenvolvimento
+
+```bash
+npm run dev
+```
+
+Frontend disponível em:
+
+```txt
+http://localhost:5173
+```
+
+---
+
+# 🔗 Comunicação Frontend ↔ Backend
+
+Verifique a URL da API no frontend.
+
+Exemplo:
+
+```env
+VITE_API_URL=http://localhost:8765
+```
+
+---
+
+# 🧠 Observações
+
+- O backend e frontend rodam separadamente
+- É necessário manter os dois servidores ativos
+- O projeto utiliza arquitetura API REST
+- O Supabase é utilizado como banco PostgreSQL
+- O frontend consome os endpoints do CakePHP
+
+---
+
+# 📌 Comandos Rápidos
+
+## Backend
+
+```bash
+cd backend
+composer install
+php bin/cake.php migrations migrate
+php bin/cake.php server
+```
+
+---
+
+## Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+# 🔐 Variáveis Sensíveis
+
+Adicione ao `.gitignore`:
+
+```gitignore
+.env
+.env.local
+backend/config/app_local.php
+```
+
+---
+
+# 👨‍💻 Autor
+
+Projeto desenvolvido para fins educacionais e aprendizado de inglês com suporte visual e contextual.

@@ -1,0 +1,45 @@
+/* styles/components/card.css */
+
+.card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-primary {
+  border-top: 4px solid #7c3aed;
+}
+
+.card-success {
+  border-top: 4px solid #10b981;
+}
+
+.card-danger {
+  border-top: 4px solid #ef4444;
+}
+
+.card-warning {
+  border-top: 4px solid #f59e0b;
+}
+
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
