@@ -19,11 +19,10 @@ use Normalizer;
  */
 class QuizTentativaService
 {
-    private QuizQuestaoService $questoes;
-
-    public function __construct(?QuizQuestaoService $questoes = null)
-    {
-        $this->questoes = $questoes ?? new QuizQuestaoService();
+    public function __construct(
+        private QuizQuestaoService $questoes,
+        private ProgressoService $progresso,
+    ) {
     }
 
     /**
@@ -92,7 +91,7 @@ class QuizTentativaService
             }
 
             if (!$jaConcluiu) {
-                (new ProgressoService())->incrementarQuizes($usuarioId, 1);
+                $this->progresso->incrementarQuizes($usuarioId, 1);
             }
             $primeiraConclusao = !$jaConcluiu;
         });

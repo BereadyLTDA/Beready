@@ -27,13 +27,10 @@ class PlanoLimiteService
         'tags' => ['Tags', 'criado_por'],
     ];
 
-    private AssinaturaService $assinaturaService;
-    private PermissionService $permissionService;
-
-    public function __construct(?AssinaturaService $assinaturaService = null, ?PermissionService $permissionService = null)
-    {
-        $this->assinaturaService = $assinaturaService ?? new AssinaturaService();
-        $this->permissionService = $permissionService ?? new PermissionService();
+    public function __construct(
+        private AssinaturaService $assinaturaService,
+        private PermissionService $permissionService,
+    ) {
     }
 
     /**

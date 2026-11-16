@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Błąd podczas tworzenia zdania',
     errorUpdate: 'Błąd podczas aktualizacji zdania',
     errorDelete: 'Błąd podczas usuwania zdania',
+    generate: 'Wygeneruj z AI',
+    generating: 'Generowanie...',
+    successGenerate: 'Zdania zostały wygenerowane!',
+    errorGenerate: 'Błąd podczas generowania zdań',
   },
   imagens: {
     title: 'Wygenerowane obrazy',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Błąd podczas aktualizacji tłumaczenia',
     successDelete: 'Tłumaczenie zostało usunięte!',
     errorDelete: 'Błąd podczas usuwania tłumaczenia',
+    generate: 'Wygeneruj z AI',
+    generateTitle: 'Wygeneruj tłumaczenie z AI',
+    generateHint: 'Tłumaczenie powstaje na podstawie tekstu promptu i jest zapisywane na liście.',
+    generating: 'Generowanie...',
+    successGenerate: 'Tłumaczenie zostało wygenerowane!',
+    errorGenerate: 'Błąd podczas generowania tłumaczenia',
   },
   confirmModal: {
     title: 'Potwierdź działanie',

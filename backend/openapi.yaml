@@ -1,0 +1,5088 @@
+openapi: 3.0.3
+info:
+  title: 'BeReady API'
+  version: 1.0.0
+  description: |-
+    Contrato da API do BeReady.
+
+    Toda resposta dos testes de integração é validada contra este arquivo (tests/TestCase/ApiTestCase.php) e o OpenApiContractTest garante que toda rota está descrita aqui. Os tipos do frontend (frontend/src/core/types/api.gen.ts) são gerados a partir dele com `npm run gen:api`.
+
+    Sucesso: `{ success: true, message, data }`. Erro: `{ success: false, message, errors? }`.
+servers:
+  -
+    url: 'http://localhost:8765'
+    description: Desenvolvimento
+security:
+  -
+    bearerAuth: []
+paths:
+  '/admin/planos/delete/{id}':
+    delete:
+      operationId: adminPlanosDelete
+      tags:
+        - AdminPlanos
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/admin/roles/{id}':
+    delete:
+      operationId: adminRolesDelete
+      tags:
+        - AdminRoles
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    put:
+      operationId: adminRolesEdit
+      tags:
+        - AdminRoles
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /flashcard-tags:
+    delete:
+      operationId: flashcardTagsRemove
+      tags:
+        - FlashcardTags
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: flashcardTagsAdd
+      tags:
+        - FlashcardTags
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/flashcards/delete/{id}':
+    delete:
+      operationId: flashcardsDelete
+      tags:
+        - Flashcards
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/frases/delete/{id}':
+    delete:
+      operationId: frasesSemelhantesDelete
+      tags:
+        - FrasesSemelhantes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/imagens/delete/{id}':
+    delete:
+      operationId: imagensGeradasDelete
+      tags:
+        - ImagensGeradas
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/prompts/delete/{id}':
+    delete:
+      operationId: promptsDelete
+      tags:
+        - Prompts
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/quizes/{id}':
+    delete:
+      operationId: quizesDelete
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    get:
+      operationId: quizesView
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Quiz'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    put:
+      operationId: quizesEdit
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Quiz'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/quizes/{id}/questoes/{questaoId}':
+    delete:
+      operationId: quizesDeleteQuestao
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        -
+          name: questaoId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    put:
+      operationId: quizesEditQuestao
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        -
+          name: questaoId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizQuestaoInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/QuizQuestao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/tags/delete/{id}':
+    delete:
+      operationId: tagsDelete
+      tags:
+        - Tags
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/traducoes/delete/{id}':
+    delete:
+      operationId: traducoesDelete
+      tags:
+        - Traducoes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/users/delete/{id}':
+    delete:
+      operationId: usersDelete
+      tags:
+        - Users
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /:
+    get:
+      operationId: usersHealth
+      tags:
+        - Users
+      summary: Healthcheck
+      security: []
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /admin/permissions:
+    get:
+      operationId: adminPermissionsIndex
+      tags:
+        - AdminPermissions
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /admin/planos:
+    get:
+      operationId: adminPlanosIndex
+      tags:
+        - AdminPlanos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Plano'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: adminPlanosAdd
+      tags:
+        - AdminPlanos
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /admin/roles:
+    get:
+      operationId: adminRolesIndex
+      tags:
+        - AdminRoles
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: adminRolesAdd
+      tags:
+        - AdminRoles
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /admin/stats:
+    get:
+      operationId: adminStats
+      tags:
+        - Admin
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /admin/users:
+    get:
+      operationId: adminUsers
+      tags:
+        - Admin
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdminUser'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/auth/login/{provider}':
+    get:
+      operationId: socialAuthLogin
+      tags:
+        - SocialAuth
+      security: []
+      parameters:
+        -
+          name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - google
+              - facebook
+              - linkedin
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        302:
+          description: Redirecionamento
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/flashcard-tags/flashcard/{flashcardId}':
+    get:
+      operationId: flashcardTagsGetByFlashcard
+      tags:
+        - FlashcardTags
+      parameters:
+        -
+          name: flashcardId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /flashcards:
+    get:
+      operationId: flashcardsIndex
+      tags:
+        - Flashcards
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FlashcardResumo'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: flashcardsAdd
+      tags:
+        - Flashcards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlashcardInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Flashcard'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Flashcard'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /flashcards/revisao:
+    get:
+      operationId: flashcardsDevidos
+      tags:
+        - Flashcards
+      summary: 'Flashcards com revisão vencida (repetição espaçada)'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/FlashcardsDevidos'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/flashcards/{id}':
+    get:
+      operationId: flashcardsView
+      tags:
+        - Flashcards
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: 'Id numérico ou UUID do flashcard'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Flashcard'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/frases/prompt/{promptId}':
+    get:
+      operationId: frasesSemelhantesGetByPrompt
+      tags:
+        - FrasesSemelhantes
+      parameters:
+        -
+          name: promptId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Frase'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/frases/view/{id}':
+    get:
+      operationId: frasesSemelhantesView
+      tags:
+        - FrasesSemelhantes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Frase'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/imagens/prompt/{promptId}':
+    get:
+      operationId: imagensGeradasGetByPrompt
+      tags:
+        - ImagensGeradas
+      parameters:
+        -
+          name: promptId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/imagens/view/{id}':
+    get:
+      operationId: imagensGeradasView
+      tags:
+        - ImagensGeradas
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /planos:
+    get:
+      operationId: planosIndex
+      tags:
+        - Planos
+      security: []
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Plano'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/preferencias/usuario/{usuarioId}':
+    get:
+      operationId: preferenciasGetByUsuario
+      tags:
+        - Preferencias
+      parameters:
+        -
+          name: usuarioId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/progresso/usuario/{usuarioId}':
+    get:
+      operationId: progressoGetByUsuario
+      tags:
+        - Progresso
+      parameters:
+        -
+          name: usuarioId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Progresso'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /prompts:
+    get:
+      operationId: promptsIndex
+      tags:
+        - Prompts
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Prompt'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: promptsAdd
+      tags:
+        - Prompts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Prompt'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Prompt'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/prompts/usuario/{usuarioId}':
+    get:
+      operationId: promptsGetByUsuario
+      tags:
+        - Prompts
+      parameters:
+        -
+          name: usuarioId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Prompt'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/prompts/view/{id}':
+    get:
+      operationId: promptsView
+      tags:
+        - Prompts
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Prompt'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /quizes:
+    get:
+      operationId: quizesIndex
+      tags:
+        - Quizes
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Quiz'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: quizesAdd
+      tags:
+        - Quizes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Quiz'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Quiz'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/quizes/{id}/questoes':
+    get:
+      operationId: quizesQuestoes
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/QuizQuestao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: quizesAddQuestao
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizQuestaoInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/QuizQuestao'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/QuizQuestao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    put:
+      operationId: quizesSubstituirQuestoes
+      tags:
+        - Quizes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/QuizQuestao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/social-auth/callback/{provider}':
+    get:
+      operationId: socialAuthCallback
+      tags:
+        - SocialAuth
+      security: []
+      parameters:
+        -
+          name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - google
+              - facebook
+              - linkedin
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        302:
+          description: Redirecionamento
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /tags:
+    get:
+      operationId: tagsIndex
+      tags:
+        - Tags
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+    post:
+      operationId: tagsAdd
+      tags:
+        - Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Tag'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Tag'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/tags/usuario/{usuarioId}':
+    get:
+      operationId: tagsGetByUsuario
+      tags:
+        - Tags
+      parameters:
+        -
+          name: usuarioId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/tags/view/{id}':
+    get:
+      operationId: tagsView
+      tags:
+        - Tags
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Tag'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/traducoes/prompt/{promptId}':
+    get:
+      operationId: traducoesGetByPrompt
+      tags:
+        - Traducoes
+      parameters:
+        -
+          name: promptId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Traducao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/traducoes/view/{id}':
+    get:
+      operationId: traducoesView
+      tags:
+        - Traducoes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Traducao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /user/assinatura:
+    get:
+      operationId: assinaturasCurrent
+      tags:
+        - Assinaturas
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Assinatura'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /user/permissions:
+    get:
+      operationId: usersPermissions
+      tags:
+        - Users
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /users/me:
+    get:
+      operationId: usersMe
+      tags:
+        - Users
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/User'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/users/view/{id}':
+    get:
+      operationId: usersView
+      tags:
+        - Users
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/users/{uuid}':
+    get:
+      operationId: usersViewByUuid
+      tags:
+        - Users
+      parameters:
+        -
+          name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /admin/users/role:
+    post:
+      operationId: adminUpdateRole
+      tags:
+        - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUserRoleInput'
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /auth/forgot-password:
+    post:
+      operationId: usersForgotPassword
+      tags:
+        - Users
+      security: []
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /auth/login:
+    post:
+      operationId: usersLogin
+      tags:
+        - Users
+      security: []
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/LoginResponseData'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /auth/logout:
+    post:
+      operationId: usersLogout
+      tags:
+        - Users
+      security: []
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /auth/refresh:
+    post:
+      operationId: usersRefresh
+      tags:
+        - Users
+      security: []
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/RefreshResponseData'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /auth/register:
+    post:
+      operationId: usersRegister
+      tags:
+        - Users
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterInput'
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - message
+                  - success
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - user
+                    properties:
+                      user: { type: object, required: [atualizado_em, criado_em, email, id, nome, role, status, uuid], properties: { atualizado_em: { type: string }, criado_em: { type: string }, email: { type: string }, id: { type: integer }, nome: { type: string }, role: { type: string }, status: { type: string }, uuid: { type: string } } }
+                  message:
+                    type: string
+                  success:
+                    type: boolean
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/auth/reset-password/{token}':
+    post:
+      operationId: usersResetPassword
+      tags:
+        - Users
+      security: []
+      parameters:
+        -
+          name: token
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[a-f0-9]{64}$'
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /auth/social/exchange:
+    post:
+      operationId: usersSocialExchange
+      tags:
+        - Users
+      summary: 'Troca o código de uso único do login social pelos tokens'
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SocialExchangeInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/LoginResponseData'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/flashcards/{id}/revisao':
+    post:
+      operationId: flashcardsRevisao
+      tags:
+        - Flashcards
+      summary: 'Registra a avaliação do estudo e reagenda o flashcard (SM-2)'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevisaoInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Flashcard'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /frases:
+    post:
+      operationId: frasesSemelhantesAdd
+      tags:
+        - FrasesSemelhantes
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Frase'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /imagens:
+    post:
+      operationId: imagensGeradasAdd
+      tags:
+        - ImagensGeradas
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /payments/webhook:
+    post:
+      operationId: paymentsWebhook
+      tags:
+        - Payments
+      summary: 'Webhook do Stripe (autenticado pela assinatura Stripe-Signature)'
+      security: []
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /planos/cancelar:
+    post:
+      operationId: planosCancelar
+      tags:
+        - Planos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/CancelarResposta'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /planos/portal:
+    post:
+      operationId: planosPortal
+      tags:
+        - Planos
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/planos/{id}/assinar':
+    post:
+      operationId: planosAssinar
+      tags:
+        - Planos
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssinarInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AssinarResposta'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /preferencias:
+    post:
+      operationId: preferenciasSave
+      tags:
+        - Preferencias
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /progresso:
+    post:
+      operationId: progressoSave
+      tags:
+        - Progresso
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /progresso/incrementar-flashcards:
+    post:
+      operationId: progressoIncrementarFlashcards
+      tags:
+        - Progresso
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /progresso/incrementar-tempo:
+    post:
+      operationId: progressoIncrementarTempo
+      tags:
+        - Progresso
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/prompts/{id}/frases/gerar':
+    post:
+      operationId: frasesSemelhantesGerar
+      tags:
+        - FrasesSemelhantes
+      summary: 'Gera frases semelhantes ao texto do prompt com IA e grava as frases'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrasesGerarInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Frase'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Frase'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/prompts/{id}/traducoes/gerar':
+    post:
+      operationId: traducoesGerar
+      tags:
+        - Traducoes
+      summary: 'Traduz o texto do prompt com IA e grava a tradução'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraducaoGerarInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Traducao'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Traducao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /quizes/gerar:
+    post:
+      operationId: quizesGerar
+      tags:
+        - Quizes
+      summary: 'Gera um quiz de múltipla escolha a partir dos flashcards do usuário'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizGerarInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Quiz'
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Quiz'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/quizes/{id}/finalizar':
+    post:
+      operationId: quizesFinalizar
+      tags:
+        - Quizes
+      summary: 'Corrige e grava a tentativa do quiz'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizFinalizarInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/QuizResultado'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/quizes/{id}/questoes/{questaoId}/verificar':
+    post:
+      operationId: quizesVerificar
+      tags:
+        - Quizes
+      summary: 'Corrige uma resposta sem gravar (feedback durante o jogo)'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        -
+          name: questaoId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizRespostaInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/QuizCorrecao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /respostas:
+    post:
+      operationId: respostasSave
+      tags:
+        - Respostas
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /traducoes:
+    post:
+      operationId: traducoesAdd
+      tags:
+        - Traducoes
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Traducao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /upload/profile-photo:
+    post:
+      operationId: uploadProfilePhoto
+      tags:
+        - Upload
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/admin/planos/edit/{id}':
+    put:
+      operationId: adminPlanosEdit
+      tags:
+        - AdminPlanos
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/flashcards/edit/{id}':
+    put:
+      operationId: flashcardsEdit
+      tags:
+        - Flashcards
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlashcardInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Flashcard'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/frases/edit/{id}':
+    put:
+      operationId: frasesSemelhantesEdit
+      tags:
+        - FrasesSemelhantes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Frase'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/imagens/edit/{id}':
+    put:
+      operationId: imagensGeradasEdit
+      tags:
+        - ImagensGeradas
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/prompts/edit/{id}':
+    put:
+      operationId: promptsEdit
+      tags:
+        - Prompts
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Prompt'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/tags/edit/{id}':
+    put:
+      operationId: tagsEdit
+      tags:
+        - Tags
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagInput'
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Tag'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/traducoes/edit/{id}':
+    put:
+      operationId: traducoesEdit
+      tags:
+        - Traducoes
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Traducao'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/users/update/{id}':
+    put:
+      operationId: usersUpdate
+      tags:
+        - Users
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateInput'
+      responses:
+        200:
+          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    description: 'Formato ainda não descrito'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Erro:
+      type: object
+      description: 'Resposta de erro. `errors` traz os detalhes por campo ({ campo: { regra: mensagem } }) nos erros de validação.'
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          enum:
+            - false
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties: true
+    AdminUser:
+      type: object
+      required:
+        - criado_em
+        - email
+        - id
+        - nome
+        - role
+        - status
+        - ultimo_login
+      properties:
+        criado_em:
+          type: string
+        email:
+          type: string
+        id:
+          type: integer
+        nome:
+          type: string
+        role:
+          type: string
+        status:
+          type: string
+        ultimo_login:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+    AdminUserRoleInput:
+      type: object
+      properties:
+        role:
+          type: string
+        user_id:
+          type: integer
+    AssinarInput:
+      type: object
+      properties:
+        ciclo:
+          type: string
+    AssinarResposta:
+      type: object
+      required:
+        - checkout_url
+        - requires_payment
+      properties:
+        assinatura:
+          type: object
+          required:
+            - cancelar_no_fim_periodo
+            - created_at
+            - data_fim
+            - data_inicio
+            - id
+            - is_ativo
+            - payment_gateway
+            - payment_id
+            - plano
+            - plano_id
+            - recorrente
+            - status
+            - stripe_status
+            - updated_at
+            - usuario_id
+          properties:
+            cancelar_no_fim_periodo:
+              type: boolean
+            created_at:
+              type: string
+            data_fim:
+              type: string
+              nullable: true
+            data_inicio:
+              type: string
+            id:
+              type: integer
+            is_ativo:
+              type: boolean
+            payment_gateway:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            payment_id:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            plano:
+              type: object
+              required:
+                - created_at
+                - descricao
+                - dias_trial
+                - id
+                - is_ativo
+                - limites
+                - limites_array
+                - nome
+                - ordem
+                - preco_anual
+                - preco_mensal
+                - recursos
+                - recursos_list
+                - role_id
+                - updated_at
+              properties:
+                created_at:
+                  type: string
+                descricao:
+                  type: string
+                dias_trial:
+                  type: integer
+                id:
+                  type: integer
+                is_ativo:
+                  type: boolean
+                limites:
+                  type: object
+                  required:
+                    - flashcards
+                    - prompts
+                    - quizes
+                  properties:
+                    flashcards:
+                      type: integer
+                    prompts:
+                      type: integer
+                    quizes:
+                      type: integer
+                limites_array:
+                  type: object
+                  required:
+                    - flashcards
+                    - prompts
+                    - quizes
+                  properties:
+                    flashcards:
+                      type: integer
+                    prompts:
+                      type: integer
+                    quizes:
+                      type: integer
+                nome:
+                  type: string
+                ordem:
+                  type: integer
+                preco_anual:
+                  type: string
+                preco_mensal:
+                  type: string
+                recursos:
+                  type: array
+                  items:
+                    type: string
+                recursos_list:
+                  type: array
+                  items:
+                    type: string
+                role_id:
+                  type: integer
+                updated_at:
+                  type: string
+            plano_id:
+              type: integer
+            recorrente:
+              type: boolean
+            status:
+              type: string
+            stripe_status:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            updated_at:
+              type: string
+            usuario_id:
+              type: integer
+        checkout_url:
+          type: string
+          nullable: true
+        requires_payment:
+          type: boolean
+    Assinatura:
+      type: object
+      required:
+        - cancelar_no_fim_periodo
+        - created_at
+        - data_fim
+        - data_inicio
+        - id
+        - is_ativo
+        - payment_gateway
+        - payment_id
+        - plano
+        - plano_id
+        - recorrente
+        - status
+        - stripe_status
+        - updated_at
+        - usuario_id
+      properties:
+        cancelar_no_fim_periodo:
+          type: boolean
+        created_at:
+          type: string
+        data_cancelamento:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        data_fim:
+          type: string
+          nullable: true
+        data_inicio:
+          type: string
+        id:
+          type: integer
+        is_ativo:
+          type: boolean
+        payment_gateway:
+          type: string
+          nullable: true
+        payment_id:
+          type: string
+          nullable: true
+        plano:
+          type: object
+          required:
+            - created_at
+            - descricao
+            - dias_trial
+            - id
+            - is_ativo
+            - limites
+            - limites_array
+            - nome
+            - ordem
+            - preco_anual
+            - preco_mensal
+            - recursos
+            - recursos_list
+            - role_id
+            - updated_at
+          properties:
+            created_at:
+              type: string
+            descricao:
+              type: string
+            dias_trial:
+              type: integer
+            id:
+              type: integer
+            is_ativo:
+              type: boolean
+            limites:
+              type: object
+              required:
+                - flashcards
+                - prompts
+                - quizes
+              properties:
+                flashcards:
+                  type: integer
+                prompts:
+                  type: integer
+                quizes:
+                  type: integer
+            limites_array:
+              type: object
+              required:
+                - flashcards
+                - prompts
+                - quizes
+              properties:
+                flashcards:
+                  type: integer
+                prompts:
+                  type: integer
+                quizes:
+                  type: integer
+            nome:
+              type: string
+            ordem:
+              type: integer
+            preco_anual:
+              type: string
+            preco_mensal:
+              type: string
+            recursos:
+              type: array
+              items:
+                type: string
+            recursos_list:
+              type: array
+              items:
+                type: string
+            role_id:
+              type: integer
+            updated_at:
+              type: string
+        plano_id:
+          type: integer
+        recorrente:
+          type: boolean
+        status:
+          type: string
+        stripe_status:
+          type: string
+          nullable: true
+        updated_at:
+          type: string
+        usuario_id:
+          type: integer
+    CancelarResposta:
+      type: object
+      required:
+        - assinatura
+        - ativo_ate
+        - cancelamento_agendado
+      properties:
+        assinatura:
+          type: object
+          required:
+            - cancelar_no_fim_periodo
+            - created_at
+            - data_fim
+            - data_inicio
+            - id
+            - is_ativo
+            - payment_gateway
+            - payment_id
+            - plano
+            - plano_id
+            - recorrente
+            - status
+            - stripe_status
+            - updated_at
+            - usuario_id
+          properties:
+            cancelar_no_fim_periodo:
+              type: boolean
+            created_at:
+              type: string
+            data_cancelamento:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            data_fim:
+              type: string
+              nullable: true
+            data_inicio:
+              type: string
+            id:
+              type: integer
+            is_ativo:
+              type: boolean
+            payment_gateway:
+              type: string
+              nullable: true
+            payment_id:
+              type: string
+              nullable: true
+            plano:
+              type: object
+              required:
+                - created_at
+                - descricao
+                - dias_trial
+                - id
+                - is_ativo
+                - limites
+                - limites_array
+                - nome
+                - ordem
+                - preco_anual
+                - preco_mensal
+                - recursos
+                - recursos_list
+                - role_id
+                - updated_at
+              properties:
+                created_at:
+                  type: string
+                descricao:
+                  type: string
+                dias_trial:
+                  type: integer
+                id:
+                  type: integer
+                is_ativo:
+                  type: boolean
+                limites:
+                  type: object
+                  required:
+                    - flashcards
+                    - prompts
+                    - quizes
+                  properties:
+                    flashcards:
+                      type: integer
+                    prompts:
+                      type: integer
+                    quizes:
+                      type: integer
+                limites_array:
+                  type: object
+                  required:
+                    - flashcards
+                    - prompts
+                    - quizes
+                  properties:
+                    flashcards:
+                      type: integer
+                    prompts:
+                      type: integer
+                    quizes:
+                      type: integer
+                nome:
+                  type: string
+                ordem:
+                  type: integer
+                preco_anual:
+                  type: string
+                preco_mensal:
+                  type: string
+                recursos:
+                  type: array
+                  items:
+                    type: string
+                recursos_list:
+                  type: array
+                  items:
+                    type: string
+                role_id:
+                  type: integer
+                updated_at:
+                  type: string
+            plano_id:
+              type: integer
+            recorrente:
+              type: boolean
+            status:
+              type: string
+            stripe_status:
+              type: string
+              nullable: true
+            updated_at:
+              type: string
+            usuario_id:
+              type: integer
+        ativo_ate:
+          type: string
+          nullable: true
+        cancelamento_agendado:
+          type: boolean
+    Flashcard:
+      type: object
+      required:
+        - atualizado_em
+        - criado_em
+        - fator_ease
+        - frente
+        - id
+        - intervalo_dias
+        - nivel_dificuldade
+        - proxima_revisao
+        - repeticoes
+        - ultima_revisao
+        - usuario_id
+        - uuid
+        - verso
+      properties:
+        atualizado_em:
+          type: string
+        criado_em:
+          type: string
+        fator_ease:
+          type: number
+        frente:
+          type: string
+        id:
+          type: integer
+        intervalo_dias:
+          type: integer
+        nivel_dificuldade:
+          type: string
+        proxima_revisao:
+          type: string
+        repeticoes:
+          type: integer
+        ultima_revisao:
+          type: string
+          nullable: true
+        usuario_id:
+          type: integer
+        uuid:
+          type: string
+        verso:
+          type: string
+    FlashcardInput:
+      type: object
+      properties:
+        frente:
+          type: string
+        intervalo_dias:
+          type: integer
+        proxima_revisao:
+          type: string
+        repeticoes:
+          type: integer
+        usuario_id:
+          type: integer
+        verso:
+          type: string
+    FlashcardResumo:
+      type: object
+      required:
+        - atualizado_em
+        - criado_em
+        - fator_ease
+        - frente
+        - id
+        - intervalo_dias
+        - nivel_dificuldade
+        - proxima_revisao
+        - repeticoes
+        - ultima_revisao
+        - usuario_id
+        - verso
+      properties:
+        atualizado_em:
+          type: string
+        criado_em:
+          type: string
+        fator_ease:
+          type: number
+        frente:
+          type: string
+        id:
+          type: integer
+        intervalo_dias:
+          type: integer
+        nivel_dificuldade:
+          type: string
+        proxima_revisao:
+          type: string
+        repeticoes:
+          type: integer
+        ultima_revisao:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        usuario_id:
+          type: integer
+        verso:
+          type: string
+    FlashcardsDevidos:
+      type: object
+      required:
+        - flashcards
+        - total
+      properties:
+        flashcards:
+          type: array
+          items:
+            type: object
+            required:
+              - atualizado_em
+              - criado_em
+              - fator_ease
+              - frente
+              - id
+              - intervalo_dias
+              - nivel_dificuldade
+              - proxima_revisao
+              - repeticoes
+              - ultima_revisao
+              - usuario_id
+              - verso
+            properties:
+              atualizado_em:
+                type: string
+              criado_em:
+                type: string
+              fator_ease:
+                type: number
+              frente:
+                type: string
+              id:
+                type: integer
+              intervalo_dias:
+                type: integer
+              nivel_dificuldade:
+                type: string
+              proxima_revisao:
+                type: string
+              repeticoes:
+                type: integer
+              ultima_revisao:
+                type: string
+                nullable: true
+              usuario_id:
+                type: integer
+              verso:
+                type: string
+        total:
+          type: integer
+    Frase:
+      type: object
+      required:
+        - frase_semelhante
+        - id
+        - nivel_dificuldade
+        - pontuacao_semelhante
+        - prompt_id
+        - tipo_frase
+      properties:
+        frase_semelhante:
+          type: string
+        id:
+          type: integer
+        nivel_dificuldade:
+          type: string
+        pontuacao_semelhante:
+          type: string
+        prompt_id:
+          type: integer
+        tipo_frase:
+          type: string
+    FrasesGerarInput:
+      type: object
+      properties:
+        quantidade:
+          type: integer
+    LoginResponseData:
+      type: object
+      required:
+        - tokens
+        - user
+      properties:
+        tokens:
+          type: object
+          required:
+            - access_token
+            - expires_in
+            - token_type
+          properties:
+            access_token:
+              type: string
+            expires_in:
+              type: integer
+            token_type:
+              type: string
+        user:
+          type: object
+          required:
+            - atualizado_em
+            - criado_em
+            - email
+            - foto_perfil
+            - id
+            - idioma_preferido
+            - nivel_ingles
+            - nome
+            - objetivos_aprendizado
+            - role
+            - status
+            - telefone
+            - ultimo_login
+            - uuid
+          properties:
+            atualizado_em:
+              type: string
+            criado_em:
+              type: string
+            email:
+              type: string
+            foto_perfil:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            id:
+              type: integer
+            idioma_preferido:
+              type: string
+            nivel_ingles:
+              type: string
+            nome:
+              type: string
+            objetivos_aprendizado:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            role:
+              type: string
+            status:
+              type: string
+            telefone:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            ultimo_login:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            uuid:
+              type: string
+    Plano:
+      type: object
+      required:
+        - created_at
+        - descricao
+        - dias_trial
+        - id
+        - is_ativo
+        - limites
+        - limites_array
+        - nome
+        - ordem
+        - preco_anual
+        - preco_mensal
+        - recursos
+        - recursos_list
+        - role
+        - role_id
+        - updated_at
+      properties:
+        created_at:
+          type: string
+        descricao:
+          type: string
+        dias_trial:
+          type: integer
+        id:
+          type: integer
+        is_ativo:
+          type: boolean
+        limites:
+          type: object
+          required:
+            - flashcards
+            - prompts
+            - quizes
+          properties:
+            flashcards:
+              type: integer
+            prompts:
+              type: integer
+            quizes:
+              type: integer
+        limites_array:
+          type: object
+          required:
+            - flashcards
+            - prompts
+            - quizes
+          properties:
+            flashcards:
+              type: integer
+            prompts:
+              type: integer
+            quizes:
+              type: integer
+        nome:
+          type: string
+        ordem:
+          type: integer
+        preco_anual:
+          description: 'Tipo varia: number | string'
+        preco_mensal:
+          description: 'Tipo varia: number | string'
+        recursos:
+          type: array
+          items:
+            type: string
+        recursos_list:
+          type: array
+          items:
+            type: string
+        role:
+          type: object
+          required:
+            - created_at
+            - descricao
+            - id
+            - is_ativo
+            - is_sistema
+            - nivel
+            - nome
+            - permissoes_count
+            - updated_at
+          properties:
+            created_at:
+              type: string
+            descricao:
+              type: string
+            id:
+              type: integer
+            is_ativo:
+              type: boolean
+            is_sistema:
+              type: boolean
+            nivel:
+              type: integer
+            nome:
+              type: string
+            permissoes_count:
+              type: integer
+            updated_at:
+              type: string
+        role_id:
+          type: integer
+        updated_at:
+          type: string
+    Progresso:
+      type: object
+      required:
+        - flashcards_concluidos
+        - maior_sequencia
+        - progresso_geral
+        - progresso_nivel
+        - quizes_concluidos
+        - sequencia_atual
+        - taxa_acerto
+        - tempo_total_estudo
+        - ultima_atividade
+        - usuario_id
+        - vocabulario_aprendido
+      properties:
+        atualizado_em:
+          type: string
+        flashcards_concluidos:
+          type: integer
+        id:
+          type: integer
+        maior_sequencia:
+          type: integer
+        progresso_geral:
+          type: integer
+        progresso_nivel:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        quizes_concluidos:
+          type: integer
+        sequencia_atual:
+          type: integer
+        taxa_acerto:
+          type: integer
+        tempo_total_estudo:
+          type: integer
+        ultima_atividade:
+          type: string
+          nullable: true
+        usuario_id:
+          type: integer
+        vocabulario_aprendido:
+          type: integer
+    Prompt:
+      type: object
+      required:
+        - id
+        - texto_original
+        - usuario_id
+      properties:
+        contexto:
+          type: string
+        criado_em:
+          type: string
+        id:
+          type: integer
+        idioma_original:
+          type: string
+        midia_origem_id:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        sessao_id:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        texto_original:
+          type: string
+        usuario_id:
+          type: integer
+        uuid:
+          type: string
+    PromptInput:
+      type: object
+      properties:
+        texto_original:
+          type: string
+        usuario_id:
+          type: integer
+    Quiz:
+      type: object
+      required:
+        - atualizado_em
+        - criado_em
+        - id
+        - nivel_dificuldade
+        - publico
+        - tipo_criacao
+        - titulo
+        - total_questoes
+        - usuario_id
+      properties:
+        atualizado_em:
+          type: string
+        criado_em:
+          type: string
+        descricao:
+          type: string
+          nullable: true
+        id:
+          type: integer
+        nivel_dificuldade:
+          type: string
+        publico:
+          type: boolean
+        questoes:
+          type: array
+          items:
+            type: object
+            required:
+              - alternativas
+              - enunciado
+              - id
+              - ordem
+              - quiz_id
+              - tipo
+            properties:
+              alternativas:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - ordem
+                    - texto
+                  properties:
+                    correta:
+                      type: boolean
+                    id:
+                      type: integer
+                    ordem:
+                      type: integer
+                    texto:
+                      type: string
+              enunciado:
+                type: string
+              explicacao:
+                type: string
+                nullable: true
+              id:
+                type: integer
+              ordem:
+                type: integer
+              quiz_id:
+                type: integer
+              resposta_esperada:
+                type: string
+                nullable: true
+              tipo:
+                type: string
+        tempo_limite:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        tipo_criacao:
+          type: string
+        titulo:
+          type: string
+        total_questoes:
+          type: integer
+          nullable: true
+        usuario_id:
+          type: integer
+        uuid:
+          type: string
+    QuizCorrecao:
+      type: object
+      required:
+        - alternativa_correta_id
+        - alternativa_id
+        - correta
+        - explicacao
+        - questao_id
+        - respondida
+        - resposta
+        - resposta_esperada
+        - tipo
+      properties:
+        alternativa_correta_id:
+          type: integer
+          nullable: true
+        alternativa_id:
+          type: integer
+          nullable: true
+        correta:
+          type: boolean
+        explicacao:
+          type: string
+          nullable: true
+        questao_id:
+          type: integer
+        respondida:
+          type: boolean
+        resposta:
+          type: string
+          nullable: true
+        resposta_esperada:
+          type: string
+          nullable: true
+        tipo:
+          type: string
+    QuizFinalizarInput:
+      type: object
+      properties:
+        respostas:
+          type: array
+          items:
+            type: object
+            properties:
+              alternativa_id:
+                type: integer
+              questao_id:
+                type: integer
+              resposta:
+                type: string
+    QuizGerarInput:
+      type: object
+      properties:
+        nivel:
+          type: string
+        quantidade:
+          type: integer
+        tag_id:
+          type: integer
+        titulo:
+          type: string
+    QuizInput:
+      type: object
+      properties:
+        questoes:
+          type: array
+          items:
+            type: object
+            properties:
+              alternativas:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    correta:
+                      type: boolean
+                    texto:
+                      type: string
+              enunciado:
+                type: string
+              explicacao:
+                type: string
+              resposta_esperada:
+                type: string
+              tipo:
+                type: string
+        titulo:
+          type: string
+        total_questoes:
+          type: integer
+        usuario_id:
+          type: integer
+    QuizQuestao:
+      type: object
+      required:
+        - alternativas
+        - enunciado
+        - explicacao
+        - id
+        - ordem
+        - quiz_id
+        - resposta_esperada
+        - tipo
+      properties:
+        alternativas:
+          type: array
+          items:
+            type: object
+            required:
+              - correta
+              - id
+              - ordem
+              - texto
+            properties:
+              correta:
+                type: boolean
+              id:
+                type: integer
+              ordem:
+                type: integer
+              texto:
+                type: string
+        enunciado:
+          type: string
+        explicacao:
+          type: string
+          nullable: true
+        id:
+          type: integer
+        ordem:
+          type: integer
+        quiz_id:
+          type: integer
+        resposta_esperada:
+          type: string
+          nullable: true
+        tipo:
+          type: string
+    QuizQuestaoInput:
+      type: object
+      properties:
+        alternativas:
+          type: array
+          items:
+            type: object
+            properties:
+              correta:
+                type: boolean
+              texto:
+                type: string
+        enunciado:
+          type: string
+        explicacao:
+          type: string
+        resposta_esperada:
+          type: string
+        tipo:
+          type: string
+    QuizRespostaInput:
+      type: object
+      properties:
+        alternativa_id:
+          type: integer
+        resposta:
+          type: string
+    QuizResultado:
+      type: object
+      required:
+        - acertos
+        - correcao
+        - erros
+        - percentual
+        - primeira_conclusao
+        - quiz_id
+        - total
+      properties:
+        acertos:
+          type: integer
+        correcao:
+          type: array
+          items:
+            type: object
+            required:
+              - alternativa_correta_id
+              - alternativa_id
+              - correta
+              - explicacao
+              - questao_id
+              - respondida
+              - resposta
+              - resposta_esperada
+              - tipo
+            properties:
+              alternativa_correta_id:
+                type: integer
+                nullable: true
+              alternativa_id:
+                type: integer
+                nullable: true
+              correta:
+                type: boolean
+              explicacao:
+                type: string
+                nullable: true
+              questao_id:
+                type: integer
+              respondida:
+                type: boolean
+              resposta:
+                type: string
+                nullable: true
+              resposta_esperada:
+                type: string
+                nullable: true
+              tipo:
+                type: string
+        erros:
+          type: integer
+        percentual:
+          type: integer
+        primeira_conclusao:
+          type: boolean
+        quiz_id:
+          type: integer
+        total:
+          type: integer
+    RefreshResponseData:
+      type: object
+      required:
+        - access_token
+        - expires_in
+        - token_type
+        - user
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+        token_type:
+          type: string
+        user:
+          type: object
+          required:
+            - atualizado_em
+            - criado_em
+            - email
+            - foto_perfil
+            - id
+            - idioma_preferido
+            - nivel_ingles
+            - nome
+            - objetivos_aprendizado
+            - role
+            - status
+            - telefone
+            - ultimo_login
+            - uuid
+          properties:
+            atualizado_em:
+              type: string
+            criado_em:
+              type: string
+            email:
+              type: string
+            foto_perfil:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            id:
+              type: integer
+            idioma_preferido:
+              type: string
+            nivel_ingles:
+              type: string
+            nome:
+              type: string
+            objetivos_aprendizado:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            role:
+              type: string
+            status:
+              type: string
+            telefone:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            ultimo_login:
+              description: 'Só visto nulo nos testes'
+              nullable: true
+            uuid:
+              type: string
+    RegisterInput:
+      type: object
+      properties:
+        email:
+          type: string
+        nome:
+          type: string
+        role:
+          type: string
+        senha:
+          type: string
+        senha_hash:
+          type: string
+        status:
+          type: string
+    RevisaoInput:
+      type: object
+      properties:
+        nota:
+          type: string
+    Role:
+      type: object
+      required:
+        - created_at
+        - descricao
+        - id
+        - is_ativo
+        - is_sistema
+        - nivel
+        - nome
+        - permissoes
+        - permissoes_count
+        - updated_at
+      properties:
+        created_at:
+          type: string
+        descricao:
+          type: string
+        id:
+          type: integer
+        is_ativo:
+          type: boolean
+        is_sistema:
+          type: boolean
+        nivel:
+          type: integer
+        nome:
+          type: string
+        permissoes:
+          type: array
+          items:
+            type: object
+            required:
+              - _joinData
+              - acao
+              - created_at
+              - descricao
+              - id
+              - is_ativo
+              - nome
+              - recurso
+            properties:
+              _joinData:
+                type: object
+                required:
+                  - created_at
+                  - permissao_id
+                  - role_id
+                properties:
+                  created_at:
+                    type: string
+                  permissao_id:
+                    type: integer
+                  role_id:
+                    type: integer
+              acao:
+                type: string
+              created_at:
+                type: string
+              descricao:
+                type: string
+              id:
+                type: integer
+              is_ativo:
+                type: boolean
+              nome:
+                type: string
+              recurso:
+                type: string
+        permissoes_count:
+          type: integer
+        updated_at:
+          type: string
+    SocialExchangeInput:
+      type: object
+      properties:
+        code:
+          type: string
+    Tag:
+      type: object
+      required:
+        - criado_por
+        - id
+        - nome
+      properties:
+        cor:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        criado_em:
+          type: string
+        criado_por:
+          type: integer
+          nullable: true
+        descricao:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        id:
+          type: integer
+        nome:
+          type: string
+        tag_sistema:
+          type: boolean
+        uuid:
+          type: string
+    TagInput:
+      type: object
+      properties:
+        criado_por:
+          type: integer
+        nome:
+          type: string
+        tag_sistema:
+          type: boolean
+    Traducao:
+      type: object
+      required:
+        - id
+        - idioma_destino
+        - pontuacao_confianca
+        - prompt_id
+        - servico_traducao
+        - texto_traduzido
+        - traducoes_alternativas
+      properties:
+        criado_em:
+          type: string
+        id:
+          type: integer
+        idioma_destino:
+          type: string
+        pontuacao_confianca:
+          type: string
+        prompt_id:
+          type: integer
+        servico_traducao:
+          type: string
+        texto_traduzido:
+          type: string
+        traducoes_alternativas:
+          type: string
+    TraducaoGerarInput:
+      type: object
+      properties:
+        idioma_destino:
+          type: string
+    User:
+      type: object
+      required:
+        - atualizado_em
+        - criado_em
+        - email
+        - foto_perfil
+        - id
+        - idioma_preferido
+        - nivel_ingles
+        - nome
+        - objetivos_aprendizado
+        - role
+        - status
+        - telefone
+        - ultimo_login
+        - uuid
+      properties:
+        atualizado_em:
+          type: string
+        criado_em:
+          type: string
+        email:
+          type: string
+        foto_perfil:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        id:
+          type: integer
+        idioma_preferido:
+          type: string
+        nivel_ingles:
+          type: string
+        nome:
+          type: string
+        objetivos_aprendizado:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        role:
+          type: string
+        status:
+          type: string
+        telefone:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        ultimo_login:
+          description: 'Só visto nulo nos testes'
+          nullable: true
+        uuid:
+          type: string
+    UserUpdateInput:
+      type: object
+      properties:
+        nome:
+          type: string
+        role:
+          type: string
+        senha:
+          type: string
+        senha_hash:
+          type: string
+        status:
+          type: string
+        uuid:
+          type: string

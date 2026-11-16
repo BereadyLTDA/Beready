@@ -15,7 +15,7 @@ class PermissionService
     private $planosTable;
     private $usersTable;
 
-    public function __construct()
+    public function __construct(private AssinaturaService $assinaturaService)
     {
         $this->rolesTable = TableRegistry::getTableLocator()->get('Roles');
         $this->permissoesTable = TableRegistry::getTableLocator()->get('Permissoes');
@@ -85,7 +85,7 @@ class PermissionService
 
         // 2. Verificar role da assinatura ativa (mesma regra de vigência do AssinaturaService,
         //    inclusive a carência da renovação automática do Stripe)
-        $ativa = (new AssinaturaService())->getAtiva($usuarioId);
+        $ativa = $this->assinaturaService->getAtiva($usuarioId);
         $assinatura = $ativa && $ativa->is_ativo
             ? $this->assinaturasTable->find()
                 ->where(['Assinaturas.id' => $ativa->id])

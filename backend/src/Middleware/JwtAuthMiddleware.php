@@ -44,11 +44,8 @@ class JwtAuthMiddleware implements MiddlewareInterface
         '/planos',
     ];
 
-    private JwtService $jwtService;
-
-    public function __construct()
+    public function __construct(private JwtService $jwtService)
     {
-        $this->jwtService = new JwtService();
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

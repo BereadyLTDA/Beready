@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Cümle oluşturulurken hata oluştu',
     errorUpdate: 'Cümle güncellenirken hata oluştu',
     errorDelete: 'Cümle silinirken hata oluştu',
+    generate: 'Yapay zekâ ile oluştur',
+    generating: 'Oluşturuluyor...',
+    successGenerate: 'İfadeler başarıyla oluşturuldu!',
+    errorGenerate: 'İfadeler oluşturulurken hata oluştu',
   },
   imagens: {
     title: 'Oluşturulan Görüntüler',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Çeviri güncellenirken hata oluştu',
     successDelete: 'Çeviri başarıyla silindi!',
     errorDelete: 'Çeviri silinirken hata oluştu',
+    generate: 'Yapay zekâ ile oluştur',
+    generateTitle: 'Yapay zekâ ile çeviri oluştur',
+    generateHint: 'Çeviri, istemin metninden oluşturulur ve listeye kaydedilir.',
+    generating: 'Oluşturuluyor...',
+    successGenerate: 'Çeviri başarıyla oluşturuldu!',
+    errorGenerate: 'Çeviri oluşturulurken hata oluştu',
   },
   confirmModal: {
     title: 'İşlemi onayla',

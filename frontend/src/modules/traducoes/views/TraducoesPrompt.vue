@@ -7,6 +7,7 @@
       :back-to="`/prompts/${promptId}`"
     >
       <template #actions>
+        <BaseButton icon="sparkles" @click="openGerar">{{ $t('traducoes.generate') }}</BaseButton>
         <BaseButton variant="secondary" icon="plus" @click="openModal">{{ $t('traducoes.new') }}</BaseButton>
       </template>
     </PageHeader>
@@ -91,6 +92,22 @@
       </template>
     </BaseModal>
 
+    <!-- Gerar com IA -->
+    <BaseModal v-model="gerarModalOpen" :title="$t('traducoes.generateTitle')">
+      <form id="traducoes-prompt-gerar" class="flex flex-col gap-4" @submit.prevent="gerar">
+        <p class="text-sm text-text-muted">{{ $t('traducoes.generateHint') }}</p>
+        <BaseSelect v-model="idiomaGerar" :label="$t('traducoes.targetLanguage')" :options="idiomaOptions" />
+      </form>
+      <template #footer>
+        <BaseButton variant="secondary" :disabled="gerando" @click="gerarModalOpen = false">
+          {{ $t('common.cancelar') }}
+        </BaseButton>
+        <BaseButton type="submit" form="traducoes-prompt-gerar" icon="sparkles" :loading="gerando">
+          {{ gerando ? $t('traducoes.generating') : $t('traducoes.generate') }}
+        </BaseButton>
+      </template>
+    </BaseModal>
+
     <ConfirmModal
       v-model="confirmModalVisible"
       :title="$t('prompts.confirmDelete')"
@@ -137,6 +154,11 @@ const {
   editingId,
   deleting,
   confirmModalVisible,
+  gerarModalOpen,
+  gerando,
+  idiomaGerar,
+  openGerar,
+  gerar,
   formatDate,
   openModal,
   closeModal,
@@ -161,5 +183,7 @@ const servicoOptions: SelectOption[] = [
   { value: 'deepl', label: 'DeepL' },
   { value: 'microsoft', label: 'Microsoft Translator' },
   { value: 'openai', label: 'OpenAI' },
+  // Traduções geradas pelo próprio app (POST /prompts/{id}/traducoes/gerar)
+  { value: 'claude', label: 'Claude' },
 ]
 </script>

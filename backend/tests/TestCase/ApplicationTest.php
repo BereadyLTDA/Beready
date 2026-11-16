@@ -39,7 +39,8 @@ class ApplicationTest extends TestCase
     public function testMiddleware(): void
     {
         $app = new Application(dirname(__DIR__, 2) . '/config');
-        $middleware = $app->middleware(new MiddlewareQueue());
+        // Jwt, Admin e PlanoLimite entram pelo nome da classe: é o container que os instancia
+        $middleware = $app->middleware(new MiddlewareQueue([], $app->getContainer()));
 
         $expected = [
             CorsMiddleware::class,

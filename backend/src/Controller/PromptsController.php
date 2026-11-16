@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Traits\ResourceErrorTrait;
-use App\Repositories\PromptRepository;
+use App\Services\PermissionService;
 use App\Services\PromptService;
+use Cake\Http\ServerRequest;
 
 class PromptsController extends AppController
 {
     use ResourceErrorTrait;
 
-    private PromptService $service;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new PromptService(new PromptRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private PromptService $service,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /prompts

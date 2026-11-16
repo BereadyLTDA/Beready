@@ -6,19 +6,20 @@ namespace App\Controller;
 
 use App\Controller\Traits\ResourceErrorTrait;
 use App\Services\FlashcardService;
+use App\Services\PermissionService;
 use App\Services\RepeticaoEspacadaService;
-use App\Repositories\FlashcardRepository;
+use Cake\Http\ServerRequest;
 
 class FlashcardsController extends AppController
 {
     use ResourceErrorTrait;
 
-    private FlashcardService $flashcardService;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->flashcardService = new FlashcardService(new FlashcardRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private FlashcardService $flashcardService,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /flashcards

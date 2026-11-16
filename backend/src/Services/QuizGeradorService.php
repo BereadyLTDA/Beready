@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Exceptions\ValidationException;
-use App\Repositories\QuizRepository;
+use App\Contracts\QuizRepositoryInterface;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -32,11 +32,11 @@ class QuizGeradorService
      * @param \Closure(array): array|null $embaralhar troca a ordem de uma lista (injetável nos testes)
      */
     public function __construct(
-        private ?QuizQuestaoService $questoes = null,
+        private QuizQuestaoService $questoes,
+        private QuizRepositoryInterface $quizes,
         private ?\Closure $embaralhar = null,
     ) {
         $this->flashcards = TableRegistry::getTableLocator()->get('Flashcards');
-        $this->questoes ??= new QuizQuestaoService();
         $this->embaralhar ??= function (array $lista): array {
             shuffle($lista);
 
@@ -110,8 +110,7 @@ class QuizGeradorService
         $normalizadas = $this->questoes->validarLista($questoes);
 
         return ConnectionManager::get('default')->transactional(function () use ($usuarioId, $titulo, $nivel, $normalizadas) {
-            $repositorio = new QuizRepository();
-            $quiz = $repositorio->create([
+            $quiz = $this->quizes->create([
                 'usuario_id' => $usuarioId,
                 'titulo' => $titulo,
                 'descricao' => null,
@@ -123,7 +122,7 @@ class QuizGeradorService
 
             $this->questoes->inserirLista((int)$quiz['id'], $normalizadas);
 
-            $quiz = $repositorio->findById((int)$quiz['id']) ?? $quiz;
+            $quiz = $this->quizes->findById((int)$quiz['id']) ?? $quiz;
             $quiz['questoes'] = $this->questoes->listar((int)$quiz['id'], true);
 
             return $quiz;

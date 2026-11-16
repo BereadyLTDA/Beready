@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Traits\ResourceErrorTrait;
-use App\Repositories\PreferenciaRepository;
+use App\Services\PermissionService;
 use App\Services\PreferenciaService;
+use Cake\Http\ServerRequest;
 
 class PreferenciasController extends AppController
 {
     use ResourceErrorTrait;
 
-    private PreferenciaService $service;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new PreferenciaService(new PreferenciaRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private PreferenciaService $service,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /preferencias/usuario/{usuarioId}

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Services\UserService;
-use App\Services\JwtService;
-use App\Services\SocialAuthService;
-use App\Repositories\UserRepository;
 use App\Exceptions\EmailAlreadyExistsException;
-use App\Exceptions\WeakPasswordException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\UserNotFoundException;
+use App\Exceptions\WeakPasswordException;
+use App\Services\AssinaturaService;
+use App\Services\JwtService;
+use App\Services\PermissionService;
+use App\Services\SocialAuthService;
+use App\Services\UserService;
 use Cake\Http\Client;
 use Cake\Http\Cookie\Cookie;
+use Cake\Http\ServerRequest;
 use Cake\Log\Log;
-use App\Services\PermissionService;
-use App\Services\AssinaturaService;
 
 class UsersController extends AppController
 {
@@ -25,16 +25,15 @@ class UsersController extends AppController
     private const ROLES = ['user', 'admin'];
     private const STATUSES = [UserService::STATUS_ATIVO, 'inativo', 'bloqueado'];
 
-    private UserService $userService;
-    private JwtService $jwtService;
-    private PermissionService $permissionService;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->userService = new UserService(new UserRepository());
-        $this->jwtService = new JwtService();
-        $this->permissionService = new PermissionService();
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private UserService $userService,
+        private JwtService $jwtService,
+        private AssinaturaService $assinaturaService,
+        private SocialAuthService $socialAuthService,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     /**
@@ -65,7 +64,7 @@ class UsersController extends AppController
             $user = $this->userService->register($data);
 
             try {
-                (new AssinaturaService())->ativarPlanoGratuito((int)$user['id']);
+                $this->assinaturaService->ativarPlanoGratuito((int)$user['id']);
             } catch (\Exception $e) {
                 Log::error('Erro ao atribuir plano gratuito: ' . $e->getMessage());
             }
@@ -115,7 +114,7 @@ class UsersController extends AppController
     public function socialExchange()
     {
         $code = (string)($this->getRequestData()['code'] ?? '');
-        $userId = (new SocialAuthService())->consumeLoginCode($code);
+        $userId = $this->socialAuthService->consumeLoginCode($code);
 
         if (!$userId) {
             return $this->jsonError('Código inválido ou expirado', 400);

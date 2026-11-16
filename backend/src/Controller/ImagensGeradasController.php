@@ -4,22 +4,25 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Contracts\PromptRepositoryInterface;
 use App\Controller\Traits\PromptOwnershipTrait;
 use App\Controller\Traits\ResourceErrorTrait;
-use App\Repositories\ImagemRepository;
 use App\Services\ImagemService;
+use App\Services\PermissionService;
+use Cake\Http\ServerRequest;
 
 class ImagensGeradasController extends AppController
 {
     use PromptOwnershipTrait;
     use ResourceErrorTrait;
 
-    private ImagemService $service;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new ImagemService(new ImagemRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private ImagemService $service,
+        private PromptRepositoryInterface $promptRepository,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /imagens/prompt/{promptId}

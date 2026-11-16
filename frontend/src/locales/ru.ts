@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Ошибка создания фразы',
     errorUpdate: 'Ошибка обновления фразы',
     errorDelete: 'Ошибка удаления фразы',
+    generate: 'Создать с помощью ИИ',
+    generating: 'Создание...',
+    successGenerate: 'Фразы успешно созданы!',
+    errorGenerate: 'Ошибка при создании фраз',
   },
   imagens: {
     title: 'Сгенерированные изображения',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Ошибка обновления перевода',
     successDelete: 'Перевод успешно удалён!',
     errorDelete: 'Ошибка удаления перевода',
+    generate: 'Создать с помощью ИИ',
+    generateTitle: 'Создать перевод с помощью ИИ',
+    generateHint: 'Перевод создаётся из текста промпта и сохраняется в списке.',
+    generating: 'Создание...',
+    successGenerate: 'Перевод успешно создан!',
+    errorGenerate: 'Ошибка при создании перевода',
   },
   confirmModal: {
     title: 'Подтвердите действие',

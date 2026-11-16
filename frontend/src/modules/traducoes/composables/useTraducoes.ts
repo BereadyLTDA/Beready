@@ -54,6 +54,19 @@ export function useTraducoes() {
     }
   }
 
+  // Não mexe em `loading` (que troca a lista pelo spinner): quem chama controla o próprio estado
+  const gerarTraducao = async (promptId: number, idiomaDestino: string): Promise<Traducao> => {
+    try {
+      const response = await traducaoService.gerar(promptId, idiomaDestino)
+      if (!response.success) throw new Error(response.message)
+      traducoes.value.unshift(response.data)
+      success(t('traducoes.successGenerate'))
+      return response.data
+    } catch (err) {
+      return fail(err, t('traducoes.errorGenerate'))
+    }
+  }
+
   const updateTraducao = async (id: number, data: Partial<TraducaoInput>): Promise<Traducao> => {
     loading.value = true
     try {
@@ -84,5 +97,13 @@ export function useTraducoes() {
     }
   }
 
-  return { traducoes, loading, fetchTraducoes, createTraducao, updateTraducao, deleteTraducao }
+  return {
+    traducoes,
+    loading,
+    fetchTraducoes,
+    createTraducao,
+    gerarTraducao,
+    updateTraducao,
+    deleteTraducao,
+  }
 }

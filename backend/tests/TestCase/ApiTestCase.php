@@ -9,7 +9,13 @@ use Cake\Cache\Cache;
 use Cake\Datasource\EntityInterface;
 use Cake\TestSuite\EmailTrait;
 use Cake\TestSuite\IntegrationTestTrait;
+use Cake\Http\ServerRequest;
+use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
+use League\OpenAPIValidation\PSR7\Exception\ValidationFailed;
+use League\OpenAPIValidation\PSR7\OperationAddress;
+use League\OpenAPIValidation\PSR7\ValidatorBuilder;
+use League\OpenAPIValidation\Schema\Exception\SchemaMismatch;
 
 /**
  * Base dos testes de integração da API.
@@ -51,6 +57,13 @@ abstract class ApiTestCase extends TestCase
      * Headers enviados em todas as requisições do teste (ver withBearer).
      */
     private array $headers = [];
+
+    /**
+     * Toda resposta é conferida com o contrato OpenAPI (ver assertRespostaConformeContrato).
+     * Desligue (no próprio teste ou no setUp) apenas quando o teste provoca, de propósito, uma
+     * resposta que o contrato não deve descrever.
+     */
+    protected bool $validarContrato = true;
 
     protected function setUp(): void
     {
@@ -150,6 +163,140 @@ abstract class ApiTestCase extends TestCase
         $this->_request['headers'] = ($this->_request['headers'] ?? []) + $this->headers;
 
         $this->sendIntegrationRequest($url, $method, $data);
+
+        if ($this->validarContrato) {
+            $this->assertRespostaConformeContrato($url, $method);
+        }
+    }
+
+    /**
+     * Confere a resposta recebida com o contrato OpenAPI (backend/openapi.yaml): o status precisa
+     * estar documentado na operação e o corpo precisa obedecer ao schema.
+     *
+     * Só a resposta é validada: os testes enviam corpos inválidos de propósito. Requisições que não
+     * casam com nenhuma operação documentada (rota de fallback, rotas pendentes) passam direto; quem
+     * garante que toda rota está no contrato é o OpenApiContractTest.
+     */
+    private function assertRespostaConformeContrato(array|string $url, string $method): void
+    {
+        if ($this->_response === null) {
+            return;
+        }
+
+        $path = (string)parse_url(is_array($url) ? Router::url($url) : $url, PHP_URL_PATH);
+        $operacao = self::operacaoDocumentada($method, $path);
+        if ($operacao === null) {
+            return;
+        }
+
+        [$metodoDocumentado, $template] = explode(' ', $operacao, 2);
+
+        try {
+            self::contrato()['validator']->validate(
+                new OperationAddress($template, strtolower($metodoDocumentado)),
+                $this->_response
+            );
+        } catch (ValidationFailed $e) {
+            $corpo = (string)$this->_response->getBody();
+            if (mb_strlen($corpo) > 1500) {
+                $corpo = mb_substr($corpo, 0, 1500) . '… [truncado]';
+            }
+
+            $this->fail(sprintf(
+                "Resposta fora do contrato OpenAPI (backend/openapi.yaml)\n"
+                . "  Requisição: %s %s\n"
+                . "  Operação:   %s\n"
+                . "  Status:     %d\n"
+                . "  Motivo:     %s\n"
+                . "  Corpo:      %s\n"
+                . 'Corrija o contrato (ou a API, se a resposta estiver errada).',
+                $method,
+                $path,
+                $operacao,
+                $this->_response->getStatusCode(),
+                self::motivoDaFalha($e),
+                $corpo === '' ? '(vazio)' : $corpo
+            ));
+        }
+    }
+
+    /**
+     * "MÉTODO /template" da operação do contrato que atende a requisição, ou null se não houver.
+     * A rota é resolvida pelo próprio Router (mesmos padrões de parâmetro da aplicação); rotas
+     * gêmeas de uma operação documentada são validadas pelo schema dela.
+     */
+    private static function operacaoDocumentada(string $method, string $path): ?string
+    {
+        try {
+            $params = self::rotaDe($method, $path);
+        } catch (\Throwable) {
+            return null;
+        }
+
+        $chave = strtoupper($method) . ' ' . ($params['_matchedRoute'] ?? '');
+        $chave = OpenApiContractTest::operacaoEquivalente($chave);
+
+        return isset(self::contrato()['operacoes'][$chave]) ? $chave : null;
+    }
+
+    /**
+     * Parâmetros da rota que atende a requisição (inclui `_matchedRoute`, o template registrado).
+     *
+     * @return array<string, mixed>
+     */
+    private static function rotaDe(string $method, string $path): array
+    {
+        // Quem carrega as rotas é o RoutingMiddleware: se um middleware anterior respondeu
+        // (401, 429...), o Router ainda está vazio neste ponto
+        if (!Router::routes()) {
+            (new Application(CONFIG))->routes(Router::createRouteBuilder('/'));
+        }
+
+        return Router::getRouteCollection()->parseRequest(new ServerRequest([
+            "url" => $path === "" ? "/" : $path,
+            "environment" => ["REQUEST_METHOD" => strtoupper($method)],
+        ]));
+    }
+
+    /**
+     * Validador e índice das operações do contrato, montados uma única vez por processo.
+     *
+     * @return array{validator: \League\OpenAPIValidation\PSR7\ResponseValidator, operacoes: array<string, true>}
+     */
+    private static function contrato(): array
+    {
+        static $contrato = null;
+
+        if ($contrato === null) {
+            $validator = (new ValidatorBuilder())
+                ->fromYamlFile(OpenApiContractTest::ARQUIVO)
+                ->getResponseValidator();
+
+            $contrato = [
+                'validator' => $validator,
+                'operacoes' => array_fill_keys(OpenApiContractTest::operacoesDoContrato($validator->getSchema()), true),
+            ];
+        }
+
+        return $contrato;
+    }
+
+    /**
+     * Junta as mensagens da cadeia de exceções do validador e, quando houver, o caminho do campo.
+     */
+    private static function motivoDaFalha(\Throwable $e): string
+    {
+        $partes = [];
+        for ($atual = $e; $atual !== null; $atual = $atual->getPrevious()) {
+            $mensagem = $atual->getMessage();
+            if ($atual instanceof SchemaMismatch && $atual->dataBreadCrumb() !== null) {
+                $campo = implode('.', $atual->dataBreadCrumb()->buildChain());
+                $mensagem .= sprintf(' [campo: %s]', $campo === '' ? '(raiz)' : $campo);
+            }
+            $partes[] = $mensagem;
+        }
+
+        return implode(' → ', $partes);
     }
 
     protected function postJson(string $url, array $data = []): void

@@ -1,0 +1,3643 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Class App\\Application extends generic class Cake\\Http\\BaseApplication but does not specify its types\: TSubject$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Application.php
+
+		-
+			message: '#^Method App\\Contracts\\CloudinaryServiceInterface\:\:uploadProfilePhoto\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/CloudinaryServiceInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:findByUuid\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:findDevidos\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:salvarAgendamento\(\) has parameter \$agendamento with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:salvarAgendamento\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardTagRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardTagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardTagRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardTagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardTagRepositoryInterface\:\:findByFlashcardId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardTagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FlashcardTagRepositoryInterface\:\:findByTagId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FlashcardTagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FraseRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FraseRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FraseRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FraseRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FraseRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FraseRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FraseRepositoryInterface\:\:findByPromptId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FraseRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FraseRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FraseRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\FraseRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/FraseRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\ImagemRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/ImagemRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\ImagemRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/ImagemRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\ImagemRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/ImagemRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\ImagemRepositoryInterface\:\:findByPromptId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/ImagemRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\ImagemRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/ImagemRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\ImagemRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/ImagemRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PreferenciaRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PreferenciaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PreferenciaRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PreferenciaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PreferenciaRepositoryInterface\:\:createOrUpdate\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PreferenciaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PreferenciaRepositoryInterface\:\:createOrUpdate\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PreferenciaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PreferenciaRepositoryInterface\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PreferenciaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PreferenciaRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PreferenciaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PreferenciaRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PreferenciaRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PromptRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PromptRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PromptRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PromptRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PromptRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PromptRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PromptRepositoryInterface\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PromptRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PromptRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PromptRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\PromptRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/PromptRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\QuizRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/QuizRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\QuizRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/QuizRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\QuizRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/QuizRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\QuizRepositoryInterface\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/QuizRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\QuizRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/QuizRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\QuizRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/QuizRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\StripeGatewayInterface\:\:criarCheckoutAssinatura\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/StripeGatewayInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:findByName\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:findVisibleToUsuario\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TagRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TagRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TraducaoRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TraducaoRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TraducaoRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TraducaoRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TraducaoRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TraducaoRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TraducaoRepositoryInterface\:\:findByPromptId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TraducaoRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TraducaoRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TraducaoRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\TraducaoRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/TraducaoRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:create\(\) has parameter \$protected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:findByEmail\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:findByResetTokenHash\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:findByUuid\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:update\(\) has parameter \$protected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserRepositoryInterface\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserRepositoryInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:getUserById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:getUserByUuid\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:login\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:register\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:register\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:updateUser\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:updateUser\(\) has parameter \$protected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Contracts\\UserUseCaseInterface\:\:updateUser\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/UserUseCaseInterface.php
+
+		-
+			message: '#^Method App\\Controller\\AdminController\:\:stats\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminController\:\:updateRole\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminController\:\:users\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminController.php
+
+		-
+			message: '#^Property App\\Controller\\AdminController\:\:\$usersTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Controller/AdminController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPermissionsController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminPermissionsController.php
+
+		-
+			message: '#^Property App\\Controller\\AdminPermissionsController\:\:\$permissoesTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Controller/AdminPermissionsController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$preco_anual\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$preco_mensal\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:normalizeData\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:normalizeData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminPlanosController\:\:validationError\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Property App\\Controller\\AdminPlanosController\:\:\$planosTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Controller/AdminPlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:validationError\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AdminRolesController\:\:validationError\(\) has parameter \$errors with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Property App\\Controller\\AdminRolesController\:\:\$rolesTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Controller/AdminRolesController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:getRequestData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:jsonError\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:jsonError\(\) has parameter \$errors with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:jsonResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:jsonResponse\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:jsonResponse\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:jsonSuccess\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AppController\:\:jsonSuccess\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Psr\\Http\\Message\\StreamInterface\:\:write\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Controller/AppController.php
+
+		-
+			message: '#^Method App\\Controller\\AssinaturasController\:\:current\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/AssinaturasController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardTagsController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardTagsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardTagsController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardTagsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardTagsController\:\:getByFlashcard\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardTagsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardTagsController\:\:getByFlashcard\(\) has parameter \$flashcardId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FlashcardTagsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardTagsController\:\:remove\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardTagsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:devidos\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:findOwnedFlashcard\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:revisao\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:revisao\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:viewByUuid\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FlashcardsController\:\:viewByUuid\(\) has parameter \$uuid with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FlashcardsController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:canMoveToPrompt\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:canMoveToPrompt\(\) has parameter \$registroAtual with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:findOwnedFrase\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:getByPrompt\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:getByPrompt\(\) has parameter \$promptId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\FrasesSemelhantesController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/FrasesSemelhantesController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:canMoveToPrompt\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:canMoveToPrompt\(\) has parameter \$registroAtual with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:findOwnedImagem\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:getByPrompt\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:getByPrompt\(\) has parameter \$promptId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Method App\\Controller\\ImagensGeradasController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/ImagensGeradasController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$stripe_customer_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controller/PaymentsController.php
+
+		-
+			message: '#^Method App\\Controller\\PaymentsController\:\:checkoutConcluido\(\) has parameter \$session with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/PaymentsController.php
+
+		-
+			message: '#^Method App\\Controller\\PaymentsController\:\:faturaPaga\(\) has parameter \$invoice with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/PaymentsController.php
+
+		-
+			message: '#^Method App\\Controller\\PaymentsController\:\:fimDoPeriodoDaFatura\(\) has parameter \$invoice with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/PaymentsController.php
+
+		-
+			message: '#^Method App\\Controller\\PaymentsController\:\:subscriptionDaFatura\(\) has parameter \$invoice with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/PaymentsController.php
+
+		-
+			message: '#^Method App\\Controller\\PaymentsController\:\:webhook\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PaymentsController.php
+
+		-
+			message: '#^Parameter \#3 \$secret of static method Stripe\\Webhook\:\:constructEvent\(\) expects string, float\|int\<min, \-1\>\|int\<1, max\>\|string\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/PaymentsController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$cancelar_no_fim_periodo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$data_fim\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$nome\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$plano_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$stripe_customer_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Dead catch \- Exception is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\PlanosController\:\:assinar\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\PlanosController\:\:assinar\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\PlanosController\:\:cancelar\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\PlanosController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\PlanosController\:\:portal\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Property App\\Controller\\PlanosController\:\:\$planosTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Controller/PlanosController.php
+
+		-
+			message: '#^Method App\\Controller\\PreferenciasController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PreferenciasController.php
+
+		-
+			message: '#^Method App\\Controller\\PreferenciasController\:\:getByUsuario\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PreferenciasController.php
+
+		-
+			message: '#^Method App\\Controller\\PreferenciasController\:\:getByUsuario\(\) has parameter \$usuarioId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/PreferenciasController.php
+
+		-
+			message: '#^Method App\\Controller\\PreferenciasController\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PreferenciasController.php
+
+		-
+			message: '#^Method App\\Controller\\ProgressoController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ProgressoController.php
+
+		-
+			message: '#^Method App\\Controller\\ProgressoController\:\:getByUsuario\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ProgressoController.php
+
+		-
+			message: '#^Method App\\Controller\\ProgressoController\:\:getByUsuario\(\) has parameter \$usuarioId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/ProgressoController.php
+
+		-
+			message: '#^Method App\\Controller\\ProgressoController\:\:incrementarFlashcards\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ProgressoController.php
+
+		-
+			message: '#^Method App\\Controller\\ProgressoController\:\:incrementarTempo\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ProgressoController.php
+
+		-
+			message: '#^Method App\\Controller\\ProgressoController\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/ProgressoController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:findOwnedPrompt\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:getByUsuario\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:getByUsuario\(\) has parameter \$usuarioId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Method App\\Controller\\PromptsController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/PromptsController.php
+
+		-
+			message: '#^Call to an undefined method Cake\\Datasource\\ConnectionInterface\:\:transactional\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:addQuestao\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:addQuestao\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:deleteQuestao\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:deleteQuestao\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:deleteQuestao\(\) has parameter \$questaoId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:editQuestao\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:editQuestao\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:editQuestao\(\) has parameter \$questaoId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:finalizar\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:finalizar\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:findOwnedQuiz\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:findPlayableQuiz\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:gerar\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:questoes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:questoes\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:substituirQuestoes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:substituirQuestoes\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:verificar\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:verificar\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:verificar\(\) has parameter \$questaoId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\QuizesController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/QuizesController.php
+
+		-
+			message: '#^Method App\\Controller\\RespostasController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/RespostasController.php
+
+		-
+			message: '#^Method App\\Controller\\RespostasController\:\:save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/RespostasController.php
+
+		-
+			message: '#^Property App\\Controller\\RespostasController\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Controller/RespostasController.php
+
+		-
+			message: '#^Cannot call method withCookie\(\) on Cake\\Http\\Response\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Controller/SocialAuthController.php
+
+		-
+			message: '#^Cannot call method withExpiredCookie\(\) on Cake\\Http\\Response\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/Controller/SocialAuthController.php
+
+		-
+			message: '#^Cannot cast array\|string\|null to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Controller/SocialAuthController.php
+
+		-
+			message: '#^Method App\\Controller\\SocialAuthController\:\:callback\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/SocialAuthController.php
+
+		-
+			message: '#^Method App\\Controller\\SocialAuthController\:\:failureRedirect\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/SocialAuthController.php
+
+		-
+			message: '#^Method App\\Controller\\SocialAuthController\:\:login\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/SocialAuthController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:canSetTagSistema\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:findOwnedTag\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:getByUsuario\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:getByUsuario\(\) has parameter \$usuarioId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:index\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TagsController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TagsController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:add\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:canMoveToPrompt\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:canMoveToPrompt\(\) has parameter \$registroAtual with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:edit\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:edit\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:errorResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:findOwnedTraducao\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:getByPrompt\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:getByPrompt\(\) has parameter \$promptId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\TraducoesController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/TraducoesController.php
+
+		-
+			message: '#^Method App\\Controller\\UploadController\:\:profilePhoto\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UploadController.php
+
+		-
+			message: '#^Cannot cast array\|string\|null to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:authResponse\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:authResponse\(\) has parameter \$user with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:delete\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:delete\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:forgotPassword\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:health\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:login\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:logout\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:me\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:notFound\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:permissions\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:refresh\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:register\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:resetPassword\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:resetPassword\(\) has parameter \$token with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:socialExchange\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:update\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:update\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:view\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:view\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:viewByUuid\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Method App\\Controller\\UsersController\:\:viewByUuid\(\) has parameter \$uuid with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Parameter \#1 \$url of method Cake\\Http\\Client\:\:post\(\) expects string, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/UsersController.php
+
+		-
+			message: '#^Function Sentry\\flush invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: src/Exceptions/SentryExceptionRenderer.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Cake\\Http\\Response\:\:withStringBody\(\) expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Exceptions/SentryExceptionRenderer.php
+
+		-
+			message: '#^Property App\\Exceptions\\SentryExceptionRenderer\:\:\$request is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Exceptions/SentryExceptionRenderer.php
+
+		-
+			message: '#^Method App\\Mailer\\UserMailer\:\:resetPassword\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Mailer/UserMailer.php
+
+		-
+			message: '#^Method App\\Mailer\\UserMailer\:\:welcome\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Mailer/UserMailer.php
+
+		-
+			message: '#^Possibly invalid array key type bool\|float\|int\|string\|null\.$#'
+			identifier: array.invalidKey
+			count: 2
+			path: src/Mailer/UserMailer.php
+
+		-
+			message: '#^Method App\\Middleware\\AdminMiddleware\:\:jsonErrorResponse\(\) has parameter \$extra with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Middleware/AdminMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Cake\\Http\\Response\:\:withStringBody\(\) expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Middleware/AdminMiddleware.php
+
+		-
+			message: '#^Method App\\Middleware\\CorsMiddleware\:\:allowedOrigins\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Middleware/CorsMiddleware.php
+
+		-
+			message: '#^Method App\\Middleware\\JwtAuthMiddleware\:\:jsonErrorResponse\(\) has parameter \$extra with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Middleware/JwtAuthMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Cake\\Http\\Response\:\:withStringBody\(\) expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Middleware/JwtAuthMiddleware.php
+
+		-
+			message: '#^Method App\\Middleware\\PlanoLimiteMiddleware\:\:jsonErrorResponse\(\) has parameter \$extra with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Middleware/PlanoLimiteMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Cake\\Http\\Response\:\:withStringBody\(\) expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Middleware/PlanoLimiteMiddleware.php
+
+		-
+			message: '#^Method App\\Middleware\\RateLimitMiddleware\:\:jsonErrorResponse\(\) has parameter \$extra with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Middleware/RateLimitMiddleware.php
+
+		-
+			message: '#^Parameter \#1 \$string of method Cake\\Http\\Response\:\:withStringBody\(\) expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Middleware/RateLimitMiddleware.php
+
+		-
+			message: '#^Access to an undefined property App\\Model\\Entity\\Plano\:\:\$limites\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Model/Entity/Plano.php
+
+		-
+			message: '#^Access to an undefined property App\\Model\\Entity\\Plano\:\:\$recursos\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Model/Entity/Plano.php
+
+		-
+			message: '#^Method App\\Model\\Entity\\Plano\:\:_getLimitesArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Entity/Plano.php
+
+		-
+			message: '#^Method App\\Model\\Entity\\Plano\:\:_getRecursosList\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Entity/Plano.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Entity\\Quize\:\:\$usuario contains unknown class App\\Model\\Entity\\Usuario\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Model/Entity/Quize.php
+
+		-
+			message: '#^Method App\\Model\\Entity\\Traducao\:\:getTraducoesAlternativas\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Entity/Traducao.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Entity\\Vocabulario\:\:\$usuario contains unknown class App\\Model\\Entity\\Usuario\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Model/Entity/Vocabulario.php
+
+		-
+			message: '#^Method App\\Model\\Table\\FlashcardsTable\:\:initialize\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/FlashcardsTable.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Table\\FlashcardsTable\:\:\$Tags contains unresolvable type\.$#'
+			identifier: propertyTag.unresolvableType
+			count: 1
+			path: src/Model/Table/FlashcardsTable.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Table\\FlashcardsTable\:\:\$Users contains unresolvable type\.$#'
+			identifier: propertyTag.unresolvableType
+			count: 1
+			path: src/Model/Table/FlashcardsTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\PlanosTable\:\:findActiveOrdered\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Model/Table/PlanosTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\PlanosTable\:\:findActiveOrdered\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/PlanosTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\PlanosTable\:\:findActiveOrdered\(\) has parameter \$query with generic class Cake\\ORM\\Query\\SelectQuery but does not specify its types\: TSubject$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Model/Table/PlanosTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\PlanosTable\:\:findWithRoles\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Model/Table/PlanosTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\PlanosTable\:\:findWithRoles\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/PlanosTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\PlanosTable\:\:findWithRoles\(\) has parameter \$query with generic class Cake\\ORM\\Query\\SelectQuery but does not specify its types\: TSubject$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Model/Table/PlanosTable.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Table\\QuizAlternativasTable\:\:\$QuizQuestoes contains unresolvable type\.$#'
+			identifier: propertyTag.unresolvableType
+			count: 1
+			path: src/Model/Table/QuizAlternativasTable.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Table\\QuizQuestoesTable\:\:\$QuizAlternativas contains unresolvable type\.$#'
+			identifier: propertyTag.unresolvableType
+			count: 1
+			path: src/Model/Table/QuizQuestoesTable.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Table\\QuizQuestoesTable\:\:\$Quizes contains unresolvable type\.$#'
+			identifier: propertyTag.unresolvableType
+			count: 1
+			path: src/Model/Table/QuizQuestoesTable.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$is_sistema\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Model/Table/RolesTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\RolesTable\:\:getPermissions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/RolesTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\RolesTable\:\:getWithPermissions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/RolesTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\UsersTable\:\:beforeSave\(\) has parameter \$entity with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Model/Table/UsersTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\UsersTable\:\:beforeSave\(\) has parameter \$event with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Model/Table/UsersTable.php
+
+		-
+			message: '#^Method App\\Model\\Table\\UsersTable\:\:beforeSave\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Model/Table/UsersTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method deleteMany\(\) parameter \#1 \$entities with no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method deleteMany\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method deleteManyOrFail\(\) parameter \#1 \$entities with no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method deleteManyOrFail\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method findOrCreate\(\) parameter \#3 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method get\(\) parameter \#2 \$finder with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method newEntities\(\) parameter \#1 \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method newEntities\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method newEntity\(\) parameter \#1 \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method newEntity\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method patchEntities\(\) parameter \#1 \$entities with no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method patchEntities\(\) parameter \#2 \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method patchEntities\(\) parameter \#3 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method patchEntity\(\) parameter \#2 \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method patchEntity\(\) parameter \#3 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method save\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method saveMany\(\) parameter \#1 \$entities with no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method saveMany\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method saveManyOrFail\(\) parameter \#1 \$entities with no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method saveManyOrFail\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Class App\\Model\\Table\\VocabularioTable has PHPDoc tag @method for method saveOrFail\(\) parameter \#2 \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Table\\VocabularioTable\:\:\$Usuarios contains generic class Cake\\ORM\\Association\\BelongsTo but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Model\\Table\\VocabularioTable\:\:\$Usuarios contains unknown class App\\Model\\Table\\UsuariosTable\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Model/Table/VocabularioTable.php
+
+		-
+			message: '#^Method App\\Models\\DTO\\FlashcardDTO\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/DTO/FlashcardDTO.php
+
+		-
+			message: '#^Method App\\Models\\DTO\\FlashcardDTO\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/DTO/FlashcardDTO.php
+
+		-
+			message: '#^Method App\\Models\\DTO\\QuizDTO\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/DTO/QuizDTO.php
+
+		-
+			message: '#^Method App\\Models\\DTO\\QuizDTO\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/DTO/QuizDTO.php
+
+		-
+			message: '#^Method App\\Models\\DTO\\UserDTO\:\:fromArray\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/DTO/UserDTO.php
+
+		-
+			message: '#^Method App\\Models\\DTO\\UserDTO\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Models/DTO/UserDTO.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:findByUuid\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:findDevidos\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:salvarAgendamento\(\) has parameter \$agendamento with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:salvarAgendamento\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\FlashcardRepository\:\:\$flashcardsTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/FlashcardRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardTagRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardTagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardTagRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardTagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardTagRepository\:\:findByFlashcardId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardTagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FlashcardTagRepository\:\:findByTagId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FlashcardTagRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\FlashcardTagRepository\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/FlashcardTagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FraseRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FraseRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FraseRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FraseRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FraseRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FraseRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FraseRepository\:\:findByPromptId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FraseRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FraseRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FraseRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\FraseRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/FraseRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\FraseRepository\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/FraseRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ImagemRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/ImagemRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ImagemRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/ImagemRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ImagemRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/ImagemRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ImagemRepository\:\:findByPromptId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/ImagemRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ImagemRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/ImagemRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\ImagemRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/ImagemRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\ImagemRepository\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/ImagemRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PreferenciaRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PreferenciaRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PreferenciaRepository\:\:createOrUpdate\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PreferenciaRepository\:\:createOrUpdate\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PreferenciaRepository\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PreferenciaRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PreferenciaRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\PreferenciaRepository\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/PreferenciaRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PromptRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PromptRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PromptRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PromptRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PromptRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PromptRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PromptRepository\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PromptRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PromptRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PromptRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\PromptRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/PromptRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\PromptRepository\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/PromptRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\QuizRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/QuizRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\QuizRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/QuizRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\QuizRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/QuizRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\QuizRepository\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/QuizRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\QuizRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/QuizRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\QuizRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/QuizRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\QuizRepository\:\:\$quizesTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/QuizRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:findByName\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:findByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:findVisibleToUsuario\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TagRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\TagRepository\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/TagRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TraducaoRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TraducaoRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TraducaoRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TraducaoRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TraducaoRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TraducaoRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TraducaoRepository\:\:findByPromptId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TraducaoRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TraducaoRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TraducaoRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\TraducaoRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/TraducaoRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\TraducaoRepository\:\:\$table has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/TraducaoRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:create\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:create\(\) has parameter \$protected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:findByEmail\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:findById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:findByResetTokenHash\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:findByUuid\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:findOne\(\) has parameter \$conditions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:findOne\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:update\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:update\(\) has parameter \$protected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Method App\\Repositories\\UserRepository\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Property App\\Repositories\\UserRepository\:\:\$usersTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Repositories/UserRepository.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$cancelar_no_fim_periodo\.$#'
+			identifier: property.notFound
+			count: 4
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$data_cancelamento\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$data_fim\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$dias_trial\.$#'
+			identifier: property.notFound
+			count: 3
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$is_ativo\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$plano\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$preco_anual\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$preco_mensal\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$stripe_status\.$#'
+			identifier: property.notFound
+			count: 5
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$usuario_id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, int\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Property App\\Services\\AssinaturaService\:\:\$assinaturasTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Property App\\Services\\AssinaturaService\:\:\$planosTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/AssinaturaService.php
+
+		-
+			message: '#^Method App\\Services\\CloudinaryService\:\:generateSignature\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Method App\\Services\\CloudinaryService\:\:uploadProfilePhoto\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Parameter \#3 \$value of function curl_setopt expects non\-empty\-string, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Property App\\Services\\CloudinaryService\:\:\$apiBaseUrl \(string\) does not accept bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Property App\\Services\\CloudinaryService\:\:\$apiKey \(string\) does not accept bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Property App\\Services\\CloudinaryService\:\:\$apiSecret \(string\) does not accept bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Property App\\Services\\CloudinaryService\:\:\$cloudName \(string\) does not accept bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Property App\\Services\\CloudinaryService\:\:\$uploadFolder \(string\) does not accept bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Services/CloudinaryService.php
+
+		-
+			message: '#^Call to an undefined method Cake\\Datasource\\ConnectionInterface\:\:transactional\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:createFlashcard\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:createFlashcard\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:getDevidos\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:getFlashcardById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:getFlashcardByUuid\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:getFlashcardsByUsuario\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:registrarRevisao\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:revisar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:updateFlashcard\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardService\:\:updateFlashcard\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardTagService\:\:addTagToFlashcard\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardTagService.php
+
+		-
+			message: '#^Method App\\Services\\FlashcardTagService\:\:getTagsByFlashcard\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FlashcardTagService.php
+
+		-
+			message: '#^Method App\\Services\\FraseService\:\:createFrase\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FraseService.php
+
+		-
+			message: '#^Method App\\Services\\FraseService\:\:createFrase\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FraseService.php
+
+		-
+			message: '#^Method App\\Services\\FraseService\:\:getFraseById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FraseService.php
+
+		-
+			message: '#^Method App\\Services\\FraseService\:\:getFrasesByPrompt\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FraseService.php
+
+		-
+			message: '#^Method App\\Services\\FraseService\:\:updateFrase\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FraseService.php
+
+		-
+			message: '#^Method App\\Services\\FraseService\:\:updateFrase\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/FraseService.php
+
+		-
+			message: '#^Method App\\Services\\ImagemService\:\:createImagem\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ImagemService.php
+
+		-
+			message: '#^Method App\\Services\\ImagemService\:\:createImagem\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ImagemService.php
+
+		-
+			message: '#^Method App\\Services\\ImagemService\:\:getImagemById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ImagemService.php
+
+		-
+			message: '#^Method App\\Services\\ImagemService\:\:getImagensByPrompt\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ImagemService.php
+
+		-
+			message: '#^Method App\\Services\\ImagemService\:\:updateImagem\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ImagemService.php
+
+		-
+			message: '#^Method App\\Services\\ImagemService\:\:updateImagem\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ImagemService.php
+
+		-
+			message: '#^Method App\\Services\\JwtService\:\:generateAccessToken\(\) has parameter \$user with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/JwtService.php
+
+		-
+			message: '#^Method App\\Services\\JwtService\:\:generateAccessToken\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/JwtService.php
+
+		-
+			message: '#^Method App\\Services\\JwtService\:\:generateTokens\(\) has parameter \$user with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/JwtService.php
+
+		-
+			message: '#^Method App\\Services\\JwtService\:\:generateTokens\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/JwtService.php
+
+		-
+			message: '#^Method App\\Services\\JwtService\:\:validateToken\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/JwtService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$is_ativo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:createRole\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:createRole\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:deleteRole\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:getAllPermissions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:getRolesWithPermissions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:getUserPermissions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:logAudit\(\) has parameter \$newData with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:logAudit\(\) has parameter \$oldData with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:savePermissoes\(\) has parameter \$permissionIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:updateRole\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Method App\\Services\\PermissionService\:\:updateRole\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$assinaturasTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$permissoesTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$planosTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$planosTable is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$rolePermissoesTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$rolesTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$usersTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Property App\\Services\\PermissionService\:\:\$usuarioRolesTable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/Services/PermissionService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$plano\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/PlanoLimiteService.php
+
+		-
+			message: '#^Method App\\Services\\PreferenciaService\:\:getByUsuarioId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PreferenciaService.php
+
+		-
+			message: '#^Method App\\Services\\PreferenciaService\:\:save\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PreferenciaService.php
+
+		-
+			message: '#^Method App\\Services\\PreferenciaService\:\:save\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PreferenciaService.php
+
+		-
+			message: '#^Method App\\Services\\ProgressoService\:\:find\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Method App\\Services\\ProgressoService\:\:getResumo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Method App\\Services\\ProgressoService\:\:incrementarFlashcards\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Method App\\Services\\ProgressoService\:\:incrementarQuizes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Method App\\Services\\ProgressoService\:\:incrementarTempo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Method App\\Services\\ProgressoService\:\:save\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Method App\\Services\\ProgressoService\:\:save\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Unable to resolve the template type TPatchedEntity in call to method Cake\\ORM\\Table\<array,Cake\\Datasource\\EntityInterface\>\:\:patchEntity\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Services/ProgressoService.php
+
+		-
+			message: '#^Method App\\Services\\PromptService\:\:createPrompt\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PromptService.php
+
+		-
+			message: '#^Method App\\Services\\PromptService\:\:createPrompt\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PromptService.php
+
+		-
+			message: '#^Method App\\Services\\PromptService\:\:getPromptById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PromptService.php
+
+		-
+			message: '#^Method App\\Services\\PromptService\:\:getPromptsByUsuario\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PromptService.php
+
+		-
+			message: '#^Method App\\Services\\PromptService\:\:updatePrompt\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PromptService.php
+
+		-
+			message: '#^Method App\\Services\\PromptService\:\:updatePrompt\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/PromptService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$criado_por\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$frente\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$nivel_dificuldade\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$tag_sistema\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$verso\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Call to an undefined method Cake\\Datasource\\ConnectionInterface\:\:transactional\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Method App\\Services\\QuizGeradorService\:\:__construct\(\) has parameter \$embaralhar with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Method App\\Services\\QuizGeradorService\:\:gerar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Method App\\Services\\QuizGeradorService\:\:montarQuestao\(\) has parameter \$flashcard with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Method App\\Services\\QuizGeradorService\:\:montarQuestao\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Method App\\Services\\QuizGeradorService\:\:validar\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Trying to invoke \(Closure\(array\)\: array\)\|null but it might not be a callable\.$#'
+			identifier: callable.nonCallable
+			count: 3
+			path: src/Services/QuizGeradorService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Call to an undefined method Cake\\Datasource\\ConnectionInterface\:\:transactional\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:atualizar\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:atualizar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:buscarEntidades\(\) should return array\<App\\Model\\Entity\\QuizQuestao\> but returns array\<int, Cake\\Datasource\\EntityInterface\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:criar\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:criar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:formatar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:inserir\(\) has parameter \$normalizada with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:inserir\(\) should return App\\Model\\Entity\\QuizQuestao but returns Cake\\Datasource\\EntityInterface\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:inserirAlternativas\(\) has parameter \$alternativas with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:inserirLista\(\) has parameter \$normalizadas with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:listar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:normalizar\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:substituirTodas\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizQuestaoService\:\:validarLista\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizQuestaoService.php
+
+		-
+			message: '#^Method App\\Services\\QuizService\:\:createQuiz\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizService.php
+
+		-
+			message: '#^Method App\\Services\\QuizService\:\:createQuiz\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizService.php
+
+		-
+			message: '#^Method App\\Services\\QuizService\:\:getQuizById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizService.php
+
+		-
+			message: '#^Method App\\Services\\QuizService\:\:getQuizzesByUsuario\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizService.php
+
+		-
+			message: '#^Method App\\Services\\QuizService\:\:updateQuiz\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizService.php
+
+		-
+			message: '#^Method App\\Services\\QuizService\:\:updateQuiz\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizService.php
+
+		-
+			message: '#^Call to an undefined method Cake\\Datasource\\ConnectionInterface\:\:transactional\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Services/QuizTentativaService.php
+
+		-
+			message: '#^Method App\\Services\\QuizTentativaService\:\:corrigir\(\) has parameter \$resposta with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizTentativaService.php
+
+		-
+			message: '#^Method App\\Services\\QuizTentativaService\:\:finalizar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizTentativaService.php
+
+		-
+			message: '#^Method App\\Services\\QuizTentativaService\:\:verificar\(\) has parameter \$resposta with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizTentativaService.php
+
+		-
+			message: '#^Method App\\Services\\QuizTentativaService\:\:verificar\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/QuizTentativaService.php
+
+		-
+			message: '#^Parameter \#1 \$texto of static method App\\Services\\QuizTentativaService\:\:normalizarTexto\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Services/QuizTentativaService.php
+
+		-
+			message: '#^Access to an undefined property Cake\\Datasource\\EntityInterface\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: src/Services/SocialAuthService.php
+
+		-
+			message: '#^Method App\\Services\\SocialAuthService\:\:findOrCreateUser\(\) has parameter \$userInfo with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/SocialAuthService.php
+
+		-
+			message: '#^Method App\\Services\\StripeGateway\:\:criarCheckoutAssinatura\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/StripeGateway.php
+
+		-
+			message: '#^Method App\\Services\\TagService\:\:createTag\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TagService.php
+
+		-
+			message: '#^Method App\\Services\\TagService\:\:createTag\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TagService.php
+
+		-
+			message: '#^Method App\\Services\\TagService\:\:getTagById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TagService.php
+
+		-
+			message: '#^Method App\\Services\\TagService\:\:getTagsByUsuario\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TagService.php
+
+		-
+			message: '#^Method App\\Services\\TagService\:\:getTagsVisibleToUsuario\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TagService.php
+
+		-
+			message: '#^Method App\\Services\\TagService\:\:updateTag\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TagService.php
+
+		-
+			message: '#^Method App\\Services\\TagService\:\:updateTag\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TagService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:createTraducao\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:createTraducao\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:encodeAlternativas\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:encodeAlternativas\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:getTraducaoById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:getTraducoesByPrompt\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:updateTraducao\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\TraducaoService\:\:updateTraducao\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/TraducaoService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:getUserById\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:getUserByUuid\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:isActive\(\) has parameter \$user with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:login\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:register\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:register\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:updateUser\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:updateUser\(\) has parameter \$protected with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:updateUser\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Services/UserService.php

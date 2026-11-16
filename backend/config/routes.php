@@ -8,708 +8,163 @@ use Cake\Routing\RouteBuilder;
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
+$id = ['id' => '\d+'];
+$uuid = ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'];
+$questao = ['id' => '\d+', 'questaoId' => '\d+'];
+$provider = ['provider' => 'google|facebook|linkedin'];
+
 /**
- * HEALTHCHECK
+ * Registra uma rota. $alvo é "Controller::action"; $patterns restringe os parâmetros da URL
+ * e $pass lista os que chegam como argumentos da action (os demais são lidos via getParam).
+ *
+ * @param array<string>|string $metodos
+ * @param array<string, string> $patterns
+ * @param array<string> $pass
  */
-$routes->connect('/', [
-    'controller' => 'Users',
-    'action' => 'health'
-])->setMethods(['GET']);
-
-// ADMIN ROUTES
-$routes->connect('/admin/users', [
-    'controller' => 'Admin',
-    'action' => 'users'
-])->setMethods(['GET']);
-
-$routes->connect('/admin/users/role', [
-    'controller' => 'Admin',
-    'action' => 'updateRole'
-])->setMethods(['POST']);
-
-$routes->connect('/admin/stats', [
-    'controller' => 'Admin',
-    'action' => 'stats'
-])->setMethods(['GET']);
-
+$rota = static function (
+    array|string $metodos,
+    string $path,
+    string $alvo,
+    array $patterns = [],
+    array $pass = [],
+) use ($routes): void {
+    [$controller, $action] = explode('::', $alvo);
+    $route = $routes->connect($path, ['controller' => $controller, 'action' => $action]);
+    if ($patterns) {
+        $route->setPatterns($patterns);
+    }
+    if ($pass) {
+        $route->setPass($pass);
+    }
+    $route->setMethods((array)$metodos);
+};
 
 /**
- * ADMIN - ROLES
-*/
-$routes->connect('/admin/roles', [
-    'controller' => 'AdminRoles',
-    'action' => 'index'
-])->setMethods(['GET']);
-
-$routes->connect('/admin/roles', [
-    'controller' => 'AdminRoles',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/admin/roles/{id}', [
-    'controller' => 'AdminRoles',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])
-->setPass(['id'])
-->setMethods(['PUT']);
-
-$routes->connect('/admin/roles/{id}', [
-    'controller' => 'AdminRoles',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])
-->setPass(['id'])
-->setMethods(['DELETE']);
-
-/**
- * ROTAS: ADMIN - PERMISSÕES
+ * CRUD padrão de um recurso. Leitura, edição e exclusão aceitam a forma REST (/recurso/{id})
+ * e a forma legada com o verbo no path (/recurso/view|edit|delete/{id}), ainda usada pelo frontend.
  */
-$routes->connect('/admin/permissions', [
-    'controller' => 'AdminPermissions',
-    'action' => 'index'
-])->setMethods(['GET']);
+$crud = static function (string $base, string $controller, bool $listagem = true) use ($rota, $id): void {
+    if ($listagem) {
+        $rota('GET', $base, "$controller::index");
+    }
+    $rota('POST', $base, "$controller::add");
+    $rota('GET', "$base/view/{id}", "$controller::view", $id);
+    $rota('GET', "$base/{id}", "$controller::view", $id);
+    $rota('PUT', "$base/edit/{id}", "$controller::edit", $id);
+    $rota('PUT', "$base/{id}", "$controller::edit", $id);
+    $rota('DELETE', "$base/delete/{id}", "$controller::delete", $id);
+    $rota('DELETE', "$base/{id}", "$controller::delete", $id);
+};
+
+// HEALTHCHECK
+$rota('GET', '/', 'Users::health');
+
+// ADMIN (escopo protegido pelo AdminMiddleware)
+$rota('GET', '/admin/users', 'Admin::users');
+$rota('POST', '/admin/users/role', 'Admin::updateRole');
+$rota('GET', '/admin/stats', 'Admin::stats');
+
+$rota('GET', '/admin/roles', 'AdminRoles::index');
+$rota('POST', '/admin/roles', 'AdminRoles::add');
+$rota('PUT', '/admin/roles/{id}', 'AdminRoles::edit', $id, ['id']);
+$rota('DELETE', '/admin/roles/{id}', 'AdminRoles::delete', $id, ['id']);
+
+$rota('GET', '/admin/permissions', 'AdminPermissions::index');
+
+$rota('GET', '/admin/planos', 'AdminPlanos::index');
+$rota('POST', '/admin/planos', 'AdminPlanos::add');
+$rota(['PUT', 'POST'], '/admin/planos/edit/{id}', 'AdminPlanos::edit', $id, ['id']);
+$rota(['DELETE', 'POST'], '/admin/planos/delete/{id}', 'AdminPlanos::delete', $id, ['id']);
+
+// PLANOS E ASSINATURA
+$rota('GET', '/planos', 'Planos::index');
+$rota('POST', '/planos/{id}/assinar', 'Planos::assinar', $id, ['id']);
+$rota('POST', '/planos/cancelar', 'Planos::cancelar');
+// Stripe Billing Portal
+$rota('POST', '/planos/portal', 'Planos::portal');
+$rota('GET', '/user/assinatura', 'Assinaturas::current');
+$rota('GET', '/user/permissions', 'Users::permissions');
+$rota('POST', '/payments/webhook', 'Payments::webhook');
+
+// AUTENTICAÇÃO
+$rota('POST', '/auth/register', 'Users::register');
+$rota('POST', '/auth/login', 'Users::login');
+$rota('POST', '/auth/logout', 'Users::logout');
+$rota('POST', '/auth/refresh', 'Users::refresh');
+$rota('POST', '/auth/forgot-password', 'Users::forgotPassword');
+$rota('POST', '/auth/reset-password/{token}', 'Users::resetPassword', ['token' => '[a-f0-9]{64}'], ['token']);
+
+// Login social: login/{provider} redireciona ao provedor; o callback gera um código de uso único
+// que o frontend troca por tokens em /auth/social/exchange.
+$rota('GET', '/auth/login/{provider}', 'SocialAuth::login', $provider, ['provider']);
+$rota('GET', '/social-auth/callback/{provider}', 'SocialAuth::callback', $provider, ['provider']);
+$rota('POST', '/auth/social/exchange', 'Users::socialExchange');
+
+// USUÁRIOS (UUID primeiro, ID como fallback)
+$rota('GET', '/users/me', 'Users::me');
+$rota('GET', '/users/{uuid}', 'Users::viewByUuid', $uuid);
+$rota('GET', '/users/view/{id}', 'Users::view', $id);
+$rota('GET', '/users/{id}', 'Users::view', $id);
+$rota(['PUT', 'POST'], '/users/update/{id}', 'Users::update', $id);
+$rota('DELETE', '/users/delete/{id}', 'Users::delete', $id);
+$rota('POST', '/upload/profile-photo', 'Upload::profilePhoto');
+
+// FLASHCARDS
+$crud('/flashcards', 'Flashcards');
+$rota('GET', '/flashcards/{uuid}', 'Flashcards::viewByUuid', $uuid);
+// Repetição espaçada: devidos para revisar e registro da avaliação
+$rota('GET', '/flashcards/revisao', 'Flashcards::devidos');
+$rota('POST', '/flashcards/{id}/revisao', 'Flashcards::revisao', $id, ['id']);
+
+$rota('GET', '/flashcard-tags/flashcard/{flashcardId}', 'FlashcardTags::getByFlashcard', ['flashcardId' => '\d+']);
+$rota('POST', '/flashcard-tags', 'FlashcardTags::add');
+$rota('DELETE', '/flashcard-tags', 'FlashcardTags::remove');
+
+// QUIZES
+$crud('/quizes', 'Quizes');
+// Gera um quiz a partir dos flashcards do usuário (cria um quiz: sujeito ao limite do plano)
+$rota('POST', '/quizes/gerar', 'Quizes::gerar');
+// Questões (dono)
+$rota('GET', '/quizes/{id}/questoes', 'Quizes::questoes', $id, ['id']);
+$rota('POST', '/quizes/{id}/questoes', 'Quizes::addQuestao', $id, ['id']);
+$rota('PUT', '/quizes/{id}/questoes', 'Quizes::substituirQuestoes', $id, ['id']);
+$rota('PUT', '/quizes/{id}/questoes/{questaoId}', 'Quizes::editQuestao', $questao, ['id', 'questaoId']);
+$rota('DELETE', '/quizes/{id}/questoes/{questaoId}', 'Quizes::deleteQuestao', $questao, ['id', 'questaoId']);
+// Jogar (dono ou quiz público): correção sempre no servidor
+$rota('POST', '/quizes/{id}/questoes/{questaoId}/verificar', 'Quizes::verificar', $questao, ['id', 'questaoId']);
+$rota('POST', '/quizes/{id}/finalizar', 'Quizes::finalizar', $id, ['id']);
+
+// TAGS
+$crud('/tags', 'Tags');
+$rota('GET', '/tags/usuario/{usuarioId}', 'Tags::getByUsuario', ['usuarioId' => '\d+']);
+
+// PREFERÊNCIAS, PROGRESSO E RESPOSTAS
+$rota('GET', '/preferencias/usuario/{usuarioId}', 'Preferencias::getByUsuario', ['usuarioId' => '\d+']);
+$rota('POST', '/preferencias', 'Preferencias::save');
+
+$rota('GET', '/progresso/usuario/{usuarioId}', 'Progresso::getByUsuario', ['usuarioId' => '\d+']);
+$rota('POST', '/progresso', 'Progresso::save');
+$rota('POST', '/progresso/incrementar-flashcards', 'Progresso::incrementarFlashcards');
+$rota('POST', '/progresso/incrementar-tempo', 'Progresso::incrementarTempo');
 
-/**
- * ROTAS: ADMIN - PLANOS
- */
-$routes->connect('/admin/planos', [
-    'controller' => 'AdminPlanos',
-    'action' => 'index'
-])->setMethods(['GET']);
+$rota('POST', '/respostas', 'Respostas::save');
 
-$routes->connect('/admin/planos', [
-    'controller' => 'AdminPlanos',
-    'action' => 'add'
-])->setMethods(['POST']);
+// PROMPTS E O QUE DERIVA DELES (sem listagem geral: sempre por prompt)
+$crud('/prompts', 'Prompts');
+$rota('GET', '/prompts/usuario/{usuarioId}', 'Prompts::getByUsuario', ['usuarioId' => '\d+']);
 
-$routes->connect('/admin/planos/edit/{id}', [
-    'controller' => 'AdminPlanos',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])
-->setPass(['id'])
-->setMethods(['PUT', 'POST']);
+// Geração por IA a partir do texto do prompt (GeracaoService): cria a tradução / as frases
+$rota('POST', '/prompts/{id}/traducoes/gerar', 'Traducoes::gerar', $id, ['id']);
+$rota('POST', '/prompts/{id}/frases/gerar', 'FrasesSemelhantes::gerar', $id, ['id']);
 
-$routes->connect('/admin/planos/delete/{id}', [
-    'controller' => 'AdminPlanos',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])
-->setPass(['id'])
-->setMethods(['DELETE', 'POST']);
+$crud('/traducoes', 'Traducoes', listagem: false);
+$rota('GET', '/traducoes/prompt/{promptId}', 'Traducoes::getByPrompt', ['promptId' => '\d+']);
 
-/**
- * ROTA: PLANOS PÚBLICOS
- */
-$routes->connect('/planos', [
-    'controller' => 'Planos',
-    'action' => 'index'
-])->setMethods(['GET']);
+$crud('/imagens', 'ImagensGeradas', listagem: false);
+$rota('GET', '/imagens/prompt/{promptId}', 'ImagensGeradas::getByPrompt', ['promptId' => '\d+']);
 
-/**
- * ROTA: USUÁRIO - PERMISSÕES
- */
-$routes->connect('/user/permissions', [
-    'controller' => 'Users',
-    'action' => 'permissions'
-])->setMethods(['GET']);
+$crud('/frases', 'FrasesSemelhantes', listagem: false);
+$rota('GET', '/frases/prompt/{promptId}', 'FrasesSemelhantes::getByPrompt', ['promptId' => '\d+']);
 
-/**
- * ROTA: USUÁRIO - ASSINATURA
- */
-$routes->connect('/user/assinatura', [
-    'controller' => 'Assinaturas',
-    'action' => 'current'
-])->setMethods(['GET']);
-
-/**
- * ROTA: PLANOS - ASSINAR
- */
-$routes->connect('/planos/{id}/assinar', [
-    'controller' => 'Planos',
-    'action' => 'assinar'
-])->setPatterns(['id' => '\d+'])
-->setPass(['id'])
-->setMethods(['POST']);
-
-/**
- * ROTA: PLANOS - CANCELAR
- */
-$routes->connect('/planos/cancelar', [
-    'controller' => 'Planos',
-    'action' => 'cancelar'
-])->setMethods(['POST']);
-
-/**
- * ROTA: PLANOS - PORTAL DO CLIENTE (Stripe Billing Portal)
- */
-$routes->connect('/planos/portal', [
-    'controller' => 'Planos',
-    'action' => 'portal'
-])->setMethods(['POST']);
-
-/**
- * STRIPE ROUTES
- */
-$routes->connect('/payments/webhook', [
-    'controller' => 'Payments',
-    'action' => 'webhook'
-])->setMethods(['POST']);
-
-/**
- * AUTH ROUTES
- */
-$routes->connect('/auth/register', [
-    'controller' => 'Users',
-    'action' => 'register'
-])->setMethods(['POST']);
-
-$routes->connect('/auth/login', [
-    'controller' => 'Users',
-    'action' => 'login'
-])->setMethods(['POST']);
-
-/**
- * SOCIAL AUTH
- * login/{provider} redireciona ao provedor; o callback gera um código de uso único
- * que o frontend troca por tokens em /auth/social/exchange.
- */
-$routes->connect('/auth/login/{provider}', [
-    'controller' => 'SocialAuth',
-    'action' => 'login'
-])->setPatterns([
-    'provider' => 'google|facebook|linkedin'
-])->setPass(['provider'])
-->setMethods(['GET']);
-
-$routes->connect('/social-auth/callback/{provider}', [
-    'controller' => 'SocialAuth',
-    'action' => 'callback'
-])->setPatterns([
-    'provider' => 'google|facebook|linkedin'
-])->setPass(['provider'])
-->setMethods(['GET']);
-
-$routes->connect('/auth/social/exchange', [
-    'controller' => 'Users',
-    'action' => 'socialExchange'
-])->setMethods(['POST']);
-
-$routes->connect('/auth/logout', [
-    'controller' => 'Users',
-    'action' => 'logout'
-])->setMethods(['POST']);
-
-$routes->connect('/auth/forgot-password', [
-    'controller' => 'Users',
-    'action' => 'forgotPassword'
-])->setMethods(['POST']);
-
-$routes->connect('/auth/reset-password/{token}', [
-    'controller' => 'Users',
-    'action' => 'resetPassword'
-])->setPatterns([
-    'token' => '[a-f0-9]{64}'
-])->setPass(['token'])
-->setMethods(['POST']);
-
-$routes->connect('/auth/refresh', [
-    'controller' => 'Users',
-    'action' => 'refresh'
-])->setMethods(['POST']);
-
-// Nova rota para obter usuário do token
-$routes->connect('/users/me', [
-    'controller' => 'Users',
-    'action' => 'me'
-])->setMethods(['GET']);
-
-/**
- * UPLOAD
- */
-$routes->connect('/upload/profile-photo', [
-    'controller' => 'Upload',
-    'action' => 'profilePhoto'
-])->setMethods(['POST']);
-
-/**
- * USERS (UUID FIRST + ID FALLBACK)
- */
-$routes->connect('/users/{uuid}', [
-    'controller' => 'Users',
-    'action' => 'viewByUuid'
-])->setPatterns([
-    'uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
-])->setMethods(['GET']);
-
-// fallback ID
-
-$routes->connect('/users/view/{id}', [
-    'controller' => 'Users',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/users/{id}', [
-    'controller' => 'Users',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/users/update/{id}', [
-    'controller' => 'Users',
-    'action' => 'update'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT', 'POST']);
-
-$routes->connect('/users/delete/{id}', [
-    'controller' => 'Users',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-/**
- * FLASHCARDS (REST CLEAN) - COMPLETO
- */
-$routes->connect('/flashcards', [
-    'controller' => 'Flashcards',
-    'action' => 'index'
-])->setMethods(['GET']);
-
-$routes->connect('/flashcards', [
-    'controller' => 'Flashcards',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-// UUID view
-$routes->connect('/flashcards/{uuid}', [
-    'controller' => 'Flashcards',
-    'action' => 'viewByUuid'
-])->setPatterns([
-    'uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
-])->setMethods(['GET']);
-
-// fallback ID view
-$routes->connect('/flashcards/view/{id}', [
-    'controller' => 'Flashcards',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/flashcards/{id}', [
-    'controller' => 'Flashcards',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-// PUT edit - suporta /flashcards/{id} e /flashcards/edit/{id}
-$routes->connect('/flashcards/{id}', [
-    'controller' => 'Flashcards',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/flashcards/edit/{id}', [
-    'controller' => 'Flashcards',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-// DELETE - suporta /flashcards/{id} e /flashcards/delete/{id}
-$routes->connect('/flashcards/{id}', [
-    'controller' => 'Flashcards',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/flashcards/delete/{id}', [
-    'controller' => 'Flashcards',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-// REPETIÇÃO ESPAÇADA: devidos para revisar e registro da avaliação
-$routes->connect('/flashcards/revisao', [
-    'controller' => 'Flashcards',
-    'action' => 'devidos'
-])->setMethods(['GET']);
-
-$routes->connect('/flashcards/{id}/revisao', [
-    'controller' => 'Flashcards',
-    'action' => 'revisao'
-])->setPatterns(['id' => '\d+'])->setPass(['id'])->setMethods(['POST']);
-
-/**
- * QUIZES (REST) - COMPLETO
- */
-$routes->connect('/quizes', [
-    'controller' => 'Quizes',
-    'action' => 'index'
-])->setMethods(['GET']);
-
-$routes->connect('/quizes', [
-    'controller' => 'Quizes',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/quizes/view/{id}', [
-    'controller' => 'Quizes',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/quizes/{id}', [
-    'controller' => 'Quizes',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-// PUT edit
-$routes->connect('/quizes/{id}', [
-    'controller' => 'Quizes',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/quizes/edit/{id}', [
-    'controller' => 'Quizes',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-// DELETE
-$routes->connect('/quizes/{id}', [
-    'controller' => 'Quizes',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/quizes/delete/{id}', [
-    'controller' => 'Quizes',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-// Gerar quiz a partir dos flashcards do usuário (cria um quiz: sujeito ao limite do plano)
-$routes->connect('/quizes/gerar', [
-    'controller' => 'Quizes',
-    'action' => 'gerar'
-])->setMethods(['POST']);
-
-// QUESTÕES DO QUIZ (dono)
-$routes->connect('/quizes/{id}/questoes', [
-    'controller' => 'Quizes',
-    'action' => 'questoes'
-])->setPatterns(['id' => '\d+'])->setPass(['id'])->setMethods(['GET']);
-
-$routes->connect('/quizes/{id}/questoes', [
-    'controller' => 'Quizes',
-    'action' => 'addQuestao'
-])->setPatterns(['id' => '\d+'])->setPass(['id'])->setMethods(['POST']);
-
-$routes->connect('/quizes/{id}/questoes', [
-    'controller' => 'Quizes',
-    'action' => 'substituirQuestoes'
-])->setPatterns(['id' => '\d+'])->setPass(['id'])->setMethods(['PUT']);
-
-$routes->connect('/quizes/{id}/questoes/{questaoId}', [
-    'controller' => 'Quizes',
-    'action' => 'editQuestao'
-])->setPatterns(['id' => '\d+', 'questaoId' => '\d+'])->setPass(['id', 'questaoId'])->setMethods(['PUT']);
-
-$routes->connect('/quizes/{id}/questoes/{questaoId}', [
-    'controller' => 'Quizes',
-    'action' => 'deleteQuestao'
-])->setPatterns(['id' => '\d+', 'questaoId' => '\d+'])->setPass(['id', 'questaoId'])->setMethods(['DELETE']);
-
-// JOGAR (dono ou quiz público): correção sempre no servidor
-$routes->connect('/quizes/{id}/questoes/{questaoId}/verificar', [
-    'controller' => 'Quizes',
-    'action' => 'verificar'
-])->setPatterns(['id' => '\d+', 'questaoId' => '\d+'])->setPass(['id', 'questaoId'])->setMethods(['POST']);
-
-$routes->connect('/quizes/{id}/finalizar', [
-    'controller' => 'Quizes',
-    'action' => 'finalizar'
-])->setPatterns(['id' => '\d+'])->setPass(['id'])->setMethods(['POST']);
-
-/**
- * TAGS (REST) - COMPLETO
- */
-$routes->connect('/tags', [
-    'controller' => 'Tags',
-    'action' => 'index'
-])->setMethods(['GET']);
-
-$routes->connect('/tags', [
-    'controller' => 'Tags',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/tags/view/{id}', [
-    'controller' => 'Tags',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/tags/{id}', [
-    'controller' => 'Tags',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-// PUT edit
-$routes->connect('/tags/{id}', [
-    'controller' => 'Tags',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/tags/edit/{id}', [
-    'controller' => 'Tags',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-// DELETE
-$routes->connect('/tags/{id}', [
-    'controller' => 'Tags',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/tags/delete/{id}', [
-    'controller' => 'Tags',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/tags/usuario/{usuarioId}', [
-    'controller' => 'Tags',
-    'action' => 'getByUsuario'
-])->setPatterns(['usuarioId' => '\d+'])->setMethods(['GET']);
-
-/**
- * PREFERÊNCIAS
- */
-$routes->connect('/preferencias/usuario/{usuarioId}', [
-    'controller' => 'Preferencias',
-    'action' => 'getByUsuario'
-])->setPatterns(['usuarioId' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/preferencias', [
-    'controller' => 'Preferencias',
-    'action' => 'save'
-])->setMethods(['POST']);
-
-/**
- * PROGRESSO
- */
-$routes->connect('/progresso/usuario/{usuarioId}', [
-    'controller' => 'Progresso',
-    'action' => 'getByUsuario'
-])->setPatterns(['usuarioId' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/progresso', [
-    'controller' => 'Progresso',
-    'action' => 'save'
-])->setMethods(['POST']);
-
-
-/**
- * RESPOSTAS
- */
-$routes->connect('/respostas', [
-    'controller' => 'Respostas',
-    'action' => 'save'
-])->setMethods(['POST']);
-
-/**
- * PROMPTS - COMPLETO
- */
-$routes->connect('/prompts', [
-    'controller' => 'Prompts',
-    'action' => 'index'
-])->setMethods(['GET']);
-
-$routes->connect('/prompts', [
-    'controller' => 'Prompts',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/prompts/view/{id}', [
-    'controller' => 'Prompts',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/prompts/{id}', [
-    'controller' => 'Prompts',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-// PUT edit
-$routes->connect('/prompts/{id}', [
-    'controller' => 'Prompts',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/prompts/edit/{id}', [
-    'controller' => 'Prompts',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-// DELETE
-$routes->connect('/prompts/{id}', [
-    'controller' => 'Prompts',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/prompts/delete/{id}', [
-    'controller' => 'Prompts',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/prompts/usuario/{usuarioId}', [
-    'controller' => 'Prompts',
-    'action' => 'getByUsuario'
-])->setPatterns(['usuarioId' => '\d+'])->setMethods(['GET']);
-
-/**
- * TRADUÇÕES
- */
-$routes->connect('/traducoes/view/{id}', [
-    'controller' => 'Traducoes',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/traducoes/{id}', [
-    'controller' => 'Traducoes',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/traducoes', [
-    'controller' => 'Traducoes',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/traducoes/edit/{id}', [
-    'controller' => 'Traducoes',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/traducoes/{id}', [
-    'controller' => 'Traducoes',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/traducoes/delete/{id}', [
-    'controller' => 'Traducoes',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/traducoes/{id}', [
-    'controller' => 'Traducoes',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/traducoes/prompt/{promptId}', [
-    'controller' => 'Traducoes',
-    'action' => 'getByPrompt'
-])->setPatterns(['promptId' => '\d+'])->setMethods(['GET']);
-
-/**
- * IMAGENS GERADAS
- */
-$routes->connect('/imagens/view/{id}', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/imagens/{id}', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/imagens', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/imagens/edit/{id}', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/imagens/{id}', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/imagens/delete/{id}', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/imagens/{id}', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/imagens/prompt/{promptId}', [
-    'controller' => 'ImagensGeradas',
-    'action' => 'getByPrompt'
-])->setPatterns(['promptId' => '\d+'])->setMethods(['GET']);
-
-/**
- * FRASES SEMELHANTES
- */
-$routes->connect('/frases/view/{id}', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/frases/{id}', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'view'
-])->setPatterns(['id' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/frases', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/frases/edit/{id}', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/frases/{id}', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'edit'
-])->setPatterns(['id' => '\d+'])->setMethods(['PUT']);
-
-$routes->connect('/frases/delete/{id}', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/frases/{id}', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'delete'
-])->setPatterns(['id' => '\d+'])->setMethods(['DELETE']);
-
-$routes->connect('/frases/prompt/{promptId}', [
-    'controller' => 'FrasesSemelhantes',
-    'action' => 'getByPrompt'
-])->setPatterns(['promptId' => '\d+'])->setMethods(['GET']);
-
-/**
- * FLASHCARD TAGS
- */
-$routes->connect('/flashcard-tags/flashcard/{flashcardId}', [
-    'controller' => 'FlashcardTags',
-    'action' => 'getByFlashcard'
-])->setPatterns(['flashcardId' => '\d+'])->setMethods(['GET']);
-
-$routes->connect('/flashcard-tags', [
-    'controller' => 'FlashcardTags',
-    'action' => 'add'
-])->setMethods(['POST']);
-
-$routes->connect('/flashcard-tags', [
-    'controller' => 'FlashcardTags',
-    'action' => 'remove'
-])->setMethods(['DELETE']);
-
-$routes->connect('/progresso/incrementar-flashcards', [
-    'controller' => 'Progresso',
-    'action' => 'incrementarFlashcards'
-])->setMethods(['POST']);
-
-$routes->connect('/progresso/incrementar-tempo', [
-    'controller' => 'Progresso',
-    'action' => 'incrementarTempo'
-])->setMethods(['POST']);
-
-/**
- * FALLBACK (deve ser sempre a última rota)
- */
-$routes->connect('/*', [
-    'controller' => 'Users',
-    'action' => 'notFound'
-]);
+// FALLBACK (deve ser sempre a última rota)
+$routes->connect('/*', ['controller' => 'Users', 'action' => 'notFound']);

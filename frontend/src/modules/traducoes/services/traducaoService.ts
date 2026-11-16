@@ -17,6 +17,14 @@ export const traducaoService = {
   update: async (id: number, data: Partial<TraducaoInput>): Promise<ApiResponse<Traducao>> =>
     (await api.put<ApiResponse<Traducao>>(`/traducoes/edit/${id}`, data)).data,
 
+  // Traduz o texto do prompt com IA (o backend cria e devolve a tradução)
+  gerar: async (promptId: number, idiomaDestino: string): Promise<ApiResponse<Traducao>> =>
+    (
+      await api.post<ApiResponse<Traducao>>(`/prompts/${promptId}/traducoes/gerar`, {
+        idioma_destino: idiomaDestino,
+      })
+    ).data,
+
   delete: async (id: number): Promise<ApiResponse<null>> =>
     (await api.delete<ApiResponse<null>>(`/traducoes/delete/${id}`)).data,
 }

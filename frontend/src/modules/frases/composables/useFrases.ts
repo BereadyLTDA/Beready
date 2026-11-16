@@ -54,6 +54,19 @@ export function useFrases() {
     }
   }
 
+  // Não mexe em `loading` (que troca a lista pelo spinner): quem chama controla o próprio estado
+  const gerarFrases = async (promptId: number, quantidade?: number): Promise<Frase[]> => {
+    try {
+      const response = await fraseService.gerar(promptId, quantidade)
+      if (!response.success) throw new Error(response.message)
+      frases.value.unshift(...response.data)
+      success(t('frases.successGenerate'))
+      return response.data
+    } catch (err) {
+      return fail(err, t('frases.errorGenerate'))
+    }
+  }
+
   const updateFrase = async (id: number, data: Partial<FraseInput>): Promise<Frase> => {
     loading.value = true
     try {
@@ -84,5 +97,5 @@ export function useFrases() {
     }
   }
 
-  return { frases, loading, fetchFrases, createFrase, updateFrase, deleteFrase }
+  return { frases, loading, fetchFrases, createFrase, gerarFrases, updateFrase, deleteFrase }
 }
