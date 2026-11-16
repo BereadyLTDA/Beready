@@ -8,30 +8,50 @@ Aplicação web para aprendizado de inglês por contextualização visual, utili
 
 ## Back-end
 
-- CakePHP 5
-- PHP 8+
-- PostgreSQL / Supabase
+- PHP 8.2+ e CakePHP 5 (API REST, sem views)
+- Injeção de dependências pelo container do Cake (autowiring)
+- JWT (access token em memória + refresh token em cookie httpOnly)
+- Login social com `league/oauth2-client` (Google, Facebook, LinkedIn)
+- Stripe (assinatura recorrente), Cloudinary (fotos), Resend/SMTP (e-mail), Sentry (erros)
+- Claude, via SDK oficial da Anthropic, para gerar traduções e frases
+- Redis (opcional) para rate limit e contadores compartilhados entre instâncias
+- PHPUnit (integração + contrato OpenAPI) e PHPStan nível 8
 
 ## Front-end
 
-- Vue.js 3
-- TypeScript
-- Vite
-- Pinia
+- Vue 3, TypeScript, Vite
+- Pinia, Vue Router, vue-i18n (14 idiomas)
+- Tailwind ligado a tokens de design (ver `frontend/docs/design-system.md`)
+- Tipos da API gerados do contrato OpenAPI (`npm run gen:api`)
+- Vitest (unitários) e Playwright (ponta a ponta + acessibilidade)
 
 ## Banco de Dados
 
-- PostgreSQL
-- Supabase
+- PostgreSQL 15 (local ou Supabase), com migrations do CakePHP
 
 ---
 
 # Estrutura do Projeto
 
 ```txt
-backend/   → API CakePHP
-frontend/  → Interface Vue.js
+backend/
+  config/routes.php        rotas (helpers $rota e $crud)
+  openapi.yaml             contrato da API, validado pelos testes
+  src/Application.php      middlewares e registro do container (interface => implementação)
+  src/Controller/          recebem dependências pelo construtor
+  src/Services/            regras de negócio
+  src/Repositories/        acesso a dados (por trás das interfaces em src/Contracts/)
+  src/Middleware/          CORS, rate limit, JWT, admin, limites do plano
+  tests/                   integração (ApiTestCase), contrato e serviços
+frontend/
+  src/modules/<recurso>/   services, composables e views por recurso
+  src/shared/              kit de UI, composables e utilitários
+  src/core/types/          api.gen.ts (gerado) e tipos escritos à mão
+  e2e/                     Playwright com API mockada
+docker/                    configs das imagens de produção (Caddy, Nginx, php.ini)
 ```
+
+Detalhes de arquitetura e de como adicionar uma rota nova: [`docs/arquitetura.md`](docs/arquitetura.md).
 
 ---
 
@@ -215,11 +235,9 @@ VITE_API_URL=http://localhost:8765
 
 # 🧠 Observações
 
-- O backend e frontend rodam separadamente
-- É necessário manter os dois servidores ativos
-- O projeto utiliza arquitetura API REST
-- O Supabase é utilizado como banco PostgreSQL
-- O frontend consome os endpoints do CakePHP
+- Backend e frontend rodam separadamente (ou juntos com `docker compose up`)
+- O frontend consome a API REST do CakePHP; o formato das respostas está em `backend/openapi.yaml`
+- O banco é PostgreSQL, local ou no Supabase (usado apenas como banco)
 
 ---
 
@@ -242,6 +260,61 @@ php bin/cake.php server
 cd frontend
 npm install
 npm run dev
+```
+
+---
+
+# Contrato da API (OpenAPI)
+
+O contrato fica em `backend/openapi.yaml`. Os testes do backend validam cada resposta contra ele e
+falham se uma rota não estiver descrita, então ele não tem como ficar desatualizado em silêncio.
+
+Ao mudar o formato de uma resposta, atualize o `openapi.yaml` e regenere os tipos do frontend:
+
+```bash
+cd frontend
+npm run gen:api   # gera src/core/types/api.gen.ts (não edite esse arquivo à mão)
+```
+
+O CI recusa o build se `api.gen.ts` estiver diferente do que o contrato gera.
+
+---
+
+# Geração por IA
+
+Traduções e frases semelhantes de um prompt podem ser geradas com o Claude (botão "Gerar com IA").
+Defina `ANTHROPIC_API_KEY` no `backend/.env`; sem a chave, só esses dois endpoints respondem 503.
+Cada usuário pode gerar até `IA_LIMITE_DIARIO` vezes por dia (padrão 50).
+
+---
+
+# Docker
+
+Desenvolvimento (API, frontend, Postgres e Redis):
+
+```bash
+docker compose up --build
+```
+
+Imagens de produção (API servida pelo FrankenPHP; frontend estático no Nginx):
+
+```bash
+docker build -f Dockerfile.backend  --target prod -t beready-api .
+docker build -f Dockerfile.frontend --target prod --build-arg VITE_API_URL=https://api.exemplo.com -t beready-web .
+```
+
+Em produção a API lê a configuração das variáveis de ambiente do container (as mesmas do
+`backend/.env.example`). Com mais de uma instância da API, defina `REDIS_URL`.
+
+---
+
+# Testes
+
+```bash
+cd backend && vendor/bin/phpunit           # integração + contrato da API
+cd backend && vendor/bin/phpstan analyse   # análise estática (erros antigos em phpstan-baseline.neon)
+cd frontend && npm run test:unit           # unitários (Vitest)
+cd frontend && npm run test:e2e            # ponta a ponta (Playwright)
 ```
 
 ---

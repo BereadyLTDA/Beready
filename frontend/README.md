@@ -1,48 +1,57 @@
-# frontend
+# BeReady — frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+SPA em Vue 3 + TypeScript + Vite que consome a API do backend (`../backend`).
 
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Rodar
 
 ```sh
 npm install
+cp .env.example .env   # VITE_API_URL aponta para a API (padrão http://localhost:8765)
+npm run dev            # http://localhost:5173
 ```
 
-### Compile and Hot-Reload for Development
+## Scripts
 
-```sh
-npm run dev
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento com HMR |
+| `npm run build` | Type-check (`vue-tsc`) e build de produção em `dist/` |
+| `npm run lint` | oxlint + ESLint (com `--fix`) |
+| `npm run format` | Prettier em `src/` |
+| `npm run test:unit` | Testes unitários (Vitest, arquivos `src/**/*.spec.ts`) |
+| `npm run test:e2e` | Testes ponta a ponta (Playwright, pasta `e2e/`, API mockada) |
+| `npm run gen:api` | Regera `src/core/types/api.gen.ts` a partir de `../backend/openapi.yaml` |
+
+## Organização
+
+```txt
+src/
+  core/services/api.ts     axios único: injeta o access token e renova a sessão no 401
+  core/types/              api.gen.ts (gerado, não editar) e index.ts (tipos escritos à mão)
+  modules/<recurso>/       services (chamadas HTTP), composables (estado + alertas) e views
+  shared/components/ui/    kit de UI (Base*, PageHeader, EmptyState...)
+  shared/composables/      useForm, useAlert, useTheme, usePlan...
+  stores/                  Pinia: auth e permissões
+  locales/                 14 idiomas; pt-BR é a referência
 ```
 
-### Type-Check, Compile and Minify for Production
+Cada view usa um composable do próprio módulo (`useFlashcards`, `useTraducoes`...), que chama o
+service e já exibe os alertas de sucesso e erro.
 
-```sh
-npm run build
+## Tipos da API
+
+O contrato da API fica em `../backend/openapi.yaml`, e os testes do backend garantem que ele bate
+com as respostas reais. Depois de alterar o contrato, rode `npm run gen:api` e versione o
+`api.gen.ts`; o CI falha se o arquivo estiver desatualizado.
+
+Os tipos de `index.ts` ainda são mantidos à mão. Ao mexer em um deles, prefira derivar do gerado:
+
+```ts
+import type { components } from './api.gen'
+export type Traducao = components['schemas']['Traducao']
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Outras referências
 
-```sh
-npm run lint
-```
+- Design system e tokens: [`docs/design-system.md`](docs/design-system.md)
+- Testes E2E: [`e2e/README.md`](e2e/README.md)
