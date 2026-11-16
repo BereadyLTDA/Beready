@@ -18,6 +18,10 @@ class AdminMiddleware implements MiddlewareInterface
 {
     use JsonErrorResponseTrait;
 
+    public function __construct(private PermissionService $permissionService)
+    {
+    }
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $path = $request->getUri()->getPath();
@@ -32,7 +36,7 @@ class AdminMiddleware implements MiddlewareInterface
             return $this->jsonErrorResponse(401, 'Usuário não autenticado');
         }
 
-        if (!(new PermissionService())->isAdmin($userId)) {
+        if (!$this->permissionService->isAdmin($userId)) {
             return $this->jsonErrorResponse(403, 'Acesso negado. Área administrativa.');
         }
 

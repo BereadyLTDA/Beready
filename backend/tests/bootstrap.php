@@ -44,8 +44,8 @@ foreach (['host', 'port', 'database'] as $key) {
 }
 unset($expected, $actual, $key);
 
-// Rate limit e códigos do login social em memória, isolados do servidor de desenvolvimento
-foreach (['rate_limit', 'social_login'] as $cacheConfig) {
+// Rate limit, códigos do login social e uso da IA em memória, isolados do servidor de desenvolvimento
+foreach (['rate_limit', 'social_login', 'ia_uso'] as $cacheConfig) {
     Cache::drop($cacheConfig);
     Cache::setConfig($cacheConfig, ['className' => 'Array']);
 }

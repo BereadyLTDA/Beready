@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Services\CloudinaryService;
+use App\Contracts\CloudinaryServiceInterface;
+use App\Services\PermissionService;
+use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 
 /**
@@ -15,6 +17,14 @@ class UploadController extends AppController
     private const MAX_SIZE = 5 * 1024 * 1024;
 
     private const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private CloudinaryServiceInterface $cloudinary,
+    ) {
+        parent::__construct($request, $permissionService);
+    }
 
     public function profilePhoto()
     {
@@ -46,7 +56,7 @@ class UploadController extends AppController
         }
 
         try {
-            $url = (new CloudinaryService())->uploadProfilePhoto([
+            $url = $this->cloudinary->uploadProfilePhoto([
                 'tmp_name' => $tmpPath,
                 'name' => $file->getClientFilename(),
                 'type' => $mimeType,

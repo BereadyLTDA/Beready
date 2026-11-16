@@ -756,6 +756,10 @@ export default {
     errorCreate: 'フレーズの作成に失敗しました',
     errorUpdate: 'フレーズの更新に失敗しました',
     errorDelete: 'フレーズの削除に失敗しました',
+    generate: 'AIで生成',
+    generating: '生成中...',
+    successGenerate: 'フレーズを生成しました！',
+    errorGenerate: 'フレーズの生成中にエラーが発生しました',
   },
   imagens: {
     title: '生成された画像',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: '翻訳の更新に失敗しました',
     successDelete: '翻訳を削除しました！',
     errorDelete: '翻訳の削除に失敗しました',
+    generate: 'AIで生成',
+    generateTitle: 'AIで翻訳を生成',
+    generateHint: '翻訳はプロンプトのテキストから作成され、一覧に保存されます。',
+    generating: '生成中...',
+    successGenerate: '翻訳を生成しました！',
+    errorGenerate: '翻訳の生成中にエラーが発生しました',
   },
   confirmModal: {
     title: '操作の確認',

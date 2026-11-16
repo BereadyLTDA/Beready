@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Contracts\PromptRepositoryInterface;
 use App\Controller\Traits\PromptOwnershipTrait;
 use App\Controller\Traits\ResourceErrorTrait;
-use App\Repositories\FraseRepository;
 use App\Services\FraseService;
+use App\Services\GeracaoService;
+use App\Services\PermissionService;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 
 class FrasesSemelhantesController extends AppController
 {
     use PromptOwnershipTrait;
     use ResourceErrorTrait;
 
-    private FraseService $service;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new FraseService(new FraseRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private FraseService $service,
+        private PromptRepositoryInterface $promptRepository,
+        private GeracaoService $geracaoService,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /frases/prompt/{promptId}
@@ -55,6 +61,23 @@ class FrasesSemelhantesController extends AppController
             return $this->jsonSuccess($this->findOwnedFrase((int)$fraseId));
         } catch (\Exception $e) {
             return $this->errorResponse($e);
+        }
+    }
+
+    // POST /prompts/{id}/frases/gerar  { quantidade? } — gera frases semelhantes ao texto do prompt com IA
+    public function gerar(string $id): Response
+    {
+        try {
+            $prompt = $this->promptRepository->findById((int)$id);
+            if (!$prompt || !$this->canAccessUser((int)$prompt['usuario_id'])) {
+                return $this->jsonError('Prompt não encontrado', 404);
+            }
+
+            $frases = $this->geracaoService->gerarFrases($prompt, $this->currentUserId(), $this->getRequestData());
+
+            return $this->jsonSuccess($frases, 'Frases geradas com sucesso', 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e, 'Erro ao gerar frases');
         }
     }
 

@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
@@ -33,5 +33,10 @@ export default defineConfig({
   },
   server: {
     watch: { usePolling: true },
+  },
+  test: {
+    // Só os testes unitários: os *.spec.ts de e2e/ são do Playwright (npm run test:e2e)
+    include: ['src/**/*.spec.ts'],
+    environment: 'node',
   },
 })

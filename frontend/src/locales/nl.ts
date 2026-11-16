@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Fout bij het aanmaken van de zin',
     errorUpdate: 'Fout bij het bijwerken van de zin',
     errorDelete: 'Fout bij het verwijderen van de zin',
+    generate: 'Genereren met AI',
+    generating: 'Bezig met genereren...',
+    successGenerate: 'Zinnen succesvol gegenereerd!',
+    errorGenerate: 'Fout bij het genereren van zinnen',
   },
   imagens: {
     title: 'Gegenereerde Afbeeldingen',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Fout bij het bijwerken van de vertaling',
     successDelete: 'Vertaling succesvol verwijderd!',
     errorDelete: 'Fout bij het verwijderen van de vertaling',
+    generate: 'Genereren met AI',
+    generateTitle: 'Vertaling genereren met AI',
+    generateHint: 'De vertaling wordt gemaakt op basis van de tekst van de prompt en opgeslagen in de lijst.',
+    generating: 'Bezig met genereren...',
+    successGenerate: 'Vertaling succesvol gegenereerd!',
+    errorGenerate: 'Fout bij het genereren van de vertaling',
   },
   confirmModal: {
     title: 'Actie bevestigen',

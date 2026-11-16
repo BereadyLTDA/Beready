@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Traits;
 
+use App\Exceptions\GeracaoException;
 use App\Exceptions\ValidationException;
 use Cake\ORM\Exception\PersistenceFailedException;
 
@@ -21,6 +22,11 @@ trait ResourceErrorTrait
 
         if ($e instanceof ValidationException) {
             return $this->jsonError($e->getMessage(), 422, $e->getErrors());
+        }
+
+        // Falhas da IA já trazem status e mensagem pensados para o usuário (inclusive 502/503)
+        if ($e instanceof GeracaoException) {
+            return $this->jsonError($e->getMessage(), $e->getCode());
         }
 
         $status = $e instanceof \InvalidArgumentException ? 400 : $this->httpStatusFrom($e);

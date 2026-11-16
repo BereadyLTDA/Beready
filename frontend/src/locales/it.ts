@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Errore durante la creazione della frase',
     errorUpdate: 'Errore durante l\'aggiornamento della frase',
     errorDelete: 'Errore durante l\'eliminazione della frase',
+    generate: 'Genera con IA',
+    generating: 'Generazione...',
+    successGenerate: 'Frasi generate con successo!',
+    errorGenerate: 'Errore durante la generazione delle frasi',
   },
   imagens: {
     title: 'Immagini Generate',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Errore durante l\'aggiornamento della traduzione',
     successDelete: 'Traduzione eliminata con successo!',
     errorDelete: 'Errore durante l\'eliminazione della traduzione',
+    generate: 'Genera con IA',
+    generateTitle: 'Genera traduzione con IA',
+    generateHint: 'La traduzione viene creata dal testo del prompt e salvata nell’elenco.',
+    generating: 'Generazione...',
+    successGenerate: 'Traduzione generata con successo!',
+    errorGenerate: 'Errore durante la generazione della traduzione',
   },
   confirmModal: {
     title: 'Conferma azione',

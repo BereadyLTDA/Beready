@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Traits\ResourceErrorTrait;
+use App\Services\PermissionService;
 use App\Services\TagService;
-use App\Repositories\TagRepository;
+use Cake\Http\ServerRequest;
 
 class TagsController extends AppController
 {
     use ResourceErrorTrait;
 
-    private TagService $service;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new TagService(new TagRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private TagService $service,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /tags — tags do usuário atual + tags de sistema

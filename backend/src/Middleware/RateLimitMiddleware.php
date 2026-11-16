@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use Cake\Cache\Cache;
+use App\Cache\Contador;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -52,9 +52,9 @@ class RateLimitMiddleware implements MiddlewareInterface
         $resetTime = ($window + 1) * $this->timeWindow;
         $key = sprintf('%s_%s_%d', $isAuth ? 'auth' : 'api', md5($this->clientIp($request)), $window);
 
-        $count = (int)Cache::read($key, self::CACHE_CONFIG);
+        $count = Contador::incrementar($key, self::CACHE_CONFIG);
 
-        if ($count >= $limit) {
+        if ($count > $limit) {
             $retryAfter = max(1, $resetTime - time());
 
             return $this->jsonErrorResponse(
@@ -66,9 +66,6 @@ class RateLimitMiddleware implements MiddlewareInterface
                 ->withHeader('X-RateLimit-Limit', (string)$limit)
                 ->withHeader('X-RateLimit-Remaining', '0');
         }
-
-        $count++;
-        Cache::write($key, $count, self::CACHE_CONFIG);
 
         return $handler->handle($request)
             ->withHeader('X-RateLimit-Limit', (string)$limit)

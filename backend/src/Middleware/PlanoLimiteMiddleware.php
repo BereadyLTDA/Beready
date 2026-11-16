@@ -37,6 +37,10 @@ class PlanoLimiteMiddleware implements MiddlewareInterface
         'tags' => 'tags',
     ];
 
+    public function __construct(private PlanoLimiteService $planoLimite)
+    {
+    }
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if ($request->getMethod() !== 'POST') {
@@ -52,7 +56,7 @@ class PlanoLimiteMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        $verificacao = (new PlanoLimiteService())->verificar($userId, $recurso);
+        $verificacao = $this->planoLimite->verificar($userId, $recurso);
         if ($verificacao['permitido']) {
             return $handler->handle($request);
         }

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Traits;
 
-use App\Repositories\PromptRepository;
-
 /**
  * Traduções, imagens e frases não têm usuario_id: o dono é o do prompt pai.
- * Usar apenas em subclasses de AppController.
+ * Usar apenas em subclasses de AppController que recebam `PromptRepositoryInterface $promptRepository`
+ * no construtor.
+ *
+ * @property \App\Contracts\PromptRepositoryInterface $promptRepository
  */
 trait PromptOwnershipTrait
 {
@@ -17,7 +18,7 @@ trait PromptOwnershipTrait
      */
     protected function canAccessPrompt(int $promptId): bool
     {
-        $prompt = (new PromptRepository())->findById($promptId);
+        $prompt = $this->promptRepository->findById($promptId);
 
         return $prompt !== null && $this->canAccessUser((int)$prompt['usuario_id']);
     }

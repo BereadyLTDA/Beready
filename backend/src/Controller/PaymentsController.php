@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Services\AssinaturaService;
+use App\Services\PermissionService;
 use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use Stripe\Exception\SignatureVerificationException;
@@ -22,12 +24,13 @@ use Stripe\Webhook;
  */
 class PaymentsController extends AppController
 {
-    private AssinaturaService $assinaturaService;
 
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->assinaturaService = new AssinaturaService();
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private AssinaturaService $assinaturaService,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     /**

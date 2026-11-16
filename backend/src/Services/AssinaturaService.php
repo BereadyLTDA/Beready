@@ -189,7 +189,7 @@ class AssinaturaService
      * @throws \DomainException quando não há assinatura cancelável ou o cancelamento já está agendado
      * @throws \Stripe\Exception\ApiErrorException quando o Stripe recusa o cancelamento
      */
-    public function cancelar(int $usuarioId, ?StripeGatewayInterface $stripe = null): EntityInterface
+    public function cancelar(int $usuarioId, StripeGatewayInterface $stripe): EntityInterface
     {
         $atual = $this->getAtiva($usuarioId);
 
@@ -202,7 +202,7 @@ class AssinaturaService
                 throw new \DomainException('O cancelamento desta assinatura já está agendado');
             }
 
-            ($stripe ?? new StripeGateway())->cancelarNoFimDoPeriodo($atual->stripe_subscription_id);
+            $stripe->cancelarNoFimDoPeriodo($atual->stripe_subscription_id);
 
             $atual->cancelar_no_fim_periodo = true;
             $this->assinaturasTable->saveOrFail($atual);

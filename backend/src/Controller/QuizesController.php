@@ -5,25 +5,27 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Traits\ResourceErrorTrait;
+use App\Services\PermissionService;
 use App\Services\QuizGeradorService;
 use App\Services\QuizQuestaoService;
 use App\Services\QuizService;
 use App\Services\QuizTentativaService;
-use App\Repositories\QuizRepository;
 use Cake\Datasource\ConnectionManager;
+use Cake\Http\ServerRequest;
 
 class QuizesController extends AppController
 {
     use ResourceErrorTrait;
 
-    private QuizService $quizService;
-    private QuizQuestaoService $questaoService;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->quizService = new QuizService(new QuizRepository());
-        $this->questaoService = new QuizQuestaoService();
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private QuizService $quizService,
+        private QuizQuestaoService $questaoService,
+        private QuizGeradorService $geradorService,
+        private QuizTentativaService $tentativaService,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /quizes
@@ -87,7 +89,7 @@ class QuizesController extends AppController
     public function gerar()
     {
         try {
-            $quiz = (new QuizGeradorService($this->questaoService))
+            $quiz = $this->geradorService
                 ->gerar($this->currentUserId(), $this->getRequestData());
 
             return $this->jsonSuccess($quiz, 'Quiz gerado com sucesso', 201);
@@ -200,7 +202,7 @@ class QuizesController extends AppController
     {
         try {
             $this->findPlayableQuiz((int)$id);
-            $correcao = (new QuizTentativaService($this->questaoService))
+            $correcao = $this->tentativaService
                 ->verificar((int)$id, (int)$questaoId, $this->getRequestData());
             return $this->jsonSuccess($correcao);
         } catch (\Exception $e) {
@@ -213,7 +215,7 @@ class QuizesController extends AppController
     {
         try {
             $this->findPlayableQuiz((int)$id);
-            $resultado = (new QuizTentativaService($this->questaoService))
+            $resultado = $this->tentativaService
                 ->finalizar($this->currentUserId(), (int)$id, $this->getRequestData()['respostas'] ?? null);
             return $this->jsonSuccess($resultado, 'Tentativa registrada com sucesso');
         } catch (\Exception $e) {

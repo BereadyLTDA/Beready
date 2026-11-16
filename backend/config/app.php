@@ -1,12 +1,44 @@
 <?php
 
 use Cake\Cache\Engine\FileEngine;
+use Cake\Cache\Engine\RedisEngine;
 use Cake\Database\Connection;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
 use Cake\Database\Driver\Postgres;
 
 use function Cake\Core\env;
+
+/*
+ * Cache de vida curta compartilhado entre instâncias: contadores do rate limit e códigos de uso
+ * único do login social. Com REDIS_URL definido (ex.: redis://:senha@redis:6379/0) usa Redis, que
+ * incrementa de forma atômica e vale para todas as instâncias da API. Sem REDIS_URL cai no
+ * FileEngine, suficiente para desenvolvimento com um único processo.
+ */
+$redis = env('REDIS_URL') ? parse_url((string)env('REDIS_URL')) : null;
+$cacheVolatil = static function (string $prefix, string $duration) use ($redis): array {
+    if ($redis) {
+        return [
+            'className' => RedisEngine::class,
+            'host' => $redis['host'] ?? '127.0.0.1',
+            'port' => $redis['port'] ?? 6379,
+            'password' => isset($redis['pass']) ? urldecode($redis['pass']) : false,
+            'database' => (int)ltrim($redis['path'] ?? '/0', '/'),
+            'tls' => ($redis['scheme'] ?? 'redis') === 'rediss',
+            'prefix' => $prefix,
+            'duration' => $duration,
+        ];
+    }
+
+    // Temp do sistema: dentro do OneDrive o is_writable() falha para tmp/cache e o FileEngine
+    // se recusa a gravar.
+    return [
+        'className' => FileEngine::class,
+        'path' => sys_get_temp_dir() . DS,
+        'prefix' => $prefix,
+        'duration' => $duration,
+    ];
+};
 
 return [
     /*
@@ -72,22 +104,12 @@ return [
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL'),
         ],
-        // rate_limit e social_login ficam no temp do sistema: dentro do OneDrive o is_writable()
-        // falha para tmp/cache e o FileEngine se recusa a gravar.
         // Contadores do RateLimitMiddleware (janela de 60s)
-        'rate_limit' => [
-            'className' => FileEngine::class,
-            'path' => sys_get_temp_dir() . DS,
-            'prefix' => 'beready_rl_',
-            'duration' => '+2 minutes',
-        ],
+        'rate_limit' => $cacheVolatil('beready_rl_', '+2 minutes'),
         // Códigos de uso único do login social (trocados em /auth/social/exchange)
-        'social_login' => [
-            'className' => FileEngine::class,
-            'path' => sys_get_temp_dir() . DS,
-            'prefix' => 'beready_sl_',
-            'duration' => '+60 seconds',
-        ],
+        'social_login' => $cacheVolatil('beready_sl_', '+60 seconds'),
+        // Gerações por IA de cada usuário no dia (GeracaoService)
+        'ia_uso' => $cacheVolatil('beready_ia_', '+1 day'),
         '_cake_core_' => [
             'className' => 'Array',
             'prefix' => 'myapp_cake_core_',

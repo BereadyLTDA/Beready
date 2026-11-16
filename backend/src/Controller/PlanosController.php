@@ -2,24 +2,32 @@
 
 namespace App\Controller;
 
-use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\Log\Log;
-use Cake\ORM\TableRegistry;
 use App\Contracts\StripeGatewayInterface;
 use App\Services\AssinaturaService;
+use App\Services\PermissionService;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\ServerRequest;
+use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\InvalidRequestException;
 
 class PlanosController extends AppController
 {
     private $planosTable;
-    private AssinaturaService $assinaturaService;
+
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private AssinaturaService $assinaturaService,
+    ) {
+        parent::__construct($request, $permissionService);
+    }
 
     public function initialize(): void
     {
         parent::initialize();
         $this->planosTable = TableRegistry::getTableLocator()->get('Planos');
-        $this->assinaturaService = new AssinaturaService();
     }
 
     public function index()

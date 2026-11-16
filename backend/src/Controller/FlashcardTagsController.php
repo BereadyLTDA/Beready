@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Traits\ResourceErrorTrait;
-use App\Repositories\FlashcardRepository;
-use App\Repositories\FlashcardTagRepository;
-use App\Repositories\TagRepository;
 use App\Services\FlashcardService;
 use App\Services\FlashcardTagService;
+use App\Services\PermissionService;
 use App\Services\TagService;
+use Cake\Http\ServerRequest;
 
 /**
  * A associação pertence ao dono do flashcard; a tag precisa ser do usuário ou de sistema.
@@ -19,16 +18,14 @@ class FlashcardTagsController extends AppController
 {
     use ResourceErrorTrait;
 
-    private FlashcardTagService $service;
-    private FlashcardService $flashcardService;
-    private TagService $tagService;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new FlashcardTagService(new FlashcardTagRepository());
-        $this->flashcardService = new FlashcardService(new FlashcardRepository());
-        $this->tagService = new TagService(new TagRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private FlashcardTagService $service,
+        private FlashcardService $flashcardService,
+        private TagService $tagService,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /flashcard-tags/flashcard/{flashcardId}

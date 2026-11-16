@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Services\PermissionService;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
@@ -13,13 +12,11 @@ use Cake\ORM\TableRegistry;
 class AdminRolesController extends AppController
 {
     private $rolesTable;
-    private PermissionService $permissionService;
 
     public function initialize(): void
     {
         parent::initialize();
         $this->rolesTable = TableRegistry::getTableLocator()->get('Roles');
-        $this->permissionService = new PermissionService();
     }
 
     public function index()

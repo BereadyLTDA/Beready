@@ -13,6 +13,10 @@ class SocialAuthService
 {
     private const CACHE_CONFIG = 'social_login';
 
+    public function __construct(private AssinaturaService $assinaturaService)
+    {
+    }
+
     /**
      * Busca o usuário pelo e-mail do perfil social ou cria um novo. Retorna o id.
      */
@@ -57,7 +61,7 @@ class SocialAuthService
         $usersTable->saveOrFail($user);
 
         try {
-            (new AssinaturaService())->ativarPlanoGratuito((int)$user->id);
+            $this->assinaturaService->ativarPlanoGratuito((int)$user->id);
         } catch (\Exception $e) {
             Log::error('Erro ao atribuir plano gratuito (login social): ' . $e->getMessage());
         }

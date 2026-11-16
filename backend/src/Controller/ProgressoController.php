@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Traits\ResourceErrorTrait;
+use App\Services\PermissionService;
 use App\Services\ProgressoService;
+use Cake\Http\ServerRequest;
 
 /**
  * Escritas sempre no usuário autenticado; usuario_id enviado no corpo é ignorado.
@@ -14,12 +16,12 @@ class ProgressoController extends AppController
 {
     use ResourceErrorTrait;
 
-    private ProgressoService $service;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new ProgressoService();
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private ProgressoService $service,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /progresso/usuario/{usuarioId}

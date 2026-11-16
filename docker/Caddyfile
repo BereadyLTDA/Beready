@@ -1,0 +1,12 @@
+# Servidor da API em produção (imagem "prod" do Dockerfile.backend).
+# O TLS fica a cargo do proxy/balanceador na frente do container; aqui é HTTP puro na 8765.
+{
+	frankenphp
+	auto_https off
+}
+
+:8765 {
+	root * /app/webroot
+	encode zstd gzip
+	php_server
+}

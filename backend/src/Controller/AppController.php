@@ -7,10 +7,20 @@ namespace App\Controller;
 use App\Services\PermissionService;
 use Cake\Controller\Controller;
 use Cake\Http\Exception\UnauthorizedException;
+use Cake\Http\ServerRequest;
 
 class AppController extends Controller
 {
     private ?bool $isAdminCache = null;
+
+    /**
+     * Os controllers são criados pelo container (Application::services), que resolve os serviços
+     * pedidos no construtor. Subclasses com dependências próprias repassam estes dois ao pai.
+     */
+    public function __construct(ServerRequest $request, protected PermissionService $permissionService)
+    {
+        parent::__construct($request);
+    }
 
     public function initialize(): void
     {
@@ -39,7 +49,7 @@ class AppController extends Controller
     protected function isAdmin(): bool
     {
         if ($this->isAdminCache === null) {
-            $this->isAdminCache = (new PermissionService())->isAdmin($this->currentUserId());
+            $this->isAdminCache = $this->permissionService->isAdmin($this->currentUserId());
         }
 
         return $this->isAdminCache;

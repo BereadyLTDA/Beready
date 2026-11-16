@@ -17,6 +17,15 @@ export const fraseService = {
   update: async (id: number, data: Partial<FraseInput>): Promise<ApiResponse<Frase>> =>
     (await api.put<ApiResponse<Frase>>(`/frases/edit/${id}`, data)).data,
 
+  // Gera frases semelhantes ao texto do prompt com IA (o backend cria e devolve as frases)
+  gerar: async (promptId: number, quantidade?: number): Promise<ApiResponse<Frase[]>> =>
+    (
+      await api.post<ApiResponse<Frase[]>>(
+        `/prompts/${promptId}/frases/gerar`,
+        quantidade ? { quantidade } : {},
+      )
+    ).data,
+
   delete: async (id: number): Promise<ApiResponse<null>> =>
     (await api.delete<ApiResponse<null>>(`/frases/delete/${id}`)).data,
 }

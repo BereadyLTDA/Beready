@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Fehler beim Erstellen des Satzes',
     errorUpdate: 'Fehler beim Aktualisieren des Satzes',
     errorDelete: 'Fehler beim Löschen des Satzes',
+    generate: 'Mit KI erstellen',
+    generating: 'Wird erstellt...',
+    successGenerate: 'Sätze erfolgreich erstellt!',
+    errorGenerate: 'Fehler beim Erstellen der Sätze',
   },
   imagens: {
     title: 'Generierte Bilder',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Fehler beim Aktualisieren der Übersetzung',
     successDelete: 'Übersetzung erfolgreich gelöscht!',
     errorDelete: 'Fehler beim Löschen der Übersetzung',
+    generate: 'Mit KI erstellen',
+    generateTitle: 'Übersetzung mit KI erstellen',
+    generateHint: 'Die Übersetzung wird aus dem Text des Prompts erstellt und in der Liste gespeichert.',
+    generating: 'Wird erstellt...',
+    successGenerate: 'Übersetzung erfolgreich erstellt!',
+    errorGenerate: 'Fehler beim Erstellen der Übersetzung',
   },
   confirmModal: {
     title: 'Aktion bestätigen',

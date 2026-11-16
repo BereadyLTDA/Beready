@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Contracts\PromptRepositoryInterface;
 use App\Controller\Traits\PromptOwnershipTrait;
 use App\Controller\Traits\ResourceErrorTrait;
-use App\Repositories\TraducaoRepository;
+use App\Services\GeracaoService;
+use App\Services\PermissionService;
 use App\Services\TraducaoService;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 
 class TraducoesController extends AppController
 {
     use PromptOwnershipTrait;
     use ResourceErrorTrait;
 
-    private TraducaoService $service;
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->service = new TraducaoService(new TraducaoRepository());
+    public function __construct(
+        ServerRequest $request,
+        PermissionService $permissionService,
+        private TraducaoService $service,
+        private PromptRepositoryInterface $promptRepository,
+        private GeracaoService $geracaoService,
+    ) {
+        parent::__construct($request, $permissionService);
     }
 
     // GET /traducoes/prompt/{promptId}
@@ -55,6 +61,23 @@ class TraducoesController extends AppController
             return $this->jsonSuccess($this->findOwnedTraducao((int)$traducaoId));
         } catch (\Exception $e) {
             return $this->errorResponse($e);
+        }
+    }
+
+    // POST /prompts/{id}/traducoes/gerar  { idioma_destino } — traduz o texto do prompt com IA
+    public function gerar(string $id): Response
+    {
+        try {
+            $prompt = $this->promptRepository->findById((int)$id);
+            if (!$prompt || !$this->canAccessUser((int)$prompt['usuario_id'])) {
+                return $this->jsonError('Prompt não encontrado', 404);
+            }
+
+            $traducao = $this->geracaoService->gerarTraducao($prompt, $this->currentUserId(), $this->getRequestData());
+
+            return $this->jsonSuccess($traducao, 'Tradução gerada com sucesso', 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e, 'Erro ao gerar tradução');
         }
     }
 

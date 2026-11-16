@@ -1,5 +1,13 @@
+includes:
+    # Erros que já existiam quando o PHPStan passou a bloquear o CI. Não acrescente entradas:
+    # corrija o erro novo e, ao limpar um antigo, regenere com
+    #   vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.neon
+    - phpstan-baseline.neon
+
 parameters:
     level: 8
+    # A baseline é gerada em uma máquina e conferida em outra (CI): entradas que não casarem não são erro
+    reportUnmatchedIgnoredErrors: false
     treatPhpDocTypesAsCertain: false
     bootstrapFiles:
         - config/bootstrap.php

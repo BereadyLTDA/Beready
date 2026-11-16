@@ -11,11 +11,11 @@ use Cake\ORM\TableRegistry;
 
 class FlashcardService
 {
-    private FlashcardRepositoryInterface $flashcardRepository;
-
-    public function __construct(FlashcardRepositoryInterface $flashcardRepository)
-    {
-        $this->flashcardRepository = $flashcardRepository;
+    public function __construct(
+        private FlashcardRepositoryInterface $flashcardRepository,
+        private RepeticaoEspacadaService $repeticaoEspacada,
+        private ProgressoService $progresso,
+    ) {
     }
 
     public function getFlashcardsByUsuario(int $usuarioId): array
@@ -101,7 +101,7 @@ class FlashcardService
     private function registrarRevisao(int $flashcardId, int $usuarioId, string $nota): array
     {
         $flashcard = $this->getFlashcardById($flashcardId);
-        $agendamento = (new RepeticaoEspacadaService())->calcular($flashcard, $nota, DateTime::now());
+        $agendamento = $this->repeticaoEspacada->calcular($flashcard, $nota, DateTime::now());
 
         $atualizado = $this->flashcardRepository->salvarAgendamento($flashcardId, [
             'repeticoes' => $agendamento['repeticoes'],
@@ -119,7 +119,7 @@ class FlashcardService
             'correto' => $nota !== 'errei',
         ]));
 
-        (new ProgressoService())->incrementarFlashcards($usuarioId, 1);
+        $this->progresso->incrementarFlashcards($usuarioId, 1);
 
         return $atualizado;
     }

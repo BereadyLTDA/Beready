@@ -106,13 +106,24 @@ jobs:
       - name: Register PHPCS standards
         run: vendor/bin/phpcs --config-set installed_paths vendor/cakephp/cakephp-codesniffer,vendor/slevomat/coding-standard
 
+      # Informativo: o ruleset atual acusa milhares de violações antigas, então ainda não bloqueia
       - name: Run PHPCS
         run: vendor/bin/phpcs --colors || true
         continue-on-error: true
 
+      # Bloqueante: os erros antigos estão em phpstan-baseline.neon, só erro novo quebra o build
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse src
-        continue-on-error: true
+        run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+        env:
+          APP_NAME: Beready
+          APP_ENV: test
+          DEBUG: false
+          APP_ENCODING: UTF-8
+          APP_DEFAULT_LOCALE: pt_BR
+          APP_DEFAULT_TIMEZONE: America/Sao_Paulo
+          SECURITY_SALT: ci_security_salt_somente_para_testes_0123456789
+          JWT_SECRET: ci_jwt_secret_somente_para_testes_0123456789abcdef
+          DATABASE_URL: postgres://postgres:test@127.0.0.1:5432/beready_test
 
   frontend:
     runs-on: ubuntu-latest
@@ -129,6 +140,18 @@ jobs:
       - name: Install frontend dependencies
         working-directory: frontend
         run: npm ci
+
+      # Os tipos do frontend são gerados do contrato da API: se alguém mudou o openapi.yaml e
+      # não rodou "npm run gen:api", o arquivo versionado fica diferente do gerado aqui
+      - name: Check generated API types are up to date
+        working-directory: frontend
+        run: |
+          npm run gen:api
+          git diff --exit-code -- src/core/types/api.gen.ts
+
+      - name: Unit tests
+        working-directory: frontend
+        run: npm run test:unit
 
       - name: Build frontend
         working-directory: frontend
