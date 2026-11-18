@@ -1,0 +1,12 @@
+.git
+.github
+**/.env
+**/.env.*
+!**/.env.example
+**/node_modules
+backend/vendor
+backend/logs
+backend/tmp
+frontend/dist
+frontend/playwright-report
+frontend/test-results

@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Fel vid skapande av fras',
     errorUpdate: 'Fel vid uppdatering av fras',
     errorDelete: 'Fel vid borttagning av fras',
+    generate: 'Skapa med AI',
+    generating: 'Skapar...',
+    successGenerate: 'Fraserna har skapats!',
+    errorGenerate: 'Fel när fraserna skulle skapas',
   },
   imagens: {
     title: 'Genererade bilder',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Fel vid uppdatering av översättning',
     successDelete: 'Översättningen har tagits bort!',
     errorDelete: 'Fel vid borttagning av översättning',
+    generate: 'Skapa med AI',
+    generateTitle: 'Skapa översättning med AI',
+    generateHint: 'Översättningen skapas utifrån promptens text och sparas i listan.',
+    generating: 'Skapar...',
+    successGenerate: 'Översättningen har skapats!',
+    errorGenerate: 'Fel när översättningen skulle skapas',
   },
   confirmModal: {
     title: 'Bekräfta åtgärd',

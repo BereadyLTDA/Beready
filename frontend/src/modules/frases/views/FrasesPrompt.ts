@@ -30,7 +30,20 @@ export function useFrasesPrompt() {
   const { error } = useAlert()
   const { t, te } = useI18n()
   const promptId = ref<number>(0)
-  const { frases, loading, fetchFrases, createFrase, updateFrase, deleteFrase } = useFrases()
+  const { frases, loading, fetchFrases, createFrase, gerarFrases, updateFrase, deleteFrase } = useFrases()
+  const gerando = ref(false)
+
+  // Gera a quantidade padrão do backend (5) a partir do texto do prompt
+  const gerar = async (): Promise<void> => {
+    gerando.value = true
+    try {
+      await gerarFrases(promptId.value)
+    } catch {
+      // Alerta de erro já exibido por useFrases
+    } finally {
+      gerando.value = false
+    }
+  }
 
   const promptTexto = ref<string>('')
   const modalOpen = ref(false)
@@ -165,6 +178,8 @@ export function useFrasesPrompt() {
     promptTexto,
     loading,
     frases,
+    gerando,
+    gerar,
     modalOpen,
     saving,
     form,

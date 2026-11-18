@@ -1,5 +1,6 @@
-version: "3.8"
-
+# Ambiente de desenvolvimento. As imagens de produção são os estágios "prod" dos Dockerfiles:
+#   docker build -f Dockerfile.backend  --target prod -t beready-api .
+#   docker build -f Dockerfile.frontend --target prod --build-arg VITE_API_URL=https://api.exemplo.com -t beready-web .
 services:
   postgres:
     image: postgres:15-alpine
@@ -18,33 +19,51 @@ services:
       timeout: 5s
       retries: 5
 
+  # Rate limit e códigos de login social (REDIS_URL no backend)
+  redis:
+    image: redis:7-alpine
+    container_name: beready_redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   backend:
     build:
       context: .
       dockerfile: Dockerfile.backend
+      target: dev
     container_name: beready_backend
     ports:
       - "8765:8765"
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgres://beready_user:beready_pass@postgres:5432/beready
+      REDIS_URL: redis://redis:6379/0
     volumes:
-      - ./backend:/var/www/backend
+      - ./backend:/app
+      - /app/vendor
 
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+      target: dev
     container_name: beready_frontend
     ports:
       - "5173:5173"
     depends_on:
       - backend
     volumes:
-      - ./frontend:/var/www/frontend
-      - /var/www/frontend/node_modules
+      - ./frontend:/app
+      - /app/node_modules
 
 volumes:
   postgres_data:

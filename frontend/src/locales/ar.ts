@@ -756,6 +756,10 @@ export default {
     errorCreate: 'خطأ في إنشاء العبارة',
     errorUpdate: 'خطأ في تحديث العبارة',
     errorDelete: 'خطأ في حذف العبارة',
+    generate: 'إنشاء بالذكاء الاصطناعي',
+    generating: 'جارٍ الإنشاء...',
+    successGenerate: 'تم إنشاء العبارات بنجاح!',
+    errorGenerate: 'خطأ أثناء إنشاء العبارات',
   },
   imagens: {
     title: 'الصور المُنشأة',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'خطأ في تحديث الترجمة',
     successDelete: 'تم حذف الترجمة بنجاح!',
     errorDelete: 'خطأ في حذف الترجمة',
+    generate: 'إنشاء بالذكاء الاصطناعي',
+    generateTitle: 'إنشاء ترجمة بالذكاء الاصطناعي',
+    generateHint: 'تُنشأ الترجمة من نص الأمر وتُحفظ في القائمة.',
+    generating: 'جارٍ الإنشاء...',
+    successGenerate: 'تم إنشاء الترجمة بنجاح!',
+    errorGenerate: 'خطأ أثناء إنشاء الترجمة',
   },
   confirmModal: {
     title: 'تأكيد الإجراء',

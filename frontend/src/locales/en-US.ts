@@ -756,6 +756,10 @@ export default {
     errorCreate: 'Error creating phrase',
     errorUpdate: 'Error updating phrase',
     errorDelete: 'Error deleting phrase',
+    generate: 'Generate with AI',
+    generating: 'Generating...',
+    successGenerate: 'Phrases generated successfully!',
+    errorGenerate: 'Error generating phrases',
   },
   imagens: {
     title: 'Generated Images',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: 'Error updating translation',
     successDelete: 'Translation deleted successfully!',
     errorDelete: 'Error deleting translation',
+    generate: 'Generate with AI',
+    generateTitle: 'Generate translation with AI',
+    generateHint: 'The translation is created from the prompt text and saved to the list.',
+    generating: 'Generating...',
+    successGenerate: 'Translation generated successfully!',
+    errorGenerate: 'Error generating translation',
   },
   confirmModal: {
     title: 'Confirm action',
