@@ -1,21 +1,23 @@
 # BeReady - Plataforma de Aprendizado de Inglês
 
-Aplicação web para aprendizado de inglês por contextualização visual, utilizando flashcards, quizzes, traduções e recursos interativos.
+Aplicação web para aprender inglês por contextualização visual: o aluno cria prompts que viram
+traduções, imagens e frases semelhantes, estuda com flashcards (repetição espaçada) e quizzes, e
+acompanha a evolução em um painel de progresso.
 
 ---
 
-# Tecnologias Utilizadas
+# Tecnologias
 
 ## Back-end
 
-- PHP 8.2+ e CakePHP 5 (API REST, sem views)
-- Injeção de dependências pelo container do Cake (autowiring)
+- PHP 8.4 e Laravel 13 (API REST, sem views), servido em produção pelo Laravel Octane sobre o FrankenPHP
+- Injeção de dependências pelo container do Laravel (autowiring)
 - JWT (access token em memória + refresh token em cookie httpOnly)
-- Login social com `league/oauth2-client` (Google, Facebook, LinkedIn)
-- Stripe (assinatura recorrente), Cloudinary (fotos), Resend/SMTP (e-mail), Sentry (erros)
+- Login social com Laravel Socialite (Google, Facebook, LinkedIn)
+- Stripe (assinatura recorrente), Cloudinary (fotos), SMTP (e-mail), Sentry (erros)
 - Claude, via SDK oficial da Anthropic, para gerar traduções e frases
 - Redis (opcional) para rate limit e contadores compartilhados entre instâncias
-- PHPUnit (integração + contrato OpenAPI) e PHPStan nível 8
+- PHPUnit (integração + contrato OpenAPI), Larastan nível 6 e Pint
 
 ## Front-end
 
@@ -25,9 +27,9 @@ Aplicação web para aprendizado de inglês por contextualização visual, utili
 - Tipos da API gerados do contrato OpenAPI (`npm run gen:api`)
 - Vitest (unitários) e Playwright (ponta a ponta + acessibilidade)
 
-## Banco de Dados
+## Banco de dados
 
-- PostgreSQL 15 (local ou Supabase), com migrations do CakePHP
+- PostgreSQL 15 (local ou Supabase)
 
 ---
 
@@ -35,231 +37,68 @@ Aplicação web para aprendizado de inglês por contextualização visual, utili
 
 ```txt
 backend/
-  config/routes.php        rotas (helpers $rota e $crud)
-  openapi.yaml             contrato da API, validado pelos testes
-  src/Application.php      middlewares e registro do container (interface => implementação)
-  src/Controller/          recebem dependências pelo construtor
-  src/Services/            regras de negócio
-  src/Repositories/        acesso a dados (por trás das interfaces em src/Contracts/)
-  src/Middleware/          CORS, rate limit, JWT, admin, limites do plano
-  tests/                   integração (ApiTestCase), contrato e serviços
+  routes/api.php            rotas (públicas fora do grupo `jwt`)
+  openapi.yaml              contrato da API, validado pelos testes
+  bootstrap/app.php         middlewares e respostas de erro em JSON
+  app/Http/Controllers/     recebem dependências pelo construtor
+  app/Http/Middleware/      JWT, admin, limites do plano, rate limit
+  app/Services/             regras de negócio
+  app/Models/               models Eloquent
+  config/beready.php        configuração da aplicação (lida do .env)
+  database/                 esquema inicial (SQL) e dados iniciais (roles, permissões, planos)
+  tests/                    integração (ApiTestCase), contrato e serviços
 frontend/
-  src/modules/<recurso>/   services, composables e views por recurso
-  src/shared/              kit de UI, composables e utilitários
-  src/core/types/          api.gen.ts (gerado) e tipos escritos à mão
-  e2e/                     Playwright com API mockada
-docker/                    configs das imagens de produção (Caddy, Nginx, php.ini)
+  src/modules/<recurso>/    services, composables e views por recurso
+  src/shared/               kit de UI, composables e utilitários
+  src/core/types/           api.gen.ts (gerado) e tipos escritos à mão
+  e2e/                      Playwright com API mockada
+docker/                     php.ini, nginx e entrypoint das imagens de produção
 ```
 
-Detalhes de arquitetura e de como adicionar uma rota nova: [`docs/arquitetura.md`](docs/arquitetura.md).
+Detalhes de arquitetura e de como adicionar uma rota: [`docs/arquitetura.md`](docs/arquitetura.md).
 
 ---
 
 # Requisitos
 
-Antes de começar, instale:
-
-- PHP 8.2+
+- PHP 8.3+ (8.4 recomendado) com as extensões `pdo_pgsql`, `intl`, `mbstring`
 - Composer
-- Node.js 20+
-- NPM
-- PostgreSQL ou Supabase
+- Node.js 20.19+ ou 22.12+
+- PostgreSQL 15 (local, Docker ou Supabase)
 - Git
 
----
-
-# Clonar o Projeto
-
-```bash
-git clone https://github.com/BraianGaspar/Beready_Projeto.git
-cd Beready_Projeto
-```
+Ou apenas Docker (ver [Docker](#docker)).
 
 ---
 
-# Configuração do Banco de Dados
-
-O projeto utiliza PostgreSQL via Supabase.
-
-## Configurar conexão
-
-Toda a configuração vem do `.env` (não há valores padrão no código). Copie os exemplos e preencha:
+# Como rodar
 
 ```bash
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
+git clone https://github.com/BereadyLTDA/Beready.git
+cd Beready
 ```
-
-A conexão do banco fica em `DATABASE_URL` no `backend/.env`:
-
-```txt
-DATABASE_URL="postgres://usuario:senha@host:6543/postgres?encoding=utf8&timezone=UTC&cacheMetadata=true"
-```
-
-## Criar o banco do zero
-
-A migration `Initial` cria todas as tabelas, e os seeds inserem roles, permissões e planos:
-
-```bash
-cd backend
-php bin/cake.php migrations migrate
-php bin/cake.php migrations seed
-```
-
----
-
-# Segurança do Banco
-
-Recomendações importantes:
-
-- Ativar Row Level Security (RLS) no Supabase
-- Nunca expor `service_role_key`
-- Utilizar variáveis `.env`
-- Não subir credenciais para o GitHub
-- Configurar políticas de acesso nas tabelas
-
----
-
-# ⚙️ Configuração do Backend (CakePHP)
-
-## Acessar pasta backend
-
-```bash
-cd backend
-```
-
----
-
-## Instalar dependências
-
-```bash
-composer install
-```
-
----
-
-## Rodar migrations
-
-```bash
-bin/cake migrations migrate
-```
-
-No Windows:
-
-```bash
-php bin/cake.php migrations migrate
-```
-
----
-
-## Rodar os testes
-
-Os testes usam um Postgres separado, definido em `TEST_DATABASE_URL` no `backend/.env`. O banco de teste é apagado e recriado a cada execução, então nunca aponte para o banco real. Para subir um Postgres local de teste:
-
-```bash
-docker run -d --name beready_migtest -e POSTGRES_PASSWORD=test -e POSTGRES_DB=beready_test -p 55432:5432 postgres:15-alpine
-```
-
-```bash
-cd backend
-vendor/bin/phpunit
-```
-
----
-
-## Iniciar servidor backend
-
-```bash
-bin/cake server
-```
-
-Ou no Windows:
-
-```bash
-php bin/cake.php server
-```
-
-Backend disponível em:
-
-```txt
-http://localhost:8765
-```
-
----
-
-# Configuração do Frontend (Vue.js)
-
-> Abra outro terminal para rodar o frontend simultaneamente.
-
-## Acessar pasta frontend
-
-```bash
-cd frontend
-```
-
----
-
-## Instalar dependências
-
-```bash
-npm install
-```
-
----
-
-## Rodar ambiente de desenvolvimento
-
-```bash
-npm run dev
-```
-
-Frontend disponível em:
-
-```txt
-http://localhost:5173
-```
-
----
-
-# 🔗 Comunicação Frontend ↔ Backend
-
-Verifique a URL da API no frontend.
-
-Exemplo:
-
-```env
-VITE_API_URL=http://localhost:8765
-```
-
----
-
-# 🧠 Observações
-
-- Backend e frontend rodam separadamente (ou juntos com `docker compose up`)
-- O frontend consome a API REST do CakePHP; o formato das respostas está em `backend/openapi.yaml`
-- O banco é PostgreSQL, local ou no Supabase (usado apenas como banco)
-
----
-
-# Comandos Rápidos
 
 ## Backend
 
 ```bash
 cd backend
 composer install
-php bin/cake.php migrations migrate
-php bin/cake.php server
+cp .env.example .env          # preencha DATABASE_URL, JWT_SECRET etc.
+php artisan key:generate
+php artisan migrate --seed    # esquema + roles, permissões e planos
+php artisan serve --port=8765 # http://localhost:8765
 ```
 
----
+Em um banco que já veio da versão em CakePHP, `php artisan migrate` não altera nada: a migration
+inicial só se registra como aplicada.
 
 ## Frontend
 
 ```bash
 cd frontend
 npm install
-npm run dev
+cp .env.example .env          # VITE_API_URL=http://localhost:8765
+npm run dev                   # http://localhost:5173
 ```
 
 ---
@@ -296,38 +135,43 @@ Desenvolvimento (API, frontend, Postgres e Redis):
 docker compose up --build
 ```
 
-Imagens de produção (API servida pelo FrankenPHP; frontend estático no Nginx):
+Imagens de produção (API com Laravel Octane + FrankenPHP; frontend estático no Nginx):
 
 ```bash
 docker build -f Dockerfile.backend  --target prod -t beready-api .
 docker build -f Dockerfile.frontend --target prod --build-arg VITE_API_URL=https://api.exemplo.com -t beready-web .
 ```
 
-Em produção a API lê a configuração das variáveis de ambiente do container (as mesmas do
-`backend/.env.example`). Com mais de uma instância da API, defina `REDIS_URL`.
+Em produção a API lê a configuração das variáveis de ambiente do container (as de
+`backend/.env.example`, mais `APP_KEY`), roda as migrations ao subir e, com mais de uma instância,
+precisa de `REDIS_URL`.
 
 ---
 
 # Testes
 
+Os testes do backend usam um Postgres descartável em `TEST_DATABASE_URL` (o esquema é apagado e
+recriado a cada execução; nunca aponte para o banco real). Para subir um:
+
 ```bash
-cd backend && vendor/bin/phpunit           # integração + contrato da API
-cd backend && vendor/bin/phpstan analyse   # análise estática (erros antigos em phpstan-baseline.neon)
-cd frontend && npm run test:unit           # unitários (Vitest)
-cd frontend && npm run test:e2e            # ponta a ponta (Playwright)
+docker run -d --name beready_test_db -e POSTGRES_PASSWORD=test -e POSTGRES_DB=beready_test -p 55432:5432 postgres:15-alpine
+```
+
+```bash
+cd backend && vendor/bin/phpunit            # integração + contrato da API
+cd backend && vendor/bin/phpstan analyse    # Larastan (erros antigos em phpstan-baseline.neon)
+cd backend && vendor/bin/pint --test        # estilo
+cd frontend && npm run test:unit            # unitários (Vitest)
+cd frontend && npm run test:e2e             # ponta a ponta (Playwright)
 ```
 
 ---
 
-# Variáveis Sensíveis
+# Segurança
 
-Adicione ao `.gitignore`:
-
-```gitignore
-.env
-.env.local
-backend/config/app_local.php
-```
+- Nunca versione `backend/.env` nem `frontend/.env` (já estão no `.gitignore`)
+- No Supabase, ative Row Level Security nas tabelas e não exponha a `service_role_key`
+- Em produção use `APP_DEBUG=false`; a `APP_KEY` e o `JWT_SECRET` devem ser longos e aleatórios
 
 ---
 
