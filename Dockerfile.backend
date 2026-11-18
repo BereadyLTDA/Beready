@@ -1,16 +1,16 @@
 # syntax=docker/dockerfile:1
 
-# Base comum: FrankenPHP (Caddy + PHP no mesmo processo) com as extensões que a API usa.
+# Base comum: FrankenPHP (servidor HTTP + PHP no mesmo processo) com as extensões que a API usa.
 FROM dunglas/frankenphp:1-php8.4 AS base
 
-RUN install-php-extensions pdo_pgsql intl mbstring zip redis opcache
+RUN install-php-extensions pdo_pgsql intl mbstring zip redis opcache pcntl
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
 # ---------------------------------------------------------------------------------------------
-# dev: código montado por volume (docker-compose) e servidor embutido do Cake.
+# dev: código montado por volume (docker-compose) e servidor de desenvolvimento do Laravel.
 # ---------------------------------------------------------------------------------------------
 FROM base AS dev
 
@@ -24,10 +24,11 @@ COPY backend/ .
 RUN composer dump-autoload --optimize
 
 EXPOSE 8765
-CMD ["php", "bin/cake.php", "server", "--host", "0.0.0.0", "--port", "8765"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8765"]
 
 # ---------------------------------------------------------------------------------------------
-# prod: sem dependências de desenvolvimento, opcache ligado, servido pelo FrankenPHP.
+# prod: sem dependências de desenvolvimento, opcache ligado, Laravel Octane sobre o FrankenPHP
+# (a aplicação fica carregada em memória entre as requisições).
 # ---------------------------------------------------------------------------------------------
 FROM base AS prod
 
@@ -39,11 +40,14 @@ RUN composer install --no-dev --no-scripts --no-autoloader --no-interaction --pr
 
 COPY backend/ .
 RUN composer dump-autoload --optimize --classmap-authoritative --no-dev \
-    && mkdir -p logs tmp/cache/models tmp/cache/persistent tmp/cache/views tmp/sessions \
-    && chown -R www-data:www-data logs tmp
+    && php artisan package:discover --ansi \
+    && mkdir -p storage/framework/cache storage/framework/views storage/logs bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
 
-COPY docker/Caddyfile /etc/frankenphp/Caddyfile
+COPY docker/entrypoint.sh /usr/local/bin/beready-entrypoint
+RUN chmod +x /usr/local/bin/beready-entrypoint
 
 USER www-data
 EXPOSE 8765
-CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile", "--adapter", "caddyfile"]
+ENTRYPOINT ["beready-entrypoint"]
+CMD ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=8765", "--admin-port=2019"]

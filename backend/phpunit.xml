@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing" force="true"/>
+        <env name="APP_KEY" value="base64:YmVyZWFkeS10ZXN0ZXMtY2hhdmUtZml4YS0zMi1ieXQ=" force="true"/>
+        <env name="APP_DEBUG" value="false" force="true"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="BROADCAST_CONNECTION" value="null"/>
+        <env name="CACHE_STORE" value="array" force="true"/>
+        <env name="DB_CONNECTION" value="pgsql" force="true"/>
+        <env name="MAIL_MAILER" value="array" force="true"/>
+        <env name="QUEUE_CONNECTION" value="sync" force="true"/>
+        <env name="SESSION_DRIVER" value="array" force="true"/>
+        <env name="APP_BASE_URL" value="http://localhost:5173/" force="true"/>
+        <env name="JWT_SECRET" value="jwt_secret_somente_para_testes_0123456789abcdef" force="true"/>
+        <env name="CORS_ALLOWED_ORIGINS" value="http://localhost:5173" force="true"/>
+        <env name="EMAIL_FROM" value="noreply@beready.test" force="true"/>
+        <env name="EMAIL_FROM_NAME" value="BeReady" force="true"/>
+        <env name="REFRESH_COOKIE_SAMESITE" value="Lax" force="true"/>
+        <env name="REFRESH_COOKIE_SECURE" value="false" force="true"/>
+        <env name="STRIPE_WEBHOOK_SECRET" value="whsec_somente_para_testes" force="true"/>
+        <env name="ANTHROPIC_API_KEY" value="" force="true"/>
+        <env name="SENTRY_LARAVEL_DSN" value="" force="true"/>
+        <env name="SENTRY_DSN" value="" force="true"/>
+    </php>
+</phpunit>
