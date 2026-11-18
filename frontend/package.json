@@ -38,7 +38,7 @@
     "esbuild": "^0.27.7",
     "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-oxlint": "~1.57.0",
+    "eslint-plugin-oxlint": "~1.93.0",
     "eslint-plugin-vue": "~10.8.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
