@@ -7,6 +7,9 @@
       :back-to="`/prompts/${promptId}`"
     >
       <template #actions>
+        <BaseButton icon="sparkles" :loading="gerando" @click="gerar">
+          {{ gerando ? $t('frases.generating') : $t('frases.generate') }}
+        </BaseButton>
         <BaseButton variant="secondary" icon="plus" @click="openModal">{{ $t('frases.new') }}</BaseButton>
       </template>
     </PageHeader>
@@ -139,6 +142,8 @@ const {
   editingId,
   deleting,
   confirmModalVisible,
+  gerando,
+  gerar,
   getTipoLabel,
   getNivelLabelKey,
   openModal,

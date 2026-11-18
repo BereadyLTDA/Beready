@@ -756,6 +756,10 @@ export default {
     errorCreate: '문장을 생성하지 못했습니다',
     errorUpdate: '문장을 수정하지 못했습니다',
     errorDelete: '문장을 삭제하지 못했습니다',
+    generate: 'AI로 생성',
+    generating: '생성 중...',
+    successGenerate: '문장이 생성되었습니다!',
+    errorGenerate: '문장 생성 중 오류가 발생했습니다',
   },
   imagens: {
     title: '생성된 이미지',
@@ -813,6 +817,12 @@ export default {
     errorUpdate: '번역을 수정하지 못했습니다',
     successDelete: '번역이 삭제되었습니다!',
     errorDelete: '번역을 삭제하지 못했습니다',
+    generate: 'AI로 생성',
+    generateTitle: 'AI로 번역 생성',
+    generateHint: '번역은 프롬프트의 텍스트로 만들어져 목록에 저장됩니다.',
+    generating: '생성 중...',
+    successGenerate: '번역이 생성되었습니다!',
+    errorGenerate: '번역 생성 중 오류가 발생했습니다',
   },
   confirmModal: {
     title: '작업 확인',

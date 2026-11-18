@@ -18,7 +18,7 @@ export function useTraducoesPrompt() {
   const route = useRoute()
   const { error } = useAlert()
   const { t } = useI18n()
-  const { traducoes, loading, fetchTraducoes, createTraducao, updateTraducao, deleteTraducao } =
+  const { traducoes, loading, fetchTraducoes, createTraducao, gerarTraducao, updateTraducao, deleteTraducao } =
     useTraducoes()
 
   const promptId = ref<number>(0)
@@ -29,6 +29,9 @@ export function useTraducoesPrompt() {
   const deleting = ref(false)
   const confirmModalVisible = ref(false)
   const itemToDelete = ref<number | null>(null)
+  const gerarModalOpen = ref(false)
+  const gerando = ref(false)
+  const idiomaGerar = ref('pt-BR')
 
   const form = ref<TraducaoForm>({
     texto_traduzido: '',
@@ -119,6 +122,22 @@ export function useTraducoesPrompt() {
     }
   }
 
+  const openGerar = (): void => {
+    gerarModalOpen.value = true
+  }
+
+  const gerar = async (): Promise<void> => {
+    gerando.value = true
+    try {
+      await gerarTraducao(promptId.value, idiomaGerar.value)
+      gerarModalOpen.value = false
+    } catch {
+      // Alerta de erro já exibido por useTraducoes
+    } finally {
+      gerando.value = false
+    }
+  }
+
   const confirmDelete = (traducao: Traducao): void => {
     itemToDelete.value = traducao.id
     confirmModalVisible.value = true
@@ -157,6 +176,11 @@ export function useTraducoesPrompt() {
     editingId,
     deleting,
     confirmModalVisible,
+    gerarModalOpen,
+    gerando,
+    idiomaGerar,
+    openGerar,
+    gerar,
     formatDate,
     openModal,
     closeModal,

@@ -1,22 +1,53 @@
-FROM php:8.2-fpm
+# syntax=docker/dockerfile:1
 
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    zip \
-    unzip \
-    git \
-    curl \
-    && docker-php-ext-install pdo pdo_pgsql
+# Base comum: FrankenPHP (servidor HTTP + PHP no mesmo processo) com as extensões que a API usa.
+FROM dunglas/frankenphp:1-php8.4 AS base
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN install-php-extensions pdo_pgsql intl mbstring zip redis opcache pcntl
 
-WORKDIR /var/www/backend
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app
+
+# ---------------------------------------------------------------------------------------------
+# dev: código montado por volume (docker-compose) e servidor de desenvolvimento do Laravel.
+# ---------------------------------------------------------------------------------------------
+FROM base AS dev
+
+RUN apt-get update && apt-get install -y --no-install-recommends git unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY backend/composer.json backend/composer.lock ./
-RUN composer install --no-scripts --no-autoloader
+RUN composer install --no-scripts --no-autoloader --no-interaction
 
 COPY backend/ .
 RUN composer dump-autoload --optimize
 
 EXPOSE 8765
-CMD php bin/cake.php server --host 0.0.0.0 --port 8765
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8765"]
+
+# ---------------------------------------------------------------------------------------------
+# prod: sem dependências de desenvolvimento, opcache ligado, Laravel Octane sobre o FrankenPHP
+# (a aplicação fica carregada em memória entre as requisições).
+# ---------------------------------------------------------------------------------------------
+FROM base AS prod
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY docker/php-prod.ini "$PHP_INI_DIR/conf.d/zz-beready.ini"
+
+COPY backend/composer.json backend/composer.lock ./
+RUN composer install --no-dev --no-scripts --no-autoloader --no-interaction --prefer-dist
+
+COPY backend/ .
+RUN composer dump-autoload --optimize --classmap-authoritative --no-dev \
+    && php artisan package:discover --ansi \
+    && mkdir -p storage/framework/cache storage/framework/views storage/logs bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
+
+COPY docker/entrypoint.sh /usr/local/bin/beready-entrypoint
+RUN chmod +x /usr/local/bin/beready-entrypoint
+
+USER www-data
+EXPOSE 8765
+ENTRYPOINT ["beready-entrypoint"]
+CMD ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=8765", "--admin-port=2019"]

@@ -34,3 +34,4 @@
 *.webm binary
 *.mp4 binary
 *.ogv binary
+*.sh text eol=lf
