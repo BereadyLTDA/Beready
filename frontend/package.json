@@ -31,7 +31,7 @@
     "@playwright/test": "^1.63.0",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^24.12.0",
-    "@vitejs/plugin-vue": "^6.0.5",
+    "@vitejs/plugin-vue": "^6.0.11",
     "@vue/eslint-config-typescript": "^14.7.0",
     "@vue/tsconfig": "^0.9.1",
     "autoprefixer": "^10.4.27",
