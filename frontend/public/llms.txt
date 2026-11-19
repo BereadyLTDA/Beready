@@ -1,0 +1,19 @@
+# BeReady
+
+> BeReady é uma plataforma web para aprender inglês por contexto visual. O aluno cria prompts que viram traduções, imagens e frases semelhantes, estuda com flashcards (repetição espaçada) e quizzes, e acompanha o progresso num painel. A interface está em 14 idiomas.
+
+Quase todo o conteúdo fica atrás do login; as páginas públicas são o login, o cadastro e os planos.
+
+## Páginas públicas
+
+- [Entrar](/login): login com e-mail e senha (protegido por reCAPTCHA v3) ou com Google, Facebook e LinkedIn
+- [Criar conta](/register): cadastro com nome, e-mail, telefone e senha
+- [Planos](/planos): plano gratuito e Premium (assinatura mensal ou anual pelo Stripe)
+
+## Depois do login
+
+- [Dashboard](/dashboard): cards para revisar hoje, sequência de estudo e atalhos
+- [Flashcards](/flashcards): criar, organizar por tags e revisar com repetição espaçada
+- [Quizes](/quizes): gerar quizzes a partir dos flashcards e responder uma questão por vez
+- [Prompts](/prompts): frases em português com traduções, imagens e frases semelhantes, que podem ser geradas por IA
+- [Progresso](/progresso): taxa de acerto, tempo de estudo e evolução

@@ -34,6 +34,8 @@
       <BaseButton variant="secondary" block :disabled="loading" @click="loginWithProvider('google')">
         <img
           src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          width="20"
+          height="20"
           alt=""
           class="user-login__social-icon me-2 h-5 w-5 shrink-0 align-middle"
         />
