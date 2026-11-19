@@ -1,6 +1,19 @@
 <template>
   <AuthCard :title="$t('register.title')" :subtitle="$t('register.subtitle')" icon="users" size="lg">
-    <form class="user-register__form flex flex-col gap-6" @submit.prevent="handleSubmit">
+    <!-- Depois do cadastro: a conta só entra depois de confirmar o e-mail -->
+    <div v-if="emailEnviado" class="user-register__sent flex flex-col items-center gap-4 text-center" role="status">
+      <span class="inline-flex size-16 items-center justify-center rounded-full bg-primary-soft text-icon-xl text-primary-soft-text" aria-hidden="true">
+        <BaseIcon name="mail" />
+      </span>
+      <h2 class="text-xl font-semibold text-text">{{ $t('verificarEmail.confiraTitulo') }}</h2>
+      <p class="max-w-measure text-text-muted">{{ $t('verificarEmail.confiraTexto', { email: emailEnviado }) }}</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <BaseButton variant="secondary" :loading="reenviando" @click="reenviarLink">{{ $t('verificarEmail.reenviar') }}</BaseButton>
+        <BaseButton to="/login">{{ $t('verificarEmail.irParaLogin') }}</BaseButton>
+      </div>
+    </div>
+
+    <form v-else class="user-register__form flex flex-col gap-6" @submit.prevent="handleSubmit">
       <div class="user-register__grid grid grid-cols-fit-64 gap-6">
         <!-- Seção 1: Informações Pessoais -->
         <fieldset class="user-register__section flex min-w-0 flex-col gap-4 border-0">
@@ -153,5 +166,8 @@ const {
   handlePhoneInput,
   handlePhoneKeydown,
   handleSubmit,
+  emailEnviado,
+  reenviando,
+  reenviarLink,
 } = useRegister()
 </script>

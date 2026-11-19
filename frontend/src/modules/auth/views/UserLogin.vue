@@ -25,6 +25,12 @@
       <BaseButton type="submit" :loading="loading" block>{{ $t('common.entrar') }}</BaseButton>
     </form>
 
+    <!-- Senha certa, e-mail ainda não confirmado -->
+    <div v-if="precisaConfirmarEmail" class="user-login__confirmar mt-4 flex flex-col items-center gap-2 rounded-lg bg-warning-soft p-4 text-center text-sm text-text" role="status">
+      <p>{{ $t('verificarEmail.loginPendente') }}</p>
+      <BaseButton variant="secondary" size="sm" :loading="reenviando" @click="reenviarLink">{{ $t('verificarEmail.reenviar') }}</BaseButton>
+    </div>
+
     <p class="user-login__divider mb-5 mt-6 flex items-center gap-4 text-sm font-medium text-text-subtle before:flex-1 before:border-0 before:border-b before:border-solid before:border-border before:content-empty after:flex-1 after:border-0 after:border-b after:border-solid after:border-border after:content-empty">
       <span>{{ $t('login.or') }}</span>
     </p>
@@ -73,5 +79,5 @@ import { useLogin } from './Login'
 import { BaseButton, BaseInput } from '@/shared/components/ui'
 import AuthCard from '../components/AuthCard.vue'
 
-const { form, errors, loading, handleSubmit, loginWithProvider } = useLogin()
+const { form, errors, loading, handleSubmit, loginWithProvider, precisaConfirmarEmail, reenviando, reenviarLink } = useLogin()
 </script>

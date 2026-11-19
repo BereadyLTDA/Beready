@@ -1,11 +1,11 @@
-import { ref, computed, reactive, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, onMounted, reactive, watch } from 'vue'
 import api, { getApiErrorMessage } from '@/core/services/api'
 import { useI18n } from 'vue-i18n'
 import { useAlert } from '@/shared/composables/useAlert'
 import { usePasswordStrength } from '@/shared/composables/usePasswordStrength'
 import { usePhoneMask } from '@/shared/composables/usePhoneMask'
 import { userLanguageOptions } from '@/locales'
+import { useRecaptcha } from '@/shared/composables/useRecaptcha'
 
 // Interface para o formulário
 interface RegisterForm {
@@ -29,7 +29,6 @@ interface RegisterErrors {
 
 // Exportação principal da função useRegister
 export function useRegister() {
-  const router = useRouter()
   const { t } = useI18n()
   const { success, error } = useAlert()
   const loading = ref(false)
@@ -128,13 +127,40 @@ export function useRegister() {
     return valid
   }
 
+  const { carregar: carregarRecaptcha, gerarToken } = useRecaptcha()
+  onMounted(carregarRecaptcha)
+
+  // E-mail para onde foi o link de confirmação (preenchido depois do cadastro)
+  const emailEnviado = ref('')
+  const reenviando = ref(false)
+  const reenviarLink = async () => {
+    reenviando.value = true
+    try {
+      await api.post('/auth/resend-verification', { email: emailEnviado.value })
+      success(t('verificarEmail.reenviado'))
+    } catch (err: unknown) {
+      error(getApiErrorMessage(err) || t('errors.networkError'))
+    } finally {
+      reenviando.value = false
+    }
+  }
+
   const handleSubmit = async () => {
     if (!validateForm()) return
 
     loading.value = true
 
     try {
+      let recaptchaToken = ''
+      try {
+        recaptchaToken = await gerarToken('register')
+      } catch (err) {
+        error((err as Error).message || t('login.recaptchaError'))
+        return
+      }
+
       const { data } = await api.post('/auth/register', {
+        recaptcha_token: recaptchaToken,
         nome: form.nome,
         email: form.email,
         senha: form.senha,
@@ -145,8 +171,8 @@ export function useRegister() {
       })
 
       if (data.success) {
-        success(t('register.success'))
-        setTimeout(() => router.push('/login'), 2000)
+        // A conta só entra depois de confirmar o e-mail: a tela troca para o aviso com reenvio
+        emailEnviado.value = form.email.trim()
       } else {
         error(data.message || t('register.error'))
       }
@@ -159,6 +185,9 @@ export function useRegister() {
 
   return {
     form,
+    emailEnviado,
+    reenviando,
+    reenviarLink,
     errors,
     loading,
     strengthClass,

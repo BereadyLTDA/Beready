@@ -80,10 +80,17 @@ test.describe('Sessão', () => {
     api.asUser(makeAdmin())
     await open(page, '/dashboard')
 
-    // Os atalhos ficam no menu "Administrador" do navbar
-    const menuAdmin = page.getByRole('button', { name: t('admin.badge') })
-    await menuAdmin.click()
-    await page.getByRole('link', { name: t('admin.users') }).click()
-    await expect(page).toHaveURL(/\/admin\?tab=users$/)
+    // "Administrador" é mais um item do menu (no fim da faixa, alcançado pelas setas) e abre o painel
+    const nav = page.getByRole('navigation', { name: t('ui.mainNavigation') }).first()
+    await nav.getByRole('link', { name: t('admin.badge') }).click()
+    await expect(page).toHaveURL(/\/admin$/)
+    await expect(page.getByRole('heading', { name: t('admin.title') })).toBeVisible()
+  })
+
+  test('usuário comum não vê o item Administrador no menu', async ({ page, api }) => {
+    api.asUser(makeUser())
+    await open(page, '/dashboard')
+
+    await expect(page.getByRole('link', { name: t('admin.badge') })).toHaveCount(0)
   })
 })

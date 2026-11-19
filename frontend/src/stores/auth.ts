@@ -9,6 +9,8 @@ import type { ApiResponse, LoginResponseData, RefreshResponseData, User } from '
 export interface AuthResult {
   success: boolean
   message?: string
+  /** Código do backend para casos com tratamento próprio (ex.: 'email_nao_verificado') */
+  codigo?: string
 }
 
 export interface LoginCredentials {
@@ -99,7 +101,9 @@ export const useAuthStore = defineStore('auth', () => {
       }
       return { success: false, message: response.data.message ?? fallbackMessage }
     } catch (err: unknown) {
-      return { success: false, message: getApiErrorMessage(err) ?? fallbackMessage }
+      const codigo = (err as { response?: { data?: { errors?: { codigo?: string } } } })?.response?.data?.errors
+        ?.codigo
+      return { success: false, message: getApiErrorMessage(err) ?? fallbackMessage, codigo }
     }
   }
 

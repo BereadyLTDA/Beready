@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'Gå med i tusentals studenter som redan lär sig med Beready',
     criarContaGratuita: 'skapa gratis konto',
   },
+  verificarEmail: {
+    titulo: 'Bekräftelse av e-post',
+    confirmando: 'Bekräftar din e-post...',
+    confirmado: 'E-posten är bekräftad. Nu kan du logga in.',
+    linkInvalido: 'Länken är ogiltig eller har gått ut. Ange din e-post för att få en ny.',
+    reenviar: 'Skicka länken igen',
+    reenviado: 'Om kontot finns och inte är bekräftat än har vi skickat en ny länk.',
+    irParaLogin: 'Till inloggningen',
+    confiraTitulo: 'Kolla din e-post',
+    confiraTexto: 'Vi har skickat en bekräftelselänk till {email}. Öppna mejlet och klicka på länken för att aktivera kontot.',
+    loginPendente: 'Din e-post är inte bekräftad än. Använd länken vi skickade eller be om en ny.',
+  },
   planos: {
     loginToSubscribe: 'Logga in för att teckna ett abonnemang.',
     subscribeYearly: 'Prenumerera årsvis',

@@ -120,12 +120,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, defineAsyncComponent, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAdminPanel } from './AdminPanel'
-import RoleManager from '@/components/admin/RoleManager.vue'
-import PlanoManager from '@/components/admin/PlanoManager.vue'
 import {
   BaseBadge,
   BaseButton,
@@ -141,6 +139,10 @@ import {
   type TabItem,
   type TableColumn,
 } from '@/shared/components/ui'
+
+// Abas pesadas carregam só quando abertas (a aba padrão é a de usuários)
+const RoleManager = defineAsyncComponent(() => import('@/components/admin/RoleManager.vue'))
+const PlanoManager = defineAsyncComponent(() => import('@/components/admin/PlanoManager.vue'))
 
 const route = useRoute()
 const router = useRouter()

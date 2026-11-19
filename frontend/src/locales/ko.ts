@@ -643,6 +643,18 @@ export default {
     ctaDesc: '이미 Beready로 학습 중인 수천 명의 학생들과 함께하세요',
     criarContaGratuita: '무료 계정 만들기',
   },
+  verificarEmail: {
+    titulo: '이메일 인증',
+    confirmando: '이메일을 인증하는 중...',
+    confirmado: '이메일이 인증되었습니다. 이제 로그인할 수 있습니다.',
+    linkInvalido: '링크가 잘못되었거나 만료되었습니다. 새 링크를 받으려면 이메일을 입력하세요.',
+    reenviar: '링크 다시 보내기',
+    reenviado: '계정이 있고 아직 인증되지 않았다면 새 링크를 보냈습니다.',
+    irParaLogin: '로그인으로 이동',
+    confiraTitulo: '이메일을 확인하세요',
+    confiraTexto: '{email}(으)로 인증 링크를 보냈습니다. 이메일을 열고 링크를 눌러 계정을 활성화하세요.',
+    loginPendente: '이메일이 아직 인증되지 않았습니다. 보낸 링크를 사용하거나 새 링크를 요청하세요.',
+  },
   planos: {
     loginToSubscribe: '요금제를 구독하려면 로그인하세요.',
     subscribeYearly: '연간 구독',

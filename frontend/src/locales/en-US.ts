@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'Join thousands of students already learning with Beready',
     criarContaGratuita: 'create free account',
   },
+  verificarEmail: {
+    titulo: 'E-mail confirmation',
+    confirmando: 'Confirming your e-mail...',
+    confirmado: 'E-mail confirmed. You can sign in now.',
+    linkInvalido: 'This link is invalid or has expired. Enter your e-mail to get a new one.',
+    reenviar: 'Resend link',
+    reenviado: 'If the account exists and is not confirmed yet, we sent a new link.',
+    irParaLogin: 'Go to sign in',
+    confiraTitulo: 'Check your e-mail',
+    confiraTexto: 'We sent a confirmation link to {email}. Open the e-mail and click the link to activate your account.',
+    loginPendente: 'Your e-mail is not confirmed yet. Use the link we sent or request a new one.',
+  },
   planos: {
     loginToSubscribe: 'Sign in to subscribe to a plan.',
     subscribeYearly: 'Subscribe yearly',

@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import type { Page } from '@playwright/test'
 import { type QuizMock } from './support/api'
-import { makeAssinaturaPremiumRecorrente, makeFlashcards, makeQuestoes, makeQuiz, makeUser } from './support/data'
+import { makeAdmin, makeAssinaturaPremiumRecorrente, makeFlashcards, makeQuestoes, makeQuiz, makeUser } from './support/data'
 import { expect, open, test } from './support/fixtures'
 
 /**
@@ -74,6 +74,21 @@ test.describe('Acessibilidade (axe)', () => {
       await open(page, path)
       await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible()
       await verificar(page, path)
+    })
+  }
+
+  // Admin vê telas e itens a mais (item do menu, painel com abas)
+  for (const [path, tema] of [
+    ['/dashboard', 'claro'],
+    ['/dashboard', 'escuro'],
+    ['/admin', 'claro'],
+    ['/admin?tab=stats', 'escuro'],
+  ] as const) {
+    test(`admin ${path} (${tema})`, async ({ page, api }) => {
+      api.asUser(makeAdmin()).withPreferencias({ tema }).withFlashcards(makeFlashcards(1))
+      await open(page, path)
+      await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible()
+      await verificar(page, `${path} admin (${tema})`)
     })
   }
 

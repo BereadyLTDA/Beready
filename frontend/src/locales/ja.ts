@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'すでにBereadyで学んでいる何千人もの学生に参加しましょう',
     criarContaGratuita: '無料アカウントを作成',
   },
+  verificarEmail: {
+    titulo: 'メールアドレスの確認',
+    confirmando: 'メールアドレスを確認しています...',
+    confirmado: 'メールアドレスを確認しました。ログインできます。',
+    linkInvalido: 'このリンクは無効か期限切れです。メールアドレスを入力すると新しいリンクを送ります。',
+    reenviar: 'リンクを再送信',
+    reenviado: 'アカウントが存在し未確認の場合、新しいリンクを送信しました。',
+    irParaLogin: 'ログインへ',
+    confiraTitulo: 'メールを確認してください',
+    confiraTexto: '{email} に確認用リンクを送信しました。メールを開いてリンクをクリックし、アカウントを有効にしてください。',
+    loginPendente: 'メールアドレスがまだ確認されていません。送信したリンクを使うか、新しいリンクを請求してください。',
+  },
   planos: {
     loginToSubscribe: 'プランを申し込むにはログインしてください。',
     subscribeYearly: '年額で申し込む',

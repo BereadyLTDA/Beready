@@ -171,9 +171,8 @@ export function useAdminPanel() {
   onMounted(async () => {
     // Verificar se o usuário tem permissão de admin antes de carregar
     if (isAdmin.value) {
-      // Tentar carregar os dados
-      await loadUsers()
-      await loadStats()
+      // Em paralelo: antes a lista de usuários esperava as estatísticas e vice-versa
+      await Promise.all([loadUsers(), loadStats()])
     } else {
       error(t('admin.accessDeniedAdmin'))
     }

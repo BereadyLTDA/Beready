@@ -13,13 +13,6 @@ export const progressoService = {
     return api.post<ApiResponse<Progresso>>('/progresso', data)
   },
 
-  incrementarFlashcards(usuario_id: number, quantidade = 1) {
-    return api.post<ApiResponse<Progresso>>('/progresso/incrementar-flashcards', {
-      usuario_id,
-      quantidade,
-    })
-  },
-
   // tempo_total_estudo é acumulado em segundos
   incrementarTempo(segundos: number, usuario_id: number) {
     return api.post<ApiResponse<Progresso>>('/progresso/incrementar-tempo', {

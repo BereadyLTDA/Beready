@@ -1,4 +1,4 @@
-import { API_URL, ok } from './support/api'
+import { API_URL, fail, ok } from './support/api'
 import { makeUser } from './support/data'
 import { expect, open, test } from './support/fixtures'
 import { t } from './support/i18n'
@@ -136,7 +136,7 @@ test.describe('Cadastro', () => {
     await expect(page.getByText(t('register.passwordsMatch'))).toBeVisible()
   })
 
-  test('envio com sucesso chama a API e volta para o login', async ({ page, api }) => {
+  test('envio com sucesso chama a API e pede para confirmar o e-mail', async ({ page, api }) => {
     await open(page, '/register')
 
     await page.getByLabel(t('register.nome')).fill('João da Silva')
@@ -156,9 +156,15 @@ test.describe('Cadastro', () => {
       telefone: '(21) 91234-5678',
       nivel_ingles: 'iniciante',
       idioma_preferido: 'en',
+      recaptcha_token: 'e2e-recaptcha-token',
     })
-    await expect(page.getByRole('status').filter({ hasText: t('register.success') })).toBeVisible()
-    await expect(page).toHaveURL(/\/login$/, { timeout: 10_000 })
+    // A conta só entra depois do link: a tela mostra o aviso e o reenvio
+    await expect(page.getByRole('heading', { name: t('verificarEmail.confiraTitulo') })).toBeVisible()
+    await expect(page.getByText('joao@beready.test')).toBeVisible()
+
+    const reenvio = api.waitFor('POST', '/auth/resend-verification')
+    await page.getByRole('button', { name: t('verificarEmail.reenviar') }).click()
+    expect((await reenvio).postDataJSON()).toEqual({ email: 'joao@beready.test' })
   })
 
   test('senhas diferentes bloqueiam o envio', async ({ page, api }) => {
@@ -173,5 +179,42 @@ test.describe('Cadastro', () => {
       t('passwordValidation.doNotMatch'),
     )
     expect(api.calls('POST', '/auth/register')).toHaveLength(0)
+  })
+})
+
+test.describe('Confirmação de e-mail', () => {
+  test('login com e-mail pendente oferece o reenvio do link', async ({ page, api }) => {
+    api.on('POST', '/auth/login', () =>
+      fail(403, 'Confirme seu e-mail para entrar.', { codigo: 'email_nao_verificado' }),
+    )
+    await open(page, '/login')
+    await page.getByLabel(t('login.email')).fill('maria@beready.test')
+    await page.getByRole('textbox', { name: t('login.password'), exact: true }).fill('senhaCerta1')
+    await page.getByRole('button', { name: t('common.entrar'), exact: true }).click()
+
+    await expect(page.getByText(t('verificarEmail.loginPendente'))).toBeVisible()
+    const reenvio = api.waitFor('POST', '/auth/resend-verification')
+    await page.getByRole('button', { name: t('verificarEmail.reenviar') }).click()
+    expect((await reenvio).postDataJSON()).toEqual({ email: 'maria@beready.test' })
+  })
+
+  test('link válido confirma e leva ao login', async ({ page, api }) => {
+    const confirmacao = api.waitFor('POST', '/auth/verify-email')
+    await open(page, '/verificar-email/token-valido')
+    expect((await confirmacao).postDataJSON()).toEqual({ token: 'token-valido' })
+
+    await expect(page.getByText(t('verificarEmail.confirmado'))).toBeVisible()
+    await page.getByRole('link', { name: t('verificarEmail.irParaLogin') }).click()
+    await expect(page).toHaveURL(/\/login$/)
+  })
+
+  test('link inválido permite pedir outro', async ({ page, api }) => {
+    await open(page, '/verificar-email/expirado')
+
+    await expect(page.getByText(t('verificarEmail.linkInvalido'))).toBeVisible()
+    await page.getByLabel(t('login.email')).fill('maria@beready.test')
+    const reenvio = api.waitFor('POST', '/auth/resend-verification')
+    await page.getByRole('button', { name: t('verificarEmail.reenviar') }).click()
+    expect((await reenvio).postDataJSON()).toEqual({ email: 'maria@beready.test' })
   })
 })

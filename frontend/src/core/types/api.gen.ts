@@ -774,6 +774,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/auth/verify-email": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Confirma o e-mail pelo token do link enviado no cadastro */
+        post: operations["usersVerifyEmail"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/resend-verification": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reenvia o link de confirmação (mesma resposta exista ou não a conta) */
+        post: operations["usersResendVerification"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/login": {
         parameters: {
             query?: never;
@@ -1017,22 +1051,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/progresso/incrementar-flashcards": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["progressoIncrementarFlashcards"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/progresso/incrementar-tempo": {
         parameters: {
             query?: never;
@@ -1128,22 +1146,6 @@ export interface paths {
         put?: never;
         /** Corrige uma resposta sem gravar (feedback durante o jogo) */
         post: operations["quizesVerificar"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/respostas": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["respostasSave"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1322,6 +1324,12 @@ export interface components {
             errors?: {
                 [key: string]: unknown;
             };
+        };
+        SucessoSemDados: {
+            /** @enum {boolean} */
+            success: true;
+            message: string;
+            data?: unknown;
         };
         AdminUser: {
             criado_em: string;
@@ -4188,6 +4196,76 @@ export interface operations {
             };
         };
     };
+    usersVerifyEmail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    token: string;
+                };
+            };
+        };
+        responses: {
+            /** @description E-mail confirmado */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SucessoSemDados"];
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    usersResendVerification: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    email: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Pedido aceito */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SucessoSemDados"];
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
     usersLogin: {
         parameters: {
             query?: never;
@@ -4752,41 +4830,6 @@ export interface operations {
             };
         };
     };
-    progressoIncrementarFlashcards: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado) */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @enum {boolean} */
-                        success: true;
-                        message: string;
-                        /** @description Formato ainda não descrito */
-                        data?: unknown;
-                    };
-                };
-            };
-            /** @description Erro (4xx/5xx) */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Erro"];
-                };
-            };
-        };
-    };
     progressoIncrementarTempo: {
         parameters: {
             query?: never;
@@ -5049,41 +5092,6 @@ export interface operations {
                         success: true;
                         message: string;
                         data?: components["schemas"]["QuizCorrecao"];
-                    };
-                };
-            };
-            /** @description Erro (4xx/5xx) */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Erro"];
-                };
-            };
-        };
-    };
-    respostasSave: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado) */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        /** @enum {boolean} */
-                        success: true;
-                        message: string;
-                        /** @description Formato ainda não descrito */
-                        data?: unknown;
                     };
                 };
             };

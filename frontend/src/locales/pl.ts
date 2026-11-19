@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'Dołącz do tysięcy studentów już uczących się z Beready',
     criarContaGratuita: 'utwórz darmowe konto',
   },
+  verificarEmail: {
+    titulo: 'Potwierdzenie e-maila',
+    confirmando: 'Potwierdzanie e-maila...',
+    confirmado: 'E-mail potwierdzony. Możesz się teraz zalogować.',
+    linkInvalido: 'Ten link jest nieprawidłowy lub wygasł. Podaj e-mail, aby otrzymać nowy.',
+    reenviar: 'Wyślij link ponownie',
+    reenviado: 'Jeśli konto istnieje i nie jest jeszcze potwierdzone, wysłaliśmy nowy link.',
+    irParaLogin: 'Przejdź do logowania',
+    confiraTitulo: 'Sprawdź skrzynkę',
+    confiraTexto: 'Wysłaliśmy link potwierdzający na adres {email}. Otwórz wiadomość i kliknij link, aby aktywować konto.',
+    loginPendente: 'Twój e-mail nie jest jeszcze potwierdzony. Użyj wysłanego linku lub poproś o nowy.',
+  },
   planos: {
     loginToSubscribe: 'Zaloguj się, aby wykupić plan.',
     subscribeYearly: 'Subskrybuj rocznie',

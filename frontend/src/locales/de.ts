@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'Schließen Sie sich Tausenden von Studenten an, die bereits mit Beready lernen',
     criarContaGratuita: 'kostenloses Konto erstellen',
   },
+  verificarEmail: {
+    titulo: 'E-Mail-Bestätigung',
+    confirmando: 'Deine E-Mail wird bestätigt...',
+    confirmado: 'E-Mail bestätigt. Du kannst dich jetzt anmelden.',
+    linkInvalido: 'Dieser Link ist ungültig oder abgelaufen. Gib deine E-Mail ein, um einen neuen zu erhalten.',
+    reenviar: 'Link erneut senden',
+    reenviado: 'Falls das Konto existiert und noch nicht bestätigt ist, haben wir einen neuen Link gesendet.',
+    irParaLogin: 'Zur Anmeldung',
+    confiraTitulo: 'Prüfe deine E-Mails',
+    confiraTexto: 'Wir haben einen Bestätigungslink an {email} gesendet. Öffne die E-Mail und klicke auf den Link, um dein Konto zu aktivieren.',
+    loginPendente: 'Deine E-Mail ist noch nicht bestätigt. Nutze den gesendeten Link oder fordere einen neuen an.',
+  },
   planos: {
     loginToSubscribe: 'Melde dich an, um einen Tarif abzuschließen.',
     subscribeYearly: 'Jährlich abonnieren',

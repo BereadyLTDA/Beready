@@ -58,6 +58,12 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
+      path: '/verificar-email/:token',
+      name: 'verificar-email',
+      component: () => import('../modules/auth/views/VerificarEmail.vue'),
+      meta: { requiresAuth: false },
+    },
+    {
       path: '/reset-password/:token',
       name: 'reset-password',
       component: ResetPassword,

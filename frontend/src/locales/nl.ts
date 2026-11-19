@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'Sluit u aan bij duizenden studenten die al leren met Beready',
     criarContaGratuita: 'gratis account aanmaken',
   },
+  verificarEmail: {
+    titulo: 'E-mailbevestiging',
+    confirmando: 'Je e-mail wordt bevestigd...',
+    confirmado: 'E-mail bevestigd. Je kunt nu inloggen.',
+    linkInvalido: 'Deze link is ongeldig of verlopen. Vul je e-mail in om een nieuwe te krijgen.',
+    reenviar: 'Link opnieuw sturen',
+    reenviado: 'Als het account bestaat en nog niet is bevestigd, hebben we een nieuwe link gestuurd.',
+    irParaLogin: 'Naar inloggen',
+    confiraTitulo: 'Controleer je e-mail',
+    confiraTexto: 'We hebben een bevestigingslink naar {email} gestuurd. Open de e-mail en klik op de link om je account te activeren.',
+    loginPendente: 'Je e-mail is nog niet bevestigd. Gebruik de verstuurde link of vraag een nieuwe aan.',
+  },
   planos: {
     loginToSubscribe: 'Log in om je op een abonnement te abonneren.',
     subscribeYearly: 'Jaarlijks abonneren',

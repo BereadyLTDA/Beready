@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'Unisciti a migliaia di studenti che già imparano con Beready',
     criarContaGratuita: 'crea account gratuito',
   },
+  verificarEmail: {
+    titulo: 'Conferma e-mail',
+    confirmando: 'Conferma dell’e-mail in corso...',
+    confirmado: 'E-mail confermata. Ora puoi accedere.',
+    linkInvalido: 'Questo link non è valido o è scaduto. Inserisci la tua e-mail per riceverne uno nuovo.',
+    reenviar: 'Invia di nuovo il link',
+    reenviado: 'Se l’account esiste e non è ancora confermato, abbiamo inviato un nuovo link.',
+    irParaLogin: 'Vai all’accesso',
+    confiraTitulo: 'Controlla la tua e-mail',
+    confiraTexto: 'Abbiamo inviato un link di conferma a {email}. Apri l’e-mail e clicca sul link per attivare l’account.',
+    loginPendente: 'La tua e-mail non è ancora confermata. Usa il link inviato o richiedine uno nuovo.',
+  },
   planos: {
     loginToSubscribe: 'Accedi per abbonarti a un piano.',
     subscribeYearly: 'Abbonati annuale',

@@ -4,7 +4,9 @@ import { useI18n } from 'vue-i18n'
 import { useForm } from '@/shared/composables/useForm'
 import { useAlert } from '@/shared/composables/useAlert'
 import { useAuthStore } from '@/stores/auth'
-import { API_BASE_URL, RECAPTCHA_SITE_KEY, RECAPTCHA_JS_URL } from '@/shared/config/env'
+import { API_BASE_URL } from '@/shared/config/env'
+import { useRecaptcha } from '@/shared/composables/useRecaptcha'
+import api, { getApiErrorMessage } from '@/core/services/api'
 
 export function useLogin() {
   const router = useRouter()
@@ -25,44 +27,22 @@ export function useLogin() {
     },
   }
 
-  // Carrega o script do reCAPTCHA
-  const loadRecaptcha = () => {
-    if (!RECAPTCHA_SITE_KEY || !RECAPTCHA_JS_URL) {
-      console.warn('VITE_RECAPTCHA_SITE_KEY/VITE_RECAPTCHA_JS_URL não configurados no .env')
-      return
+  const { carregar: loadRecaptcha, gerarToken } = useRecaptcha()
+  const getRecaptchaToken = () => gerarToken('login')
+
+  // Senha certa, mas o e-mail ainda não foi confirmado: mostra o reenvio do link
+  const precisaConfirmarEmail = ref(false)
+  const reenviando = ref(false)
+  const reenviarLink = async () => {
+    reenviando.value = true
+    try {
+      await api.post('/auth/resend-verification', { email: form.email })
+      success(t('verificarEmail.reenviado'))
+    } catch (err: unknown) {
+      error(getApiErrorMessage(err) || t('errors.networkError'))
+    } finally {
+      reenviando.value = false
     }
-
-    if (document.querySelector('script[src*="recaptcha"]')) {
-      return
-    }
-
-    const script = document.createElement('script')
-    script.src = `${RECAPTCHA_JS_URL}?render=${RECAPTCHA_SITE_KEY}`
-    script.async = true
-    script.defer = true
-    document.head.appendChild(script)
-  }
-
-  // Obtém o token do reCAPTCHA
-  const getRecaptchaToken = (): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const siteKey = RECAPTCHA_SITE_KEY
-      if (!siteKey) {
-        reject(new Error(t('login.recaptchaNotConfigured')))
-        return
-      }
-
-      if (typeof window === 'undefined' || !window.grecaptcha) {
-        reject(new Error(t('login.recaptchaNotLoaded')))
-        return
-      }
-
-      // ready(): o script pode ter carregado mas ainda não estar pronto (envio logo ao abrir a página)
-      const recaptcha = window.grecaptcha
-      recaptcha.ready(() => {
-        recaptcha.execute(siteKey, { action: 'login' }).then(resolve).catch(reject)
-      })
-    })
   }
 
   const handleSubmit = async () => {
@@ -93,6 +73,7 @@ export function useLogin() {
           router.push('/dashboard')
         }, 500)
       } else {
+        precisaConfirmarEmail.value = response.codigo === 'email_nao_verificado'
         error(response.message || t('login.error'))
       }
     } catch (err) {
@@ -124,6 +105,9 @@ export function useLogin() {
     form,
     errors,
     loading,
+    precisaConfirmarEmail,
+    reenviando,
+    reenviarLink,
     handleSubmit,
     loginWithProvider,
   }

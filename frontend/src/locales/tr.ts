@@ -643,6 +643,18 @@ export default {
     ctaDesc: 'Beready ile öğrenen binlerce öğrenciye katılın',
     criarContaGratuita: 'ücretsiz hesap oluştur',
   },
+  verificarEmail: {
+    titulo: 'E-posta doğrulama',
+    confirmando: 'E-postanız doğrulanıyor...',
+    confirmado: 'E-posta doğrulandı. Artık giriş yapabilirsiniz.',
+    linkInvalido: 'Bu bağlantı geçersiz veya süresi dolmuş. Yeni bir bağlantı için e-postanızı girin.',
+    reenviar: 'Bağlantıyı tekrar gönder',
+    reenviado: 'Hesap varsa ve henüz doğrulanmadıysa yeni bir bağlantı gönderdik.',
+    irParaLogin: 'Girişe git',
+    confiraTitulo: 'E-postanızı kontrol edin',
+    confiraTexto: '{email} adresine bir doğrulama bağlantısı gönderdik. Hesabınızı etkinleştirmek için e-postadaki bağlantıya tıklayın.',
+    loginPendente: 'E-postanız henüz doğrulanmadı. Gönderdiğimiz bağlantıyı kullanın veya yenisini isteyin.',
+  },
   planos: {
     loginToSubscribe: 'Bir plana abone olmak için giriş yapın.',
     subscribeYearly: 'Yıllık abone ol',

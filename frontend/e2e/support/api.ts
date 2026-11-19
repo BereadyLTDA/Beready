@@ -354,6 +354,12 @@ export class ApiMock {
     this.def('POST', '/auth/register', ({ body }) =>
       ok({ user: makeUser({ id: this.id(), nome: String(body.nome ?? ''), email: String(body.email ?? '') }) }, 'Registro realizado com sucesso', 201),
     )
+    this.def('POST', '/auth/resend-verification', () =>
+      ok(null, 'Se a conta existir e ainda não estiver confirmada, enviamos um novo link.'),
+    )
+    this.def('POST', '/auth/verify-email', ({ body }) =>
+      body.token === 'token-valido' ? ok(null, 'E-mail confirmado.') : fail(400, 'Link de confirmação inválido ou expirado'),
+    )
     // Login social: o navegador é redirecionado para cá; basta uma página qualquer
     this.def('GET', '/auth/login/:provider', ({ params }) => ({
       status: 200,
