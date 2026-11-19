@@ -120,3 +120,5 @@ lerna-debug.log*
 *.bak
 *.backup
 *.old
+# Added by code-review-graph
+.code-review-graph/
