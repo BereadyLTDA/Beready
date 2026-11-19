@@ -125,11 +125,10 @@ jobs:
       - name: Build frontend
         working-directory: frontend
         run: npm run build
-        # Os secrets são opcionais: sem eles o build usa estes valores, que bastam para o CI.
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL || 'http://localhost:8765' }}
-          VITE_APP_NAME: ${{ secrets.VITE_APP_NAME || 'BeReady' }}
-          VITE_APP_ENV: ${{ secrets.VITE_APP_ENV || 'production' }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_APP_NAME: ${{ secrets.VITE_APP_NAME }}
+          VITE_APP_ENV: ${{ secrets.VITE_APP_ENV }}
 
   # Testes E2E do frontend (Playwright + Chromium). Sem backend: a API é mockada
   # em frontend/e2e/support/api.ts e o build de teste usa só valores fictícios.
