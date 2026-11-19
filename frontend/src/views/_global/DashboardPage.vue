@@ -6,27 +6,6 @@
       icon="home"
     />
 
-    <!-- PAINEL ADMIN -->
-    <BaseCard v-if="isAdmin" as="section" muted padding="sm" class="dashboard__admin">
-      <div class="dashboard__admin-row flex flex-wrap items-center gap-x-4 gap-y-3">
-        <BaseBadge variant="primary" icon="shield-check">{{ $t('admin.badge') }}</BaseBadge>
-        <div class="dashboard__admin-links flex flex-wrap gap-2">
-          <BaseButton variant="secondary" size="sm" icon="users" @click="goToAdmin('users')">
-            {{ $t('admin.users') }}
-          </BaseButton>
-          <BaseButton variant="secondary" size="sm" icon="shield-check" @click="goToAdmin('roles')">
-            {{ $t('admin.roles.title') }}
-          </BaseButton>
-          <BaseButton variant="secondary" size="sm" icon="star" @click="goToAdmin('planos')">
-            {{ $t('admin.planos.title') }}
-          </BaseButton>
-          <BaseButton variant="secondary" size="sm" icon="chart-bar" @click="goToAdmin('stats')">
-            {{ $t('admin.statistics') }}
-          </BaseButton>
-        </div>
-      </div>
-    </BaseCard>
-
     <!-- Estatísticas -->
     <div class="dashboard__stats grid grid-cols-fill-56 gap-4">
       <!-- Repetição espaçada: acesso direto à fila do dia -->
@@ -108,11 +87,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { useRevisaoPendentes } from '@/modules/flashcards/composables/useRevisao'
 import {
-  BaseBadge,
-  BaseButton,
   BaseCard,
   BaseIcon,
   BaseProgress,
@@ -123,17 +99,11 @@ import {
 } from '@/shared/components/ui'
 import { useDashboard } from './DashboardPage'
 
-const router = useRouter()
 const { t } = useI18n()
-const { userName, stats, motivationalMessage, isAdmin } = useDashboard()
+const { userName, stats, motivationalMessage } = useDashboard()
 const { total: paraRevisar, carregar: carregarRevisao } = useRevisaoPendentes()
 
 onMounted(carregarRevisao)
-
-// FUNÇÃO PARA NAVEGAR PARA ADMIN COM TAB ESPECÍFICA
-const goToAdmin = (tab: string) => {
-  router.push(`/admin?tab=${tab}`)
-}
 
 interface DashboardFeature {
   to: string

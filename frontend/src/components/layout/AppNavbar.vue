@@ -49,6 +49,37 @@
         </button>
       </nav>
 
+      <!-- Admin (>= 1280px): fora da faixa rolável do menu, senão a lista seria cortada -->
+      <div v-if="isAdmin" ref="adminRef" class="app-nav__admin relative hidden shrink-0 xl:block">
+        <button
+          type="button"
+          :class="[linkBase, isAdminActive() ? linkActive : linkIdle, 'border-0']"
+          :aria-expanded="isAdminOpen"
+          aria-controls="app-nav-admin-menu"
+          @click="isAdminOpen = !isAdminOpen"
+        >
+          <BaseIcon name="shield-check" class="size-4.5" />
+          <span>{{ $t('admin.badge') }}</span>
+          <BaseIcon name="chevron-down" :class="['size-4 transition-transform', isAdminOpen ? 'rotate-180' : '']" />
+        </button>
+        <ul
+          v-show="isAdminOpen"
+          id="app-nav-admin-menu"
+          class="app-nav__admin-menu absolute end-0 top-full z-dropdown mt-2 flex min-w-56 list-none flex-col gap-1 rounded-lg border border-solid border-border bg-surface p-2 shadow-lg"
+        >
+          <li v-for="item in adminItems" :key="item.tab">
+            <router-link
+              :to="{ path: '/admin', query: { tab: item.tab } }"
+              :class="[drawerLinkBase, isAdminActive(item.tab) ? drawerLinkActive : drawerLinkIdle]"
+              :aria-current="isAdminActive(item.tab) ? 'page' : undefined"
+            >
+              <BaseIcon :name="item.icon" class="size-5" />
+              <span>{{ $t(item.name) }}</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+
       <div class="app-nav__user ms-auto flex min-w-0 items-center gap-2">
         <span :class="avatarClass" aria-hidden="true">
           <img v-if="user?.foto_perfil" :src="user.foto_perfil" alt="" width="36" height="36" class="app-nav__avatar-img size-full object-cover" />
@@ -126,6 +157,24 @@
                 </router-link>
               </li>
             </ul>
+
+            <template v-if="isAdmin">
+              <h2 class="app-nav__drawer-heading mb-1 mt-4 px-3 text-xs font-semibold uppercase tracking-wide text-text-muted">
+                {{ $t('admin.badge') }}
+              </h2>
+              <ul class="app-nav__drawer-list flex list-none flex-col gap-1">
+                <li v-for="item in adminItems" :key="item.tab">
+                  <router-link
+                    :to="{ path: '/admin', query: { tab: item.tab } }"
+                    :class="[drawerLinkBase, isAdminActive(item.tab) ? drawerLinkActive : drawerLinkIdle]"
+                    :aria-current="isAdminActive(item.tab) ? 'page' : undefined"
+                  >
+                    <BaseIcon :name="item.icon" class="app-nav__drawer-icon size-5" />
+                    <span>{{ $t(item.name) }}</span>
+                  </router-link>
+                </li>
+              </ul>
+            </template>
           </nav>
 
           <div class="app-nav__drawer-foot border-0 border-t border-solid border-border p-4">
@@ -153,7 +202,12 @@ const {
   userEmail,
   userInitial,
   menuItems,
+  adminItems,
   isActive,
+  isAdmin,
+  isAdminActive,
+  isAdminOpen,
+  closeAdmin,
   isMenuOpen,
   drawerRef,
   toggleMenu,
@@ -182,6 +236,26 @@ function rolarMenu(direcao: 1 | -1) {
   const rtl = getComputedStyle(lista).direction === 'rtl'
   lista.scrollBy({ left: direcao * lista.clientWidth * 0.6 * (rtl ? -1 : 1) })
 }
+
+// Lista do admin: fecha com clique fora ou Esc (e ao navegar, em Navbar.ts)
+const adminRef = ref<HTMLElement | null>(null)
+function fecharAdminFora(event: Event) {
+  if (isAdminOpen.value && adminRef.value && !adminRef.value.contains(event.target as Node)) closeAdmin()
+}
+function fecharAdminEsc(event: KeyboardEvent) {
+  if (event.key === 'Escape' && isAdminOpen.value) {
+    closeAdmin()
+    adminRef.value?.querySelector('button')?.focus()
+  }
+}
+onMounted(() => {
+  document.addEventListener('pointerdown', fecharAdminFora)
+  document.addEventListener('keydown', fecharAdminEsc)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', fecharAdminFora)
+  document.removeEventListener('keydown', fecharAdminEsc)
+})
 
 let observador: ResizeObserver | null = null
 onMounted(() => {

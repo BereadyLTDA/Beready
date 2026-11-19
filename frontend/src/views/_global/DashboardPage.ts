@@ -16,7 +16,6 @@ export function useDashboard() {
   const { t } = useI18n()
   const authStore = useAuthStore()
   const user = computed(() => authStore.user)
-  const isAdmin = computed(() => authStore.isAdmin)
   const loading = ref(false)
   const stats = ref<StatsData>({
     flashcardsCount: 0,
@@ -80,6 +79,5 @@ export function useDashboard() {
     userName,
     stats,
     motivationalMessage,
-    isAdmin,
   }
 }

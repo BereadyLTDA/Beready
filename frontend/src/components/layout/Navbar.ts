@@ -26,6 +26,20 @@ export const menuItems: NavItem[] = [
   { name: 'common.preferencias', path: '/preferencias', icon: 'cog' },
 ]
 
+// Atalhos do painel administrativo (só para role admin). Cada um abre uma aba de /admin.
+export interface AdminNavItem {
+  name: string
+  tab: string
+  icon: IconName
+}
+
+export const adminItems: AdminNavItem[] = [
+  { name: 'admin.users', tab: 'users', icon: 'users' },
+  { name: 'admin.roles.title', tab: 'roles', icon: 'shield-check' },
+  { name: 'admin.planos.title', tab: 'planos', icon: 'star' },
+  { name: 'admin.statistics', tab: 'stats', icon: 'chart-bar' },
+]
+
 // A partir deste breakpoint o menu fica inline (ver navbar.css); abaixo, drawer
 const DESKTOP_QUERY = '(min-width: 1280px)'
 
@@ -43,6 +57,17 @@ export function useNavbarLogic() {
   // Ativo também nas sub-rotas (/flashcards/12, /prompts/3/traducoes...)
   const isActive = (path: string): boolean =>
     route.path === path || route.path.startsWith(`${path}/`)
+
+  const isAdmin = computed(() => authStore.isAdmin)
+  const isAdminActive = (tab?: string): boolean =>
+    route.path === '/admin' && (tab === undefined || (route.query.tab ?? 'users') === tab)
+
+  // Lista suspensa do admin (desktop): fecha ao navegar
+  const isAdminOpen = ref(false)
+  const closeAdmin = () => {
+    isAdminOpen.value = false
+  }
+  watch(() => route.fullPath, closeAdmin)
 
   // Drawer (menu mobile/tablet)
   const isMenuOpen = ref(false)
@@ -89,7 +114,12 @@ export function useNavbarLogic() {
     userEmail,
     userInitial,
     menuItems,
+    adminItems,
     isActive,
+    isAdmin,
+    isAdminActive,
+    isAdminOpen,
+    closeAdmin,
     isMenuOpen,
     drawerRef,
     openMenu,

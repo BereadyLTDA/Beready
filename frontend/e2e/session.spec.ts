@@ -76,11 +76,14 @@ test.describe('Sessão', () => {
     expect(api.requests.some((r) => r.path.startsWith('/admin/'))).toBe(false)
   })
 
-  test('admin vê o painel de administração no dashboard', async ({ page, api }) => {
+  test('admin abre o painel pelo menu Administrador do navbar', async ({ page, api }) => {
     api.asUser(makeAdmin())
     await open(page, '/dashboard')
 
-    await expect(page.getByText(t('admin.badge'))).toBeVisible()
-    await expect(page.getByRole('button', { name: t('admin.users') })).toBeVisible()
+    // Os atalhos ficam no menu "Administrador" do navbar
+    const menuAdmin = page.getByRole('button', { name: t('admin.badge') })
+    await menuAdmin.click()
+    await page.getByRole('link', { name: t('admin.users') }).click()
+    await expect(page).toHaveURL(/\/admin\?tab=users$/)
   })
 })
