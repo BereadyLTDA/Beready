@@ -3,6 +3,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAlert } from '@/shared/composables/useAlert'
 import api, { getApiErrorMessage } from '@/core/services/api'
 import { usePermissionStore } from '@/stores/permissionStore'
+import { useAuthStore } from '@/stores/auth'
 import { useI18n } from 'vue-i18n'
 import { getNivelLabelKey } from '@/shared/utils/nivelDificuldade'
 import { formatDate as formatLocaleDate } from '@/shared/utils/intl'
@@ -35,7 +36,8 @@ export function useQuizView() {
       return
     }
 
-    // Verificar permissão de visualização
+    // Depois de um F5 as permissões ainda podem estar carregando: espera antes de checar
+    await useAuthStore().waitUserContext()
     if (!permissionStore.canView('quizes')) {
       error(t('quizes.viewDenied'))
       router.push('/quizes')

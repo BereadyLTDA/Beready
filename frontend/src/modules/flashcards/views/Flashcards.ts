@@ -118,14 +118,16 @@ export function useFlashcardsView() {
   const submitForm = async (): Promise<void> => {
     const user = authStore.user
     if (!user) return
+    // O "required" do navegador aceita só espaços; um card com frente ou verso em branco não serve
+    if (!form.frente.trim() || !form.verso.trim()) return
 
     submitting.value = true
 
     try {
       const data = {
         usuario_id: user.id,
-        frente: form.frente,
-        verso: form.verso,
+        frente: form.frente.trim(),
+        verso: form.verso.trim(),
         nivel_dificuldade: form.nivel_dificuldade,
       }
 

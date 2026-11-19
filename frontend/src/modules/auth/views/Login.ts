@@ -46,7 +46,8 @@ export function useLogin() {
   // Obtém o token do reCAPTCHA
   const getRecaptchaToken = (): Promise<string> => {
     return new Promise((resolve, reject) => {
-      if (!RECAPTCHA_SITE_KEY) {
+      const siteKey = RECAPTCHA_SITE_KEY
+      if (!siteKey) {
         reject(new Error(t('login.recaptchaNotConfigured')))
         return
       }
@@ -56,7 +57,11 @@ export function useLogin() {
         return
       }
 
-      window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'login' }).then(resolve).catch(reject)
+      // ready(): o script pode ter carregado mas ainda não estar pronto (envio logo ao abrir a página)
+      const recaptcha = window.grecaptcha
+      recaptcha.ready(() => {
+        recaptcha.execute(siteKey, { action: 'login' }).then(resolve).catch(reject)
+      })
     })
   }
 

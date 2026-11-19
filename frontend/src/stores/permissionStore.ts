@@ -145,8 +145,17 @@ export const usePermissionStore = defineStore('permissions', () => {
     // ============================================
     // ACTIONS
     // ============================================
-    const loadPermissions = async (): Promise<void> => {
-        if (loading.value) return
+    // Chamadas simultâneas esperam a mesma requisição (antes, a segunda voltava sem esperar e
+    // a tela checava permissões ainda vazias)
+    let permissionsPromise: Promise<void> | null = null
+    const loadPermissions = (): Promise<void> => {
+        permissionsPromise ??= carregarPermissoes().finally(() => {
+            permissionsPromise = null
+        })
+        return permissionsPromise
+    }
+
+    const carregarPermissoes = async (): Promise<void> => {
 
         if (!useAuthStore().accessToken) {
             userPermissions.value = []
@@ -226,10 +235,10 @@ export const usePermissionStore = defineStore('permissions', () => {
     const loadAssinatura = async (): Promise<void> => {
         try {
             const response = await api.get('/user/assinatura')
-            if (response.data.success) {
-                assinaturaAtiva.value = response.data.data
-            }
+            // Sem assinatura (ou resposta sem sucesso), não mantém a anterior na tela
+            assinaturaAtiva.value = response.data.success ? response.data.data : null
         } catch (error: unknown) {
+            assinaturaAtiva.value = null
             if (error && typeof error === 'object' && 'response' in error) {
                 const err = error as { response?: { status?: number } }
                 if (err.response?.status !== 404) {

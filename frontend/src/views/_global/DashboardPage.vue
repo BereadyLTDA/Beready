@@ -87,6 +87,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { useAlert } from '@/shared/composables/useAlert'
 import { useRevisaoPendentes } from '@/modules/flashcards/composables/useRevisao'
 import {
   BaseCard,
@@ -103,7 +105,17 @@ const { t } = useI18n()
 const { userName, stats, motivationalMessage } = useDashboard()
 const { total: paraRevisar, carregar: carregarRevisao } = useRevisaoPendentes()
 
-onMounted(carregarRevisao)
+// O guard manda para cá com ?error=no_permission quando a rota exige uma permissão que falta
+const route = useRoute()
+const router = useRouter()
+const { warning } = useAlert()
+onMounted(() => {
+  carregarRevisao()
+  if (route.query.error === 'no_permission') {
+    warning(t('admin.noPermissionAction'))
+    router.replace({ query: {} })
+  }
+})
 
 interface DashboardFeature {
   to: string

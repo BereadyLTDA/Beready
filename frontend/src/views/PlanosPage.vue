@@ -1,12 +1,14 @@
 <!-- frontend/src/views/PlanosPage.vue -->
 
 <template>
+  <!-- Página pública: logado, mostra o navbar como as outras telas; sem sessão, volta para o login -->
+  <AppNavbar v-if="isAuthenticated" />
   <PageContainer as="main" class="planos min-h-screen">
     <PageHeader
       :title="$t('planos.title')"
       :subtitle="$t('planos.subtitle')"
       icon="star"
-      back-to="/dashboard"
+      :back-to="isAuthenticated ? '/dashboard' : '/login'"
     />
 
     <BaseSpinner v-if="isLoadingPlanos" center size="lg" />
@@ -104,6 +106,15 @@
                       : $t('planos.subscribeNow')
                 }}
               </BaseButton>
+              <BaseButton
+                v-if="!isPlanoAtual(plano) && !isRecorrente && plano.preco_mensal > 0 && plano.preco_anual > 0"
+                variant="secondary"
+                block
+                :loading="isLoading"
+                @click="handleAssinarPlano(plano, 'anual')"
+              >
+                {{ $t('planos.subscribeYearly') }}
+              </BaseButton>
 
               <BaseButton
                 v-if="isPlanoAtual(plano) && isRecorrente"
@@ -159,10 +170,12 @@ import {
   PageContainer,
   PageHeader,
 } from '@/shared/components/ui'
+import AppNavbar from '@/components/layout/AppNavbar.vue'
 import { usePlanosPage } from './PlanosPage'
 
 const {
   planosData,
+  isAuthenticated,
   isLoading,
   isLoadingPlanos,
   showCancelModal,

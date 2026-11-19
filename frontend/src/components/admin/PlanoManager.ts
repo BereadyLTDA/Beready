@@ -108,23 +108,36 @@ export function usePlanoManager() {
         isModalOpen.value = true
     }
 
+    // O backend responde 200 com success:false em algumas recusas: isso não é sucesso
+    const garantirSucesso = (resposta: unknown): void => {
+        const r = resposta as { success?: boolean; message?: string } | null
+        if (r && r.success === false) {
+            throw { response: { data: { message: r.message } } }
+        }
+    }
+
     const handleSavePlano = async (): Promise<void> => {
+        // JSON inválido não pode virar "{}": sem limites, o usePlan trata tudo como limite 0
+        let limites: Plano['limites']
+        try {
+            limites = JSON.parse(limitesTextData.value || '{}')
+        } catch {
+            error(t('admin.planos.limitesInvalidos'))
+            return
+        }
+
         isSaving.value = true
         try {
             formData.value.recursos = recursosTextData.value.split(',').map((s: string) => s.trim()).filter((s: string) => s)
-            try {
-                formData.value.limites = JSON.parse(limitesTextData.value)
-            } catch {
-                formData.value.limites = {}
-            }
+            formData.value.limites = limites
 
             const data = { ...formData.value }
 
             if (editingPlano.value) {
-                await permissionStore.updatePlano(editingPlano.value.id, data)
+                garantirSucesso(await permissionStore.updatePlano(editingPlano.value.id, data))
                 success(t('admin.planos.updateSuccess'))
             } else {
-                await permissionStore.createPlano(data)
+                garantirSucesso(await permissionStore.createPlano(data))
                 success(t('admin.planos.createSuccess'))
             }
 
@@ -142,7 +155,7 @@ export function usePlanoManager() {
     const handleToggleStatus = async (plano: Plano): Promise<void> => {
         togglingStatus.value = plano.id
         try {
-            await permissionStore.updatePlano(plano.id, { is_ativo: !plano.is_ativo })
+            garantirSucesso(await permissionStore.updatePlano(plano.id, { is_ativo: !plano.is_ativo }))
             success(t('success.statusUpdated'))
         } catch (err: unknown) {
             const errorMessage = err && typeof err === 'object' && 'response' in err
@@ -164,7 +177,7 @@ export function usePlanoManager() {
 
         deleting.value = true
         try {
-            await permissionStore.deletePlano(planoToDelete.value.id)
+            garantirSucesso(await permissionStore.deletePlano(planoToDelete.value.id))
             success(t('admin.planos.deleteSuccess'))
             await permissionStore.loadPlanos()
         } catch (err: unknown) {

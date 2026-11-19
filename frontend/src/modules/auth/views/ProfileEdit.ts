@@ -33,7 +33,14 @@ export function useProfileEdit() {
     objetivos_aprendizado: '',
     nova_senha: '',
     confirmar_senha: '',
+    senha_atual: '',
   })
+
+  // O backend pede a senha atual para trocar a senha ou o e-mail (contas criadas com senha)
+  const emailMudou = computed(
+    () => form.email.trim().toLowerCase() !== (authStore.user?.email ?? '').toLowerCase(),
+  )
+  const precisaSenhaAtual = computed(() => !!form.nova_senha || emailMudou.value)
 
   const passwordsMatch = computed(() => {
     if (!form.nova_senha && !form.confirmar_senha) return true
@@ -185,6 +192,7 @@ export function useProfileEdit() {
         objetivos_aprendizado: string
         foto_perfil: string
         senha?: string
+        senha_atual?: string
       }
 
       const submitData: SubmitData = {
@@ -200,6 +208,9 @@ export function useProfileEdit() {
 
       if (form.nova_senha !== '') {
         submitData.senha = form.nova_senha
+      }
+      if (precisaSenhaAtual.value && form.senha_atual !== '') {
+        submitData.senha_atual = form.senha_atual
       }
 
       const { data } = await api.put<ApiResponse<{ user: User }>>(`/users/update/${currentUserId}`, submitData)
@@ -222,6 +233,9 @@ export function useProfileEdit() {
           })
         }
 
+        form.senha_atual = ''
+        form.nova_senha = ''
+        form.confirmar_senha = ''
         success(t('success.updated'))
 
         setTimeout(() => {
@@ -258,5 +272,6 @@ export function useProfileEdit() {
     handlePasswordInput,
     handleImageChange,
     handleSubmit,
+    precisaSenhaAtual,
   }
 }

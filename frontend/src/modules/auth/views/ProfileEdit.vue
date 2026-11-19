@@ -87,6 +87,16 @@
 
       <BaseCard as="section" :title="$t('profile.alterarSenha')" :subtitle="$t('profile.senhaHint')">
         <div class="edit-profile__password grid grid-cols-fit-64 items-start gap-x-6 gap-y-4">
+          <!-- Aparece ao trocar a senha ou o e-mail: o backend confirma que é o dono da conta -->
+          <BaseInput
+            v-if="precisaSenhaAtual"
+            v-model="form.senha_atual"
+            type="password"
+            class="edit-profile__current-password col-span-full max-w-md"
+            :label="$t('profile.senhaAtual')"
+            :hint="$t('profile.senhaAtualHint')"
+            autocomplete="current-password"
+          />
           <div class="edit-profile__fields flex flex-col gap-4">
             <BaseInput
               v-model="form.nova_senha"
@@ -168,5 +178,6 @@ const {
   handlePasswordInput,
   handleImageChange,
   handleSubmit,
+  precisaSenhaAtual,
 } = useProfileEdit()
 </script>

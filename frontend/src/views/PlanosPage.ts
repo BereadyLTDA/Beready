@@ -64,12 +64,21 @@ export function usePlanosPage() {
     const formatRecurso = formatRecursoPlano
     const formatLimiteKey = formatLimitePlano
 
-    const handleAssinarPlano = async (plano: Plano): Promise<void> => {
+    const isAuthenticated = computed(() => authStore.isAuthenticated)
+
+    const handleAssinarPlano = async (plano: Plano, ciclo: 'mensal' | 'anual' = 'mensal'): Promise<void> => {
         if (isPlanoAtual(plano)) return
+
+        // /planos é pública: sem sessão, assinar leva ao login em vez de um erro 401
+        if (!isAuthenticated.value) {
+            warning(t('planos.loginToSubscribe'))
+            router.push('/login')
+            return
+        }
 
         isLoading.value = true
         try {
-            const response = await permissionStore.assinarPlano(plano.id, 'mensal')
+            const response = await permissionStore.assinarPlano(plano.id, ciclo)
             const checkoutUrl = response.data?.checkout_url
 
             if (response.data?.requires_payment && checkoutUrl) {
@@ -128,6 +137,7 @@ export function usePlanosPage() {
 
     return {
         planosData,
+        isAuthenticated,
         isLoading,
         isLoadingPlanos,
         showCancelModal,

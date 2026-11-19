@@ -183,6 +183,13 @@ const router = createRouter({
         },
       ],
     },
+    // Qualquer outro endereço
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('../views/NotFoundPage.vue'),
+      meta: { requiresAuth: false },
+    },
   ],
 })
 
