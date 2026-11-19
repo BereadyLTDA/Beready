@@ -1875,6 +1875,10 @@ export interface components {
         };
         UserUpdateInput: {
             nome?: string;
+            /** Format: email */
+            email?: string;
+            /** @description Obrigatória para trocar a própria senha ou o e-mail (contas com senha) */
+            senha_atual?: string;
             role?: string;
             senha?: string;
             senha_hash?: string;
