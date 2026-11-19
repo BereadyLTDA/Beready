@@ -37,6 +37,33 @@ class CloudinaryService implements CloudinaryServiceInterface
         return $url;
     }
 
+    public function copiarFotoRemota(string $url): string
+    {
+        $config = config('beready.cloudinary');
+        if (empty($config['cloud_name']) || empty($config['api_key']) || empty($config['api_secret'])) {
+            return $url;
+        }
+
+        $params = [
+            'timestamp' => time(),
+            'folder' => $config['upload_folder'],
+        ];
+
+        // O Cloudinary aceita uma URL no campo "file" e baixa a imagem do lado dele.
+        $response = Http::asForm()->post("{$config['api_url']}/{$config['cloud_name']}/image/upload", $params + [
+            'file' => $url,
+            'api_key' => $config['api_key'],
+            'signature' => $this->assinatura($params, (string) $config['api_secret']),
+        ]);
+
+        $nova = $response->json('secure_url');
+        if (! is_string($nova)) {
+            throw new \RuntimeException('Erro ao copiar a foto: '.($response->json('error.message') ?? 'Erro desconhecido'));
+        }
+
+        return $nova;
+    }
+
     /**
      * Assinatura do Cloudinary: parâmetros em ordem alfabética ("a=1&b=2") + o segredo, em SHA-1.
      *

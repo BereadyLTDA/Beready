@@ -12,4 +12,12 @@ interface CloudinaryServiceInterface
      * @throws \RuntimeException se o upload falhar
      */
     public function uploadProfilePhoto(array $file): string;
+
+    /**
+     * Copia para o Cloudinary uma foto que está em outra URL (ex.: foto do login social, cujo
+     * link pode expirar) e devolve a URL nova. Sem o Cloudinary configurado, devolve a original.
+     *
+     * @throws \RuntimeException se o upload falhar
+     */
+    public function copiarFotoRemota(string $url): string;
 }

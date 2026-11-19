@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\CloudinaryServiceInterface;
 use App\Mail\BoasVindas;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
@@ -17,7 +18,10 @@ class SocialAuthService
 
     private const PREFIXO_CACHE = 'social_login_';
 
-    public function __construct(private AssinaturaService $assinaturaService) {}
+    public function __construct(
+        private AssinaturaService $assinaturaService,
+        private CloudinaryServiceInterface $cloudinary,
+    ) {}
 
     /**
      * Busca o usuário pelo e-mail do perfil social ou cria um novo. Retorna o id.
@@ -38,8 +42,8 @@ class SocialAuthService
             if (empty($user->nome) || $user->nome === 'Usuário') {
                 $user->nome = $name;
             }
-            if (empty($user->foto_perfil) && $picture) {
-                $user->foto_perfil = $picture;
+            if ($picture && (empty($user->foto_perfil) || $this->fotoExpira((string) $user->foto_perfil))) {
+                $user->foto_perfil = $this->fotoPermanente($picture);
             }
             if ($user->isDirty()) {
                 $user->saveOrFail();
@@ -53,7 +57,7 @@ class SocialAuthService
             'nome' => $name,
             'nivel_ingles' => 'iniciante',
             'idioma_preferido' => 'pt-BR',
-            'foto_perfil' => $picture,
+            'foto_perfil' => $picture ? $this->fotoPermanente($picture) : null,
         ]);
         $user->forceFill(['status' => 'ativo', 'role' => 'user'])->saveOrFail();
 
@@ -70,6 +74,30 @@ class SocialAuthService
         }
 
         return (int) $user->id;
+    }
+
+    /**
+     * Copia a foto do provedor para o Cloudinary. O LinkedIn entrega links assinados que expiram
+     * (o navegador passa a receber 403), então guardar o link original quebra a foto depois.
+     * Se a cópia falhar, fica o link original.
+     */
+    private function fotoPermanente(string $url): string
+    {
+        try {
+            return $this->cloudinary->copiarFotoRemota($url);
+        } catch (\Throwable $e) {
+            Log::warning('Não foi possível copiar a foto do login social: '.$e->getMessage());
+
+            return $url;
+        }
+    }
+
+    /**
+     * Fotos gravadas antes desta correção com o link temporário do LinkedIn.
+     */
+    private function fotoExpira(string $url): bool
+    {
+        return str_contains($url, 'media.licdn.com');
     }
 
     /**
