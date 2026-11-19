@@ -1,14 +1,12 @@
-# BeReady - Plataforma de Aprendizado de Inglês
+# BeReady
 
 Aplicação web para aprender inglês por contextualização visual: o aluno cria prompts que viram
 traduções, imagens e frases semelhantes, estuda com flashcards (repetição espaçada) e quizzes, e
 acompanha a evolução em um painel de progresso.
 
----
+## Tecnologias
 
-# Tecnologias
-
-## Back-end
+### Back-end
 
 - PHP 8.4 e Laravel 13 (API REST, sem views), servido em produção pelo Laravel Octane sobre o FrankenPHP
 - Injeção de dependências pelo container do Laravel (autowiring)
@@ -19,7 +17,7 @@ acompanha a evolução em um painel de progresso.
 - Redis (opcional) para rate limit e contadores compartilhados entre instâncias
 - PHPUnit (integração + contrato OpenAPI), Larastan nível 6 e Pint
 
-## Front-end
+### Front-end
 
 - Vue 3, TypeScript, Vite
 - Pinia, Vue Router, vue-i18n (14 idiomas)
@@ -27,13 +25,11 @@ acompanha a evolução em um painel de progresso.
 - Tipos da API gerados do contrato OpenAPI (`npm run gen:api`)
 - Vitest (unitários) e Playwright (ponta a ponta + acessibilidade)
 
-## Banco de dados
+### Banco de dados
 
 - PostgreSQL 15 (local ou Supabase)
 
----
-
-# Estrutura do Projeto
+## Estrutura do projeto
 
 ```txt
 backend/
@@ -57,9 +53,7 @@ docker/                     php.ini, nginx e entrypoint das imagens de produçã
 
 Detalhes de arquitetura e de como adicionar uma rota: [`docs/arquitetura.md`](docs/arquitetura.md).
 
----
-
-# Requisitos
+## Requisitos
 
 - PHP 8.3+ (8.4 recomendado) com as extensões `pdo_pgsql`, `intl`, `mbstring`
 - Composer
@@ -67,18 +61,16 @@ Detalhes de arquitetura e de como adicionar uma rota: [`docs/arquitetura.md`](do
 - PostgreSQL 15 (local, Docker ou Supabase)
 - Git
 
-Ou apenas Docker (ver [Docker](#docker)).
+Ou só Docker (ver [Docker](#docker)).
 
----
-
-# Como rodar
+## Como rodar
 
 ```bash
 git clone https://github.com/BereadyLTDA/Beready.git
 cd Beready
 ```
 
-## Backend
+### Backend
 
 ```bash
 cd backend
@@ -92,7 +84,7 @@ php artisan serve --port=8765 # http://localhost:8765
 Em um banco que já veio da versão em CakePHP, `php artisan migrate` não altera nada: a migration
 inicial só se registra como aplicada.
 
-## Frontend
+### Frontend
 
 ```bash
 cd frontend
@@ -101,12 +93,10 @@ cp .env.example .env          # VITE_API_URL=http://localhost:8765
 npm run dev                   # http://localhost:5173
 ```
 
----
-
-# Contrato da API (OpenAPI)
+## Contrato da API (OpenAPI)
 
 O contrato fica em `backend/openapi.yaml`. Os testes do backend validam cada resposta contra ele e
-falham se uma rota não estiver descrita, então ele não tem como ficar desatualizado em silêncio.
+falham quando uma rota registrada não está descrita nele.
 
 Ao mudar o formato de uma resposta, atualize o `openapi.yaml` e regenere os tipos do frontend:
 
@@ -117,17 +107,13 @@ npm run gen:api   # gera src/core/types/api.gen.ts (não edite esse arquivo à m
 
 O CI recusa o build se `api.gen.ts` estiver diferente do que o contrato gera.
 
----
-
-# Geração por IA
+## Geração por IA
 
 Traduções e frases semelhantes de um prompt podem ser geradas com o Claude (botão "Gerar com IA").
 Defina `ANTHROPIC_API_KEY` no `backend/.env`; sem a chave, só esses dois endpoints respondem 503.
 Cada usuário pode gerar até `IA_LIMITE_DIARIO` vezes por dia (padrão 50).
 
----
-
-# Docker
+## Docker
 
 Desenvolvimento (API, frontend, Postgres e Redis):
 
@@ -146,9 +132,7 @@ Em produção a API lê a configuração das variáveis de ambiente do container
 `backend/.env.example`, mais `APP_KEY`), roda as migrations ao subir e, com mais de uma instância,
 precisa de `REDIS_URL`.
 
----
-
-# Testes
+## Testes
 
 Os testes do backend usam um Postgres descartável em `TEST_DATABASE_URL` (o esquema é apagado e
 recriado a cada execução; nunca aponte para o banco real). Para subir um:
@@ -165,16 +149,12 @@ cd frontend && npm run test:unit            # unitários (Vitest)
 cd frontend && npm run test:e2e             # ponta a ponta (Playwright)
 ```
 
----
-
-# Segurança
+## Segurança
 
 - Nunca versione `backend/.env` nem `frontend/.env` (já estão no `.gitignore`)
 - No Supabase, ative Row Level Security nas tabelas e não exponha a `service_role_key`
 - Em produção use `APP_DEBUG=false`; a `APP_KEY` e o `JWT_SECRET` devem ser longos e aleatórios
 
----
+## Sobre
 
-# Autor
-
-Projeto desenvolvido para fins educacionais e aprendizado de inglês com suporte visual e contextual.
+Projeto educacional desenvolvido em equipe.

@@ -42,14 +42,15 @@ como fazem `Tests\FakeStripeGateway` e `Tests\FakeGeradorTexto`.
 ## Configuração
 
 O código lê sempre `config('beready.*')` (arquivo `config/beready.php`), nunca `env()` direto, para
-funcionar com `php artisan config:cache` em produção. Os nomes das variáveis de ambiente são os
-mesmos da versão em CakePHP (ver `backend/.env.example`).
+funcionar com `php artisan config:cache` em produção.
+Quase todas as variáveis de ambiente mantêm o nome da versão em CakePHP (ver `backend/.env.example`). Mudaram `DEBUG` (agora `APP_DEBUG`), `APP_DEFAULT_LOCALE` (`APP_LOCALE`) e
+`SENTRY_DSN` (`SENTRY_LARAVEL_DSN`); `APP_KEY` é nova.
 
 ## Contrato da API
 
 `backend/openapi.yaml` descreve todas as rotas. Dois mecanismos o mantêm em dia:
 
-- `Tests\ApiTestCase` valida o status e o corpo de **cada resposta** dos testes de integração contra o contrato;
+- `Tests\ApiTestCase` valida o status e o corpo de cada resposta dos testes de integração contra o contrato;
 - `Tests\Feature\OpenApiContractTest` falha se uma rota registrada não estiver no contrato, ou
   vice-versa, e se `security: []` não bater com as rotas sem o middleware `jwt`. As rotas legadas
   (`/recurso/view|edit|delete/{id}`) ficam na lista `ALIASES`.
@@ -76,11 +77,11 @@ O frontend gera os tipos a partir do contrato (`npm run gen:api`).
 
 ## Pontos de atenção em produção
 
-- **Octane**: o processo atende várias requisições. Não guarde estado de request em propriedades de
+- Octane: o processo atende várias requisições. Não guarde estado de request em propriedades de
   controllers, services ou singletons (use o próprio `Request`).
-- **Redis**: com mais de uma instância da API, `REDIS_URL` é obrigatório (rate limit e códigos do
+- Redis: com mais de uma instância da API, `REDIS_URL` é obrigatório (rate limit e códigos do
   login social precisam ser compartilhados).
-- **Banco vindo do CakePHP**: a migration `0001_01_01_000000_esquema_inicial` não recria nada se as
+- Banco vindo do CakePHP: a migration `0001_01_01_000000_esquema_inicial` não recria nada se as
   tabelas já existirem.
 
 ## Variáveis
