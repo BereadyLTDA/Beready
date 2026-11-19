@@ -18,6 +18,7 @@
       <section class="fcard-view__section flex flex-col items-start gap-3 p-5 md:p-8">
         <BaseBadge variant="primary" size="sm">{{ $t('flashcards.perguntaLabel') }}</BaseBadge>
         <p class="fcard-view__text fcard-view__text--question wrap-anywhere whitespace-pre-line text-xl font-semibold leading-relaxed text-text md:text-2xl">{{ flashcard.frente }}</p>
+        <BotaoOuvir :texto="flashcard.frente" class="mt-2" />
       </section>
       <section class="fcard-view__section fcard-view__section--answer border-0 border-t border-solid border-border flex flex-col items-start gap-3 p-5 md:p-8">
         <BaseBadge variant="info" size="sm">{{ $t('flashcards.respostalabel') }}</BaseBadge>
@@ -56,6 +57,7 @@ import { computed } from 'vue'
 import {
   BaseBadge,
   BaseButton,
+  BotaoOuvir,
   BaseCard,
   BaseSpinner,
   ConfirmModal,

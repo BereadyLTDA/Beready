@@ -1035,6 +1035,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/pronuncia/frases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Frases em inglês do aluno para o exercício "Repita a frase" */
+        get: operations["pronunciaFrases"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/pronuncia/tentativas": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Registra uma tentativa; a nota é calculada pelo servidor */
+        post: operations["pronunciaRegistrar"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/pronuncia/resumo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Total, média, melhor nota e as últimas tentativas */
+        get: operations["pronunciaResumo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/progresso": {
         parameters: {
             query?: never;
@@ -1330,6 +1381,32 @@ export interface components {
             success: true;
             message: string;
             data?: unknown;
+        };
+        FrasePronuncia: {
+            texto: string;
+            /** @enum {string} */
+            origem: "prompt" | "frase" | "traducao" | "basica";
+        };
+        PronunciaTentativa: {
+            id: number;
+            usuario_id: number;
+            frase: string;
+            reconhecido: string;
+            nota: number;
+            /** Format: date-time */
+            criado_em: string;
+        };
+        PronunciaResultado: {
+            tentativa: components["schemas"]["PronunciaTentativa"];
+            nota: number;
+            /** @description Palavras esperadas que não apareceram no que foi dito */
+            faltando: string[];
+        };
+        PronunciaResumo: {
+            total: number;
+            media: number;
+            melhor: number;
+            recentes: components["schemas"]["PronunciaTentativa"][];
         };
         AdminUser: {
             criado_em: string;
@@ -4781,6 +4858,117 @@ export interface operations {
                         message: string;
                         /** @description Formato ainda não descrito */
                         data?: unknown;
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    pronunciaFrases: {
+        parameters: {
+            query?: {
+                limite?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Frases para praticar */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["FrasePronuncia"][];
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    pronunciaRegistrar: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    frase: string;
+                    reconhecido: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Tentativa registrada */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["PronunciaResultado"];
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    pronunciaResumo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Resumo */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["PronunciaResumo"];
                     };
                 };
             };

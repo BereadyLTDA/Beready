@@ -44,6 +44,7 @@
             </div>
           </div>
           <p class="traducoes-prompt__text mt-3 wrap-anywhere leading-relaxed text-text">{{ traducao.texto_traduzido }}</p>
+          <BotaoOuvir :texto="traducao.texto_traduzido" :lang="traducao.idioma_destino || 'en-US'" class="mt-2" />
           <template #footer>
             <div class="traducoes-prompt__meta flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
               <span>{{ $t('traducoes.confidence', { valor: Math.round((traducao.pontuacao_confianca || 0) * 100) }) }}</span>
@@ -128,6 +129,7 @@ import { useTraducoesPrompt } from './TraducoesPrompt'
 import {
   BaseBadge,
   BaseButton,
+  BotaoOuvir,
   BaseCard,
   BaseField,
   BaseModal,

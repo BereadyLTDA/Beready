@@ -2866,6 +2866,125 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Erro'
+  /pronuncia/frases:
+    get:
+      operationId: pronunciaFrases
+      summary: Frases em inglês do aluno para o exercício "Repita a frase"
+      tags:
+        - Pronuncia
+      parameters:
+        - name: limite
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 30
+      responses:
+        200:
+          description: Frases para praticar
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FrasePronuncia'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /pronuncia/tentativas:
+    post:
+      operationId: pronunciaRegistrar
+      summary: Registra uma tentativa; a nota é calculada pelo servidor
+      tags:
+        - Pronuncia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - frase
+                - reconhecido
+              properties:
+                frase:
+                  type: string
+                reconhecido:
+                  type: string
+      responses:
+        201:
+          description: Tentativa registrada
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/PronunciaResultado'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /pronuncia/resumo:
+    get:
+      operationId: pronunciaResumo
+      summary: Total, média, melhor nota e as últimas tentativas
+      tags:
+        - Pronuncia
+      responses:
+        200:
+          description: Resumo
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/PronunciaResumo'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
   /progresso:
     post:
       operationId: progressoSave
@@ -3617,6 +3736,82 @@ components:
           type: string
         data:
           nullable: true
+    FrasePronuncia:
+      type: object
+      required:
+        - texto
+        - origem
+      properties:
+        texto:
+          type: string
+        origem:
+          type: string
+          enum:
+            - prompt
+            - frase
+            - traducao
+            - basica
+    PronunciaTentativa:
+      type: object
+      required:
+        - id
+        - usuario_id
+        - frase
+        - reconhecido
+        - nota
+        - criado_em
+      properties:
+        id:
+          type: integer
+        usuario_id:
+          type: integer
+        frase:
+          type: string
+        reconhecido:
+          type: string
+        nota:
+          type: integer
+          minimum: 0
+          maximum: 100
+        criado_em:
+          type: string
+          format: date-time
+    PronunciaResultado:
+      type: object
+      required:
+        - tentativa
+        - nota
+        - faltando
+      properties:
+        tentativa:
+          $ref: '#/components/schemas/PronunciaTentativa'
+        nota:
+          type: integer
+          minimum: 0
+          maximum: 100
+        faltando:
+          type: array
+          description: Palavras esperadas que não apareceram no que foi dito
+          items:
+            type: string
+    PronunciaResumo:
+      type: object
+      required:
+        - total
+        - media
+        - melhor
+        - recentes
+      properties:
+        total:
+          type: integer
+        media:
+          type: integer
+        melhor:
+          type: integer
+        recentes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PronunciaTentativa'
     AdminUser:
       type: object
       required:

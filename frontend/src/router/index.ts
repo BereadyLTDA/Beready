@@ -147,6 +147,12 @@ const router = createRouter({
           meta: { requiresAuth: true },
         },
         {
+          path: '/pronuncia',
+          name: 'pronuncia',
+          component: () => import('../modules/pronuncia/views/PronunciaPratica.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
           path: '/progresso',
           name: 'progresso',
           component: ProgressDashboard,

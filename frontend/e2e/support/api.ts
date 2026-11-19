@@ -432,7 +432,32 @@ export class ApiMock {
     )
     this.def('GET', '/progresso/usuario/:id', requireUser(() => ok(s.progresso)))
     this.def('POST', '/progresso/incrementar-tempo', requireUser(() => ok(s.progresso)))
-    this.def('POST', '/progresso/incrementar-flashcards', requireUser(() => ok(s.progresso)))
+
+    // ---------------- pronúncia (a nota real é calculada pelo backend; aqui, só igual ou diferente)
+    const pronuncia = { notas: [] as number[] }
+    this.def('GET', '/pronuncia/frases', requireUser(() =>
+      ok([
+        { texto: 'Where is the station?', origem: 'prompt' },
+        { texto: 'Nice to meet you.', origem: 'basica' },
+      ]),
+    ))
+    this.def('POST', '/pronuncia/tentativas', requireUser(({ body }) => {
+      const limpar = (v: unknown) => String(v ?? '').toLowerCase().replace(/[^a-z' ]/g, '').trim()
+      const igual = limpar(body.frase) === limpar(body.reconhecido)
+      const nota = igual ? 100 : 67
+      pronuncia.notas.push(nota)
+      const tentativa = { id: pronuncia.notas.length, usuario_id: 1, frase: String(body.frase), reconhecido: String(body.reconhecido), nota, criado_em: new Date().toISOString() }
+      return ok({ tentativa, nota, faltando: igual ? [] : ['station'] }, 'Tentativa registrada', 201)
+    }))
+    this.def('GET', '/pronuncia/resumo', requireUser(() => {
+      const n = pronuncia.notas
+      return ok({
+        total: n.length,
+        media: n.length ? Math.round(n.reduce((a, b) => a + b, 0) / n.length) : 0,
+        melhor: n.length ? Math.max(...n) : 0,
+        recentes: [],
+      })
+    }))
 
     // ---------------- tags
     this.def('GET', '/tags', requireUser(() => ok(s.tags)))

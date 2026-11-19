@@ -69,6 +69,7 @@ abstract class ApiTestCase extends TestCase
         'Traducoes' => Models\Traducao::class,
         'ImagensGeradas' => Models\ImagemGerada::class,
         'FrasesSemelhantes' => Models\FraseSemelhante::class,
+        'PronunciaTentativas' => Models\PronunciaTentativa::class,
     ];
 
     /**

@@ -148,6 +148,13 @@ const features = computed<DashboardFeature[]>(() => [
     cta: t('dashboard.features.prompts.link'),
   },
   {
+    to: '/pronuncia',
+    icon: 'microphone',
+    title: t('pronuncia.titulo'),
+    description: t('pronuncia.cardDescricao'),
+    cta: t('pronuncia.cardLink'),
+  },
+  {
     to: '/tags',
     icon: 'tag',
     title: t('common.tags'),

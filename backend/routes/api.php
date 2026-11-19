@@ -14,6 +14,7 @@ use App\Http\Controllers\PlanosController;
 use App\Http\Controllers\PreferenciasController;
 use App\Http\Controllers\ProgressoController;
 use App\Http\Controllers\PromptsController;
+use App\Http\Controllers\PronunciaController;
 use App\Http\Controllers\QuizesController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TagsController;
@@ -168,6 +169,11 @@ Route::middleware('jwt')->group(function () use ($id, $uuid, $crud) {
     Route::get('/progresso/usuario/{usuarioId}', [ProgressoController::class, 'getByUsuario'])->where('usuarioId', $id);
     Route::post('/progresso', [ProgressoController::class, 'save']);
     Route::post('/progresso/incrementar-tempo', [ProgressoController::class, 'incrementarTempo']);
+
+    // Pronúncia (exercício "Repita a frase")
+    Route::get('/pronuncia/frases', [PronunciaController::class, 'frases']);
+    Route::post('/pronuncia/tentativas', [PronunciaController::class, 'registrar']);
+    Route::get('/pronuncia/resumo', [PronunciaController::class, 'resumo']);
 
     // Prompts e o que deriva deles (sem listagem geral: sempre por prompt)
     Route::post('/prompts', [PromptsController::class, 'add'])->middleware('limite.plano:prompts');

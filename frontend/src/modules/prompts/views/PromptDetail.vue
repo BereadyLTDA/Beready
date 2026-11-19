@@ -29,6 +29,7 @@
                     />
                   </div>
                   <p class="prompt-detail__text mt-3 leading-relaxed text-text wrap-anywhere">{{ traducao.texto_traduzido }}</p>
+                  <BotaoOuvir :texto="traducao.texto_traduzido" :lang="traducao.idioma_destino || 'en-US'" class="mt-2" />
                   <template #footer>
                     <div class="prompt-detail__meta flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
                       <span>{{ $t('traducoes.confidence', { valor: Math.round((traducao.pontuacao_confianca || 0) * 100) }) }}</span>
@@ -98,6 +99,7 @@
                     />
                   </div>
                   <p class="prompt-detail__text mt-3 leading-relaxed text-text wrap-anywhere">{{ frase.frase_semelhante }}</p>
+                  <BotaoOuvir :texto="frase.frase_semelhante" :lang="prompt?.idioma_original || 'en-US'" class="mt-2" />
                   <template #footer>
                     <div class="prompt-detail__meta flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
                       <span>{{ $t('frases.similarity', { valor: Math.round((frase.pontuacao_semelhante || 0) * 100) }) }}</span>
@@ -132,6 +134,7 @@ import { usePromptDetail } from './PromptDetail'
 import {
   BaseBadge,
   BaseButton,
+  BotaoOuvir,
   BaseCard,
   BaseSpinner,
   BaseTabs,

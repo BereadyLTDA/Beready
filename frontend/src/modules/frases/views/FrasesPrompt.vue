@@ -46,6 +46,7 @@
             </div>
           </div>
           <p class="frases-prompt__text mt-3 wrap-anywhere leading-relaxed text-text">{{ frase.frase_semelhante }}</p>
+          <BotaoOuvir :texto="frase.frase_semelhante" class="mt-2" />
           <template #footer>
             <div class="frases-prompt__meta flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
               <span>{{ $t('frases.similarity', { valor: Math.round((frase.pontuacao_semelhante || 0) * 100) }) }}</span>
@@ -116,6 +117,7 @@ import { useFrasesPrompt } from './FrasesPrompt'
 import {
   BaseBadge,
   BaseButton,
+  BotaoOuvir,
   BaseCard,
   BaseField,
   BaseModal,

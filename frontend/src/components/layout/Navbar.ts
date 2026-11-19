@@ -21,6 +21,7 @@ export const menuItems: NavItem[] = [
   { name: 'common.flashcards', path: '/flashcards', icon: 'document' },
   { name: 'common.quizes', path: '/quizes', icon: 'clipboard' },
   { name: 'common.prompts', path: '/prompts', icon: 'chat' },
+  { name: 'pronuncia.menu', path: '/pronuncia', icon: 'microphone' },
   { name: 'common.tags', path: '/tags', icon: 'tag' },
   { name: 'common.progresso', path: '/progresso', icon: 'chart-bar' },
   { name: 'common.preferencias', path: '/preferencias', icon: 'cog' },

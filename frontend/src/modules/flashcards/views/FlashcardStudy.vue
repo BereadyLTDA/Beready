@@ -71,6 +71,11 @@
         </span>
       </button>
 
+      <!-- Fora do botão do card (não dá para ter botão dentro de botão): ouve o lado visível -->
+      <div class="fcard-study__ouvir flex justify-center">
+        <BotaoOuvir :texto="isFlipped ? flashcard.resposta : flashcard.pergunta" />
+      </div>
+
       <!-- Avaliação: invisível (e fora da ordem de Tab) até o card ser virado -->
       <div
         class="fcard-study__dock text-center transition-reveal"
@@ -154,6 +159,7 @@ import { computed } from 'vue'
 import {
   BaseBadge,
   BaseButton,
+  BotaoOuvir,
   BaseIcon,
   BaseModal,
   BaseProgress,
