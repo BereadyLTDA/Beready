@@ -205,6 +205,7 @@ router.beforeEach(async (to) => {
   // Verifica se rota requer permissao especifica
   if (to.meta.permission) {
     const permissionStore = usePermissionStore()
+    await authStore.waitUserContext()
 
     if (permissionStore.userPermissions.length === 0) {
       await permissionStore.loadPermissions()

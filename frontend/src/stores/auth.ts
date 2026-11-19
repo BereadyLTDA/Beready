@@ -37,6 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   let initPromise: Promise<void> | null = null
   let refreshPromise: Promise<boolean> | null = null
+  let userContextPromise: Promise<void> | null = null
 
   const isAuthenticated = computed(() => !!accessToken.value && !!user.value)
   const isAdmin = computed(() => user.value?.role === 'admin')
@@ -63,6 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
   const clearSession = (): void => {
     user.value = null
     accessToken.value = null
+    userContextPromise = null
     usePermissionStore().reset()
   }
 
@@ -152,7 +154,9 @@ export const useAuthStore = defineStore('auth', () => {
         try {
           const ok = await refresh()
           if (ok) {
-            await loadUserContext()
+            // Permissões e assinatura carregam em paralelo com a primeira tela (o menu e o
+            // dashboard não dependem delas). Rotas com meta.permission aguardam waitUserContext().
+            userContextPromise = loadUserContext().catch(() => undefined)
           } else {
             clearSession()
           }
@@ -224,6 +228,7 @@ export const useAuthStore = defineStore('auth', () => {
     loginWithSocialCode,
     refresh,
     init,
+    waitUserContext: (): Promise<void> => userContextPromise ?? Promise.resolve(),
     logout,
     fetchMe,
   }

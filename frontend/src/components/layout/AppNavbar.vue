@@ -3,7 +3,7 @@
   <header class="app-nav sticky top-0 z-sticky w-full border-0 border-b border-solid border-border bg-surface shadow-sm">
     <div class="app-nav__bar mx-auto flex h-navbar max-w-page-xl items-center gap-3 px-gutter">
       <router-link to="/dashboard" class="app-nav__brand inline-flex shrink-0 items-center rounded-md">
-        <img src="/logo.webp" alt="BeReady" width="249" height="96" class="app-nav__logo block h-10 w-auto max-w-34 object-contain md:h-12 md:max-w-40" />
+        <img src="/logo-48.webp" srcset="/logo-48.webp 1x, /logo.webp 2x" alt="BeReady" width="125" height="48" class="app-nav__logo block h-10 w-auto max-w-34 object-contain md:h-12 md:max-w-40" />
       </router-link>
 
       <!-- Menu inline (>= 1280px) -->
