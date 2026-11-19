@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Testing\TestResponse;
 use League\OpenAPIValidation\PSR7\Exception\ValidationFailed;
@@ -94,6 +95,15 @@ abstract class ApiTestCase extends TestCase
     // ---------------------------------------------------------------- dados
 
     /**
+     * Simula o Google aprovando o reCAPTCHA (login e cadastro exigem o token).
+     */
+    protected function recaptchaAprova(): void
+    {
+        config(['beready.recaptcha.secret' => 'segredo-recaptcha-de-teste']);
+        Http::fake(['*recaptcha*' => Http::response(['success' => true, 'score' => 0.9])]);
+    }
+
+    /**
      * Cria um usuário ativo com senha "secret123".
      *
      * @param  array<string, mixed>  $data
@@ -113,6 +123,7 @@ abstract class ApiTestCase extends TestCase
             'senha_hash' => $senhaHash,
             'role' => $role,
             'status' => 'ativo',
+            'email_verificado_em' => date('Y-m-d H:i:s'),
         ]);
     }
 

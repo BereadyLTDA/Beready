@@ -21,6 +21,7 @@ class SocialAuthService
     public function __construct(
         private AssinaturaService $assinaturaService,
         private CloudinaryServiceInterface $cloudinary,
+        private JwtService $jwtService,
     ) {}
 
     /**
@@ -40,6 +41,17 @@ class SocialAuthService
         $picture = $userInfo['picture'] ?? $userInfo['avatar'] ?? null;
 
         if ($user) {
+            // O provedor provou que a pessoa é dona do e-mail. Se a conta nunca foi confirmada, quem a
+            // criou com senha pode não ser o dono: a senha é descartada e as sessões antigas caem.
+            if (empty($user->getAttribute('email_verificado_em'))) {
+                $user->forceFill([
+                    'senha_hash' => null,
+                    'email_verificado_em' => now(),
+                    'verificacao_token' => null,
+                    'verificacao_token_expira' => null,
+                ]);
+                $this->jwtService->revogarTodos((int) $user->id);
+            }
             if (empty($user->nome) || $user->nome === 'Usuário') {
                 $user->nome = $name;
             }
@@ -60,7 +72,7 @@ class SocialAuthService
             'idioma_preferido' => 'pt-BR',
             'foto_perfil' => $picture ? $this->fotoPermanente($picture) : null,
         ]);
-        $user->forceFill(['status' => 'ativo', 'role' => 'user'])->saveOrFail();
+        $user->forceFill(['status' => 'ativo', 'role' => 'user', 'email_verificado_em' => now()])->saveOrFail();
 
         try {
             $this->assinaturaService->ativarPlanoGratuito((int) $user->id);

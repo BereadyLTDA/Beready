@@ -79,7 +79,8 @@ class SegurancaContaTest extends ApiTestCase
         $this->createUser('user', ['email' => 'maria@teste.local']);
 
         $this->withBearer(null);
-        $this->postJson('/auth/register', ['nome' => 'Outra', 'email' => 'MARIA@Teste.Local', 'senha' => 'senha123']);
+        $this->recaptchaAprova();
+        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'nome' => 'Outra', 'email' => 'MARIA@Teste.Local', 'senha' => 'senha123']);
 
         $this->assertResponseCode(409);
     }
@@ -87,7 +88,8 @@ class SegurancaContaTest extends ApiTestCase
     public function test_email_invalido_no_cadastro_e_recusado(): void
     {
         $this->withBearer(null);
-        $this->postJson('/auth/register', ['nome' => 'Fulano', 'email' => 'nao-e-email', 'senha' => 'senha123']);
+        $this->recaptchaAprova();
+        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'nome' => 'Fulano', 'email' => 'nao-e-email', 'senha' => 'senha123']);
 
         $this->assertResponseCode(400);
     }

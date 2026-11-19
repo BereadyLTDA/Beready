@@ -74,6 +74,13 @@ class SocialAuthController extends Controller
                 return $this->failureRedirect('perfil sem e-mail ('.$provider.')');
             }
 
+            // Google e LinkedIn informam se o e-mail foi verificado; um e-mail não verificado no
+            // provedor não prova que a pessoa é dona dele
+            $verificado = $userInfo['email_verified'] ?? true;
+            if ($verificado === false || $verificado === 'false') {
+                return $this->failureRedirect('e-mail não verificado no provedor ('.$provider.')');
+            }
+
             $userId = $this->socialAuthService->findOrCreateUser($userInfo);
             $loginCode = $this->socialAuthService->createLoginCode($userId);
         } catch (\Throwable $e) {

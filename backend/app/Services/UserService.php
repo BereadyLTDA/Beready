@@ -3,11 +3,13 @@
 namespace App\Services;
 
 use App\Exceptions\EmailAlreadyExistsException;
+use App\Exceptions\EmailNaoVerificadoException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\UserNotFoundException;
 use App\Exceptions\WeakPasswordException;
 use App\Mail\BoasVindas;
 use App\Mail\RecuperarSenha;
+use App\Mail\VerificarEmail;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -76,7 +78,8 @@ class UserService
             'status' => self::STATUS_ATIVO,
         ])->saveOrFail();
 
-        $this->enviarBoasVindas($user);
+        // As boas-vindas saem depois da confirmação (verificarEmail)
+        $this->enviarVerificacao($user);
 
         return $user->toArray();
     }
@@ -103,8 +106,13 @@ class UserService
             throw new \RuntimeException('Conta inativa ou bloqueada', 403);
         }
 
+        // Depois da senha conferida, para não revelar a quem não sabe a senha que a conta existe
+        if (empty($user['email_verificado_em'])) {
+            throw new EmailNaoVerificadoException;
+        }
+
         $this->registerLogin((int) $user['id']);
-        unset($user['senha_hash']);
+        unset($user['senha_hash'], $user['email_verificado_em']);
 
         return $user;
     }
@@ -131,7 +139,7 @@ class UserService
         if (! $user) {
             throw new UserNotFoundException;
         }
-        unset($user['senha_hash']);
+        unset($user['senha_hash'], $user['email_verificado_em']);
 
         return $user;
     }
@@ -202,6 +210,12 @@ class UserService
         }
         $user->saveOrFail();
 
+        // E-mail novo precisa ser confirmado (a sessão atual continua; o próximo login pede a confirmação)
+        if ($trocaEmail) {
+            $user->forceFill(['email_verificado_em' => null])->saveOrFail();
+            $this->enviarVerificacao($user);
+        }
+
         return $user->toArray();
     }
 
@@ -271,6 +285,49 @@ class UserService
         return (int) $user->id;
     }
 
+    /**
+     * Confirma o e-mail pelo token do link. Devolve o id do usuário.
+     *
+     * @throws InvalidTokenException
+     */
+    public function verificarEmail(string $token): int
+    {
+        $user = User::where('verificacao_token', hash('sha256', $token))
+            ->where('verificacao_token_expira', '>', now())
+            ->first();
+
+        if (! $user) {
+            throw new InvalidTokenException('Link de confirmação inválido ou expirado');
+        }
+
+        $primeiraVez = empty($user->getAttribute('email_verificado_em'));
+        $user->forceFill([
+            'email_verificado_em' => now(),
+            'verificacao_token' => null,
+            'verificacao_token_expira' => null,
+        ])->saveOrFail();
+
+        if ($primeiraVez) {
+            $this->enviarBoasVindas($user);
+        }
+
+        return (int) $user->id;
+    }
+
+    /**
+     * Reenvia o link de confirmação. E-mail desconhecido ou já confirmado não gera erro, para não
+     * revelar quais e-mails têm conta.
+     */
+    public function reenviarVerificacao(string $email): void
+    {
+        $user = User::whereRaw('lower(email) = ?', [mb_strtolower(trim($email))])->first();
+        if (! $user || ! empty($user->getAttribute('email_verificado_em'))) {
+            return;
+        }
+
+        $this->enviarVerificacao($user);
+    }
+
     public function emailExists(string $email, ?int $excludeId = null): bool
     {
         return User::whereRaw('lower(email) = ?', [mb_strtolower(trim($email))])
@@ -286,13 +343,14 @@ class UserService
      */
     private function findOne(array $conditions): ?array
     {
-        $user = User::query()->select([...self::PUBLIC_FIELDS, 'senha_hash'])->where($conditions)->first();
+        $user = User::query()->select([...self::PUBLIC_FIELDS, 'senha_hash', 'email_verificado_em'])->where($conditions)->first();
         if (! $user) {
             return null;
         }
 
         $data = $user->toArray();
         $data['senha_hash'] = $user->senha_hash;
+        $data['email_verificado_em'] = $user->getAttribute('email_verificado_em');
         if (empty($data['role'])) {
             $data['role'] = 'user';
         }
@@ -332,6 +390,24 @@ class UserService
         $user = User::query()->select(['id'])->whereRaw('lower(email) = ?', [mb_strtolower(trim($email))])->first();
 
         return $user ? $this->findOne(['id' => $user->id]) : null;
+    }
+
+    /**
+     * Gera um token novo (válido por 24 horas; no banco fica só o hash) e envia o link.
+     */
+    private function enviarVerificacao(User $user): void
+    {
+        $token = bin2hex(random_bytes(32));
+        $user->forceFill([
+            'verificacao_token' => hash('sha256', $token),
+            'verificacao_token_expira' => now()->addDay(),
+        ])->saveOrFail();
+
+        try {
+            Mail::to($user->getAttribute('email'))->send(new VerificarEmail($user->getAttribute('nome'), $token));
+        } catch (\Throwable $e) {
+            Log::error('Erro ao enviar e-mail de confirmação: '.$e->getMessage());
+        }
     }
 
     private function enviarBoasVindas(User $user): void

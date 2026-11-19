@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\StripeGatewayInterface;
 use App\Exceptions\EmailAlreadyExistsException;
+use App\Exceptions\EmailNaoVerificadoException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\UserNotFoundException;
 use App\Exceptions\WeakPasswordException;
@@ -56,8 +57,14 @@ class UsersController extends Controller
     // POST /auth/register
     public function register(Request $request): JsonResponse
     {
+        $data = $this->requestData($request);
+        // Sem isto, bots criariam contas e disparariam e-mails para qualquer endereço
+        if ($falha = $this->checarRecaptcha($data)) {
+            return $falha;
+        }
+
         try {
-            $user = $this->userService->register($this->requestData($request));
+            $user = $this->userService->register($data);
 
             try {
                 $this->assinaturaService->ativarPlanoGratuito((int) $user['id']);
@@ -65,7 +72,7 @@ class UsersController extends Controller
                 Log::error('Erro ao atribuir plano gratuito: '.$e->getMessage());
             }
 
-            return $this->jsonSuccess(['user' => $user], 'Registro realizado com sucesso', 201);
+            return $this->jsonSuccess(['user' => $user], 'Conta criada. Enviamos um link para confirmar seu e-mail.', 201);
         } catch (EmailAlreadyExistsException|\InvalidArgumentException $e) {
             return $this->jsonError($e->getMessage(), $this->httpStatusFrom($e, 400));
         } catch (\Exception $e) {
@@ -84,25 +91,15 @@ class UsersController extends Controller
             return $this->jsonError('E-mail e senha são obrigatórios', 400);
         }
 
-        $recaptchaToken = $data['recaptcha_token'] ?? null;
-        if (! $recaptchaToken) {
-            return $this->jsonError('Token de segurança não enviado', 400);
-        }
-
-        try {
-            $recaptchaValido = $this->validateRecaptcha((string) $recaptchaToken);
-        } catch (\Throwable $e) {
-            // Google fora do ar ou sem rede: 503 tratado, sem detalhes internos na resposta
-            Log::error('Falha ao consultar o reCAPTCHA: '.$e->getMessage());
-
-            return $this->jsonError('Verificação de segurança indisponível. Tente novamente em instantes.', 503);
-        }
-        if (! $recaptchaValido) {
-            return $this->jsonError('Falha na verificação de segurança. Tente novamente.', 400);
+        if ($falha = $this->checarRecaptcha($data)) {
+            return $falha;
         }
 
         try {
             $user = $this->userService->login((string) $data['email'], (string) $data['password']);
+        } catch (EmailNaoVerificadoException $e) {
+            // "codigo" deixa o frontend oferecer o reenvio do link
+            return $this->jsonError($e->getMessage(), 403, ['codigo' => EmailNaoVerificadoException::CODIGO]);
         } catch (\RuntimeException $e) {
             return $this->jsonError($e->getMessage(), $this->httpStatusFrom($e, 401));
         } catch (\Exception $e) {
@@ -178,6 +175,40 @@ class UsersController extends Controller
         } catch (UserNotFoundException) {
             return $this->jsonError('Usuário não encontrado', 404);
         }
+    }
+
+    // POST /auth/verify-email  { token } (link do e-mail de confirmação)
+    public function verifyEmail(Request $request): JsonResponse
+    {
+        $token = (string) ($this->requestData($request)['token'] ?? '');
+        if ($token === '') {
+            return $this->jsonError('Link de confirmação inválido ou expirado', 400);
+        }
+
+        try {
+            $this->userService->verificarEmail($token);
+        } catch (InvalidTokenException $e) {
+            return $this->jsonError($e->getMessage(), 400);
+        }
+
+        return $this->jsonSuccess(null, 'E-mail confirmado. Você já pode entrar.');
+    }
+
+    // POST /auth/resend-verification  { email } — mesma resposta exista ou não a conta
+    public function resendVerification(Request $request): JsonResponse
+    {
+        $email = (string) ($this->requestData($request)['email'] ?? '');
+        if ($email === '') {
+            return $this->jsonError('E-mail é obrigatório', 400);
+        }
+
+        try {
+            $this->userService->reenviarVerificacao($email);
+        } catch (\Throwable $e) {
+            Log::error('Erro ao reenviar a confirmação de e-mail: '.$e->getMessage());
+        }
+
+        return $this->jsonSuccess(null, 'Se a conta existir e ainda não estiver confirmada, enviamos um novo link.');
     }
 
     // POST /auth/logout — o access token expira sozinho; aqui só o cookie de refresh é apagado
@@ -373,6 +404,30 @@ class UsersController extends Controller
     public function notFound(): JsonResponse
     {
         return $this->jsonError('Rota não encontrada', 404);
+    }
+
+    /**
+     * Confere o token do reCAPTCHA enviado no corpo. Devolve a resposta de erro, ou null se passou.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    private function checarRecaptcha(array $data): ?JsonResponse
+    {
+        $recaptchaToken = $data['recaptcha_token'] ?? null;
+        if (! $recaptchaToken) {
+            return $this->jsonError('Token de segurança não enviado', 400);
+        }
+
+        try {
+            $valido = $this->validateRecaptcha((string) $recaptchaToken);
+        } catch (\Throwable $e) {
+            // Google fora do ar ou sem rede: 503 tratado, sem detalhes internos na resposta
+            Log::error('Falha ao consultar o reCAPTCHA: '.$e->getMessage());
+
+            return $this->jsonError('Verificação de segurança indisponível. Tente novamente em instantes.', 503);
+        }
+
+        return $valido ? null : $this->jsonError('Falha na verificação de segurança. Tente novamente.', 400);
     }
 
     private function validateRecaptcha(string $token): bool

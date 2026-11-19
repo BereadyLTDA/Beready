@@ -2306,6 +2306,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Erro'
+  /auth/verify-email:
+    post:
+      operationId: usersVerifyEmail
+      summary: Confirma o e-mail pelo token do link enviado no cadastro
+      tags:
+        - Users
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+      responses:
+        200:
+          description: E-mail confirmado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SucessoSemDados'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /auth/resend-verification:
+    post:
+      operationId: usersResendVerification
+      summary: Reenvia o link de confirmação (mesma resposta exista ou não a conta)
+      tags:
+        - Users
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description: Pedido aceito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SucessoSemDados'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
   /auth/login:
     post:
       operationId: usersLogin
@@ -2837,37 +2897,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Erro'
-  /progresso/incrementar-flashcards:
-    post:
-      operationId: progressoIncrementarFlashcards
-      tags:
-        - Progresso
-      responses:
-        200:
-          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - message
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                  message:
-                    type: string
-                  data:
-                    description: 'Formato ainda não descrito'
-                    nullable: true
-        default:
-          description: 'Erro (4xx/5xx)'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Erro'
   /progresso/incrementar-tempo:
     post:
       operationId: progressoIncrementarTempo
@@ -3165,37 +3194,6 @@ paths:
                     type: string
                   data:
                     $ref: '#/components/schemas/QuizCorrecao'
-        default:
-          description: 'Erro (4xx/5xx)'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Erro'
-  /respostas:
-    post:
-      operationId: respostasSave
-      tags:
-        - Respostas
-      responses:
-        200:
-          description: 'Sucesso (sem cobertura de teste de contrato: `data` ainda não está detalhado)'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - message
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                  message:
-                    type: string
-                  data:
-                    description: 'Formato ainda não descrito'
-                    nullable: true
         default:
           description: 'Erro (4xx/5xx)'
           content:
@@ -3605,6 +3603,20 @@ components:
         errors:
           type: object
           additionalProperties: true
+    SucessoSemDados:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          enum:
+            - true
+        message:
+          type: string
+        data:
+          nullable: true
     AdminUser:
       type: object
       required:

@@ -39,6 +39,9 @@ class User extends Model
      */
     protected $hidden = [
         'senha_hash',
+        'verificacao_token',
+        'verificacao_token_expira',
+        'email_verificado_em',
         'token',
         'token_expires',
         'reset_token',
@@ -57,6 +60,8 @@ class User extends Model
             'ultimo_login' => 'datetime',
             'token_expires' => 'datetime',
             'reset_token_expires' => 'datetime',
+            'email_verificado_em' => 'datetime',
+            'verificacao_token_expira' => 'datetime',
         ];
     }
 

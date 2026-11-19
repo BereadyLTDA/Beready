@@ -15,7 +15,6 @@ use App\Http\Controllers\PreferenciasController;
 use App\Http\Controllers\ProgressoController;
 use App\Http\Controllers\PromptsController;
 use App\Http\Controllers\QuizesController;
-use App\Http\Controllers\RespostasController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\TraducoesController;
@@ -59,6 +58,8 @@ Route::post('/auth/login', [UsersController::class, 'login']);
 Route::post('/auth/logout', [UsersController::class, 'logout']);
 Route::post('/auth/refresh', [UsersController::class, 'refresh']);
 Route::post('/auth/forgot-password', [UsersController::class, 'forgotPassword']);
+Route::post('/auth/verify-email', [UsersController::class, 'verifyEmail']);
+Route::post('/auth/resend-verification', [UsersController::class, 'resendVerification']);
 Route::post('/auth/reset-password/{token}', [UsersController::class, 'resetPassword'])->where('token', '[a-f0-9]{64}');
 
 // Login social: login/{provider} redireciona ao provedor; o callback gera um código de uso único
@@ -166,10 +167,7 @@ Route::middleware('jwt')->group(function () use ($id, $uuid, $crud) {
 
     Route::get('/progresso/usuario/{usuarioId}', [ProgressoController::class, 'getByUsuario'])->where('usuarioId', $id);
     Route::post('/progresso', [ProgressoController::class, 'save']);
-    Route::post('/progresso/incrementar-flashcards', [ProgressoController::class, 'incrementarFlashcards']);
     Route::post('/progresso/incrementar-tempo', [ProgressoController::class, 'incrementarTempo']);
-
-    Route::post('/respostas', [RespostasController::class, 'save']);
 
     // Prompts e o que deriva deles (sem listagem geral: sempre por prompt)
     Route::post('/prompts', [PromptsController::class, 'add'])->middleware('limite.plano:prompts');

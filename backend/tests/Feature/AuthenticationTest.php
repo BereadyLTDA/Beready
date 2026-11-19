@@ -178,7 +178,8 @@ class AuthenticationTest extends ApiTestCase
     public function test_registro_grava_senha_ignora_campos_protegidos_e_atribui_plano_gratuito(): void
     {
         $this->withBearer(null);
-        $this->postJson('/auth/register', [
+        $this->recaptchaAprova();
+        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste',
             'nome' => 'Novo Usuário',
             'email' => 'novo@teste.local',
             'senha' => 'senhaForte1',
@@ -210,7 +211,8 @@ class AuthenticationTest extends ApiTestCase
         $existente = $this->createUser();
 
         $this->withBearer(null);
-        $this->postJson('/auth/register', ['nome' => 'Outro', 'email' => $existente->email, 'senha' => 'senhaForte1']);
+        $this->recaptchaAprova();
+        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'nome' => 'Outro', 'email' => $existente->email, 'senha' => 'senhaForte1']);
 
         $this->assertResponseCode(409);
     }

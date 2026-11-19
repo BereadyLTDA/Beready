@@ -17,6 +17,8 @@ class LimitaRequisicoes
         'auth/login',
         'auth/register',
         'auth/forgot-password',
+        'auth/verify-email',
+        'auth/resend-verification',
         'auth/refresh',
         'auth/social/exchange',
     ];
