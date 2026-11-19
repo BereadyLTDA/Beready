@@ -839,6 +839,8 @@ export default {
     openMenu: 'فتح القائمة',
     closeMenu: 'إغلاق القائمة',
     mainNavigation: 'التنقل الرئيسي',
+    scrollMenuStart: 'عرض عناصر القائمة السابقة',
+    scrollMenuEnd: 'عرض المزيد من عناصر القائمة',
     skipToContent: 'الانتقال إلى المحتوى',
     status: {
       success: 'نجاح',

@@ -839,6 +839,8 @@ export default {
     openMenu: 'メニューを開く',
     closeMenu: 'メニューを閉じる',
     mainNavigation: 'メインナビゲーション',
+    scrollMenuStart: '前のメニュー項目を表示',
+    scrollMenuEnd: '他のメニュー項目を表示',
     skipToContent: 'コンテンツへスキップ',
     status: {
       success: '成功',

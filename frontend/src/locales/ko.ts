@@ -839,6 +839,8 @@ export default {
     openMenu: '메뉴 열기',
     closeMenu: '메뉴 닫기',
     mainNavigation: '주요 탐색',
+    scrollMenuStart: '이전 메뉴 항목 보기',
+    scrollMenuEnd: '메뉴 항목 더 보기',
     skipToContent: '본문으로 건너뛰기',
     status: {
       success: '성공',

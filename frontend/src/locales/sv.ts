@@ -839,6 +839,8 @@ export default {
     openMenu: 'Öppna menyn',
     closeMenu: 'Stäng menyn',
     mainNavigation: 'Huvudnavigering',
+    scrollMenuStart: 'Visa föregående menyval',
+    scrollMenuEnd: 'Visa fler menyval',
     skipToContent: 'Hoppa till innehållet',
     status: {
       success: 'Klart',

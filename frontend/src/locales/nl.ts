@@ -839,6 +839,8 @@ export default {
     openMenu: 'Menu openen',
     closeMenu: 'Menu sluiten',
     mainNavigation: 'Hoofdnavigatie',
+    scrollMenuStart: 'Vorige menu-items tonen',
+    scrollMenuEnd: 'Meer menu-items tonen',
     skipToContent: 'Naar inhoud gaan',
     status: {
       success: 'Gelukt',

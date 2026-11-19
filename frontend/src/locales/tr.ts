@@ -839,6 +839,8 @@ export default {
     openMenu: 'Menüyü aç',
     closeMenu: 'Menüyü kapat',
     mainNavigation: 'Ana gezinme',
+    scrollMenuStart: 'Önceki menü öğelerini göster',
+    scrollMenuEnd: 'Daha fazla menü öğesi göster',
     skipToContent: 'İçeriğe geç',
     status: {
       success: 'Başarılı',

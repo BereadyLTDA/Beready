@@ -382,6 +382,7 @@ export default {
         },
         '.wrap-anywhere': { 'overflow-wrap': 'anywhere' },
         '.scrollbar-thin': { 'scrollbar-width': 'thin' },
+        '.scrollbar-none': { 'scrollbar-width': 'none', '&::-webkit-scrollbar': { display: 'none' } },
         // Esconde visualmente mantendo na árvore de acessibilidade (só o recorte, sem mexer em tamanho/posição como `sr-only`)
         '.clip-hidden': { clip: 'rect(0, 0, 0, 0)' },
         '.clip-auto': { clip: 'auto' },

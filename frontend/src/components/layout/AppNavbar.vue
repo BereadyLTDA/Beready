@@ -3,12 +3,28 @@
   <header class="app-nav sticky top-0 z-sticky w-full border-0 border-b border-solid border-border bg-surface shadow-sm">
     <div class="app-nav__bar mx-auto flex h-navbar max-w-page-xl items-center gap-3 px-gutter">
       <router-link to="/dashboard" class="app-nav__brand inline-flex shrink-0 items-center rounded-md">
-        <img src="/logo.png" alt="BeReady" class="app-nav__logo block h-10 w-auto max-w-34 object-contain md:h-12 md:max-w-40" />
+        <img src="/logo.webp" alt="BeReady" width="249" height="96" class="app-nav__logo block h-10 w-auto max-w-34 object-contain md:h-12 md:max-w-40" />
       </router-link>
 
       <!-- Menu inline (>= 1280px) -->
-      <nav class="app-nav__desktop hidden min-w-0 flex-1 xl:block" :aria-label="$t('ui.mainNavigation')">
-        <ul class="app-nav__list scrollbar-thin flex list-none items-center gap-1 overflow-x-auto py-1">
+      <nav class="app-nav__desktop relative hidden min-w-0 flex-1 xl:block" :aria-label="$t('ui.mainNavigation')">
+        <!-- Setas só para o mouse: com teclado, o foco já rola o item até a vista -->
+        <button
+          v-show="podeRolarInicio"
+          type="button"
+          tabindex="-1"
+          aria-hidden="true"
+          :title="$t('ui.scrollMenuStart')"
+          :class="[setaClass, 'start-0 bg-gradient-to-r from-surface from-60% rtl:bg-gradient-to-l']"
+          @click="rolarMenu(-1)"
+        >
+          <BaseIcon name="chevron-left" class="size-4.5" />
+        </button>
+        <ul
+          ref="listaRef"
+          class="app-nav__list scrollbar-none flex list-none items-center gap-1 overflow-x-auto scroll-smooth py-1"
+          @scroll.passive="atualizarSetas"
+        >
           <li v-for="item in menuItems" :key="item.path">
             <router-link
               :to="item.path"
@@ -20,11 +36,22 @@
             </router-link>
           </li>
         </ul>
+        <button
+          v-show="podeRolarFim"
+          type="button"
+          tabindex="-1"
+          aria-hidden="true"
+          :title="$t('ui.scrollMenuEnd')"
+          :class="[setaClass, 'end-0 bg-gradient-to-l from-surface from-60% rtl:bg-gradient-to-r']"
+          @click="rolarMenu(1)"
+        >
+          <BaseIcon name="chevron-right" class="size-4.5" />
+        </button>
       </nav>
 
       <div class="app-nav__user ms-auto flex min-w-0 items-center gap-2">
         <span :class="avatarClass" aria-hidden="true">
-          <img v-if="user?.foto_perfil" :src="user.foto_perfil" alt="" class="app-nav__avatar-img size-full object-cover" />
+          <img v-if="user?.foto_perfil" :src="user.foto_perfil" alt="" width="36" height="36" class="app-nav__avatar-img size-full object-cover" />
           <span v-else>{{ userInitial }}</span>
         </span>
         <span class="app-nav__user-text hidden min-w-0 max-w-44 flex-col 2xl:flex">
@@ -69,7 +96,7 @@
         >
           <div class="app-nav__drawer-head flex items-center gap-3 border-0 border-b border-solid border-border px-4 py-3">
             <span :class="avatarClass" aria-hidden="true">
-              <img v-if="user?.foto_perfil" :src="user.foto_perfil" alt="" class="app-nav__avatar-img size-full object-cover" />
+              <img v-if="user?.foto_perfil" :src="user.foto_perfil" alt="" width="36" height="36" class="app-nav__avatar-img size-full object-cover" />
               <span v-else>{{ userInitial }}</span>
             </span>
             <span class="app-nav__drawer-user flex min-w-0 flex-1 flex-col">
@@ -113,6 +140,8 @@
 </template>
 
 <script setup lang="ts">
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { BaseButton, BaseIcon } from '@/shared/components/ui'
 import { overlayTransition } from '@/shared/components/ui/transitions'
 import { useNavbarLogic } from './Navbar'
@@ -131,6 +160,43 @@ const {
   closeMenu,
   handleLogout,
 } = useNavbarLogic()
+
+// Setas do menu inline: aparecem só quando há itens escondidos daquele lado.
+// Em RTL o scrollLeft vai de 0 a valores negativos, por isso o Math.abs.
+const listaRef = ref<HTMLUListElement | null>(null)
+const podeRolarInicio = ref(false)
+const podeRolarFim = ref(false)
+const { locale } = useI18n()
+
+function atualizarSetas() {
+  const lista = listaRef.value
+  if (!lista) return
+  const rolado = Math.abs(lista.scrollLeft)
+  podeRolarInicio.value = rolado > 1
+  podeRolarFim.value = rolado + lista.clientWidth < lista.scrollWidth - 1
+}
+
+function rolarMenu(direcao: 1 | -1) {
+  const lista = listaRef.value
+  if (!lista) return
+  const rtl = getComputedStyle(lista).direction === 'rtl'
+  lista.scrollBy({ left: direcao * lista.clientWidth * 0.6 * (rtl ? -1 : 1) })
+}
+
+let observador: ResizeObserver | null = null
+onMounted(() => {
+  atualizarSetas()
+  if (listaRef.value && typeof ResizeObserver !== 'undefined') {
+    observador = new ResizeObserver(atualizarSetas)
+    observador.observe(listaRef.value)
+  }
+})
+onBeforeUnmount(() => observador?.disconnect())
+// Os rótulos mudam de largura com o idioma
+watch(locale, () => nextTick(atualizarSetas))
+
+const setaClass =
+  'app-nav__seta absolute inset-y-0 z-10 inline-flex w-10 items-center justify-center border-0 text-text-muted hover:text-text'
 
 // Classes repetidas (barra e gaveta). Ativo: cor + fundo + barra (não depende só de cor);
 // `hover:text-…` repetido para vencer `a:hover` do reset base.

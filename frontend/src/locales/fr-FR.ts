@@ -839,6 +839,8 @@ export default {
     openMenu: 'Ouvrir le menu',
     closeMenu: 'Fermer le menu',
     mainNavigation: 'Navigation principale',
+    scrollMenuStart: 'Voir les éléments précédents du menu',
+    scrollMenuEnd: 'Voir plus d’éléments du menu',
     skipToContent: 'Aller au contenu',
     status: {
       success: 'Succès',
