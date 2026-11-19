@@ -1,6 +1,5 @@
 import { ref, reactive } from 'vue'
 import { preferenciaService } from '../services/preferenciaService'
-import type { Preferencia } from '@/core/types'
 import { useAlert } from '@/shared/composables/useAlert'
 import { useI18n } from 'vue-i18n'
 import { applyTheme, themeFromPreferences } from '@/shared/composables/useTheme'
@@ -18,7 +17,6 @@ interface ApiError {
 
 export function usePreferencias() {
   const { t } = useI18n()
-  const preferencias = ref<Preferencia | null>(null)
   const loading = ref(false)
   const saving = ref(false)
   const { success, error } = useAlert()

@@ -1,5 +1,5 @@
 import api from '@/core/services/api'
-import type { Preferencia, ApiResponse } from '@/core/types'
+import type { Preferencia } from '@/core/types'
 
 export const preferenciaService = {
   getByUsuario: (usuarioId: number) => {

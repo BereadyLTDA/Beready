@@ -110,7 +110,6 @@
             autocomplete="new-password"
             :placeholder="$t('profile.confirmarSenhaPlaceholder')"
             :error="!passwordsMatch && form.confirmar_senha ? $t('errors.passwordMatch') : ''"
-            @input="handleConfirmPasswordInput"
           />
         </div>
       </BaseCard>
@@ -167,7 +166,6 @@ const {
   handlePhoneInput,
   handlePhoneKeydown,
   handlePasswordInput,
-  handleConfirmPasswordInput,
   handleImageChange,
   handleSubmit,
 } = useProfileEdit()

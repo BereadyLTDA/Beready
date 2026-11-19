@@ -2,7 +2,6 @@ import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFlashcards } from '../composables/useFlashcards'
 import type { Flashcard } from '@/core/types'
-import { useI18n } from 'vue-i18n'
 import { usePermissionStore } from '@/stores/permissionStore'
 import { useAuthStore } from '@/stores/auth'
 import { normalizeNivel, type NivelDificuldade } from '@/shared/utils/nivelDificuldade'
@@ -15,7 +14,6 @@ interface FormData {
 
 export function useFlashcardsView() {
   const router = useRouter()
-  const { t } = useI18n()
   const permissionStore = usePermissionStore()
   const authStore = useAuthStore()
 

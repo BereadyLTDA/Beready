@@ -1,7 +1,7 @@
 // frontend/src/components/admin/PlanoManager.ts
 
 import { ref, computed, watch, onMounted } from 'vue'
-import { usePermissionStore, type Plano, type Role } from '@/stores/permissionStore'
+import { usePermissionStore, type Plano } from '@/stores/permissionStore'
 import { useAlert } from '@/shared/composables/useAlert'
 import { useI18n } from 'vue-i18n'
 import { formatRecursoPlano, formatLimitePlano } from '@/shared/utils/planoLabels'

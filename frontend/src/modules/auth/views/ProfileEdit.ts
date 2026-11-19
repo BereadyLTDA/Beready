@@ -22,7 +22,7 @@ export function useProfileEdit() {
     usePasswordStrength()
   const { handlePhoneInput, handlePhoneKeydown, phoneError, formatPhone } = usePhoneMask()
 
-  const { form, errors, validate } = useForm({
+  const { form, errors } = useForm({
     nome: '',
     email: '',
     telefone: '',
@@ -57,10 +57,6 @@ export function useProfileEdit() {
   const handlePasswordInput = (event: Event) => {
     const input = event.target as HTMLInputElement
     checkPasswordStrength(input.value)
-  }
-
-  const handleConfirmPasswordInput = () => {
-    passwordsMatch.value
   }
 
   const handleImageChange = (event: Event) => {
@@ -260,7 +256,6 @@ export function useProfileEdit() {
     handlePhoneKeydown,
     checkPasswordStrength,
     handlePasswordInput,
-    handleConfirmPasswordInput,
     handleImageChange,
     handleSubmit,
   }
