@@ -30,7 +30,8 @@ class SocialAuthService
      */
     public function findOrCreateUser(array $userInfo): int
     {
-        $user = User::where('email', $userInfo['email'])->first();
+        $userInfo['email'] = mb_strtolower(trim((string) $userInfo['email']));
+        $user = User::whereRaw('lower(email) = ?', [$userInfo['email']])->first();
 
         $name = $userInfo['name'] ?? $userInfo['given_name'] ?? $userInfo['first_name'] ?? 'Usuário';
         if (! empty($userInfo['given_name']) && ! empty($userInfo['family_name'])) {

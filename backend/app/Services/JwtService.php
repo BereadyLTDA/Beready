@@ -5,6 +5,7 @@ namespace App\Services;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Access token (curto, enviado no header Authorization) e refresh token (longo, só em cookie
@@ -15,6 +16,11 @@ class JwtService
     public const TYPE_ACCESS = 'access';
 
     public const TYPE_REFRESH = 'refresh';
+
+    // Chaves do cache de revogação (Redis em produção, para valer em todas as instâncias)
+    private const CHAVE_REVOGADOS = 'jwt_revogados_ate_';
+
+    private const CHAVE_JTI = 'jwt_refresh_revogado_';
 
     private string $secret;
 
@@ -45,8 +51,10 @@ class JwtService
         $refreshToken = JWT::encode([
             'sub' => $user['id'],
             'iat' => $issuedAt,
+            'iatm' => self::agoraMs(),
             'exp' => $issuedAt + $this->refreshExpires,
             'type' => self::TYPE_REFRESH,
+            'jti' => bin2hex(random_bytes(16)),
         ], $this->secret, $this->algorithm);
 
         return $this->generateAccessToken($user) + ['refresh_token' => $refreshToken];
@@ -66,6 +74,7 @@ class JwtService
             'nome' => $user['nome'],
             'role' => $user['role'] ?? 'user',
             'iat' => $issuedAt,
+            'iatm' => self::agoraMs(),
             'exp' => $issuedAt + $this->expires,
             'type' => self::TYPE_ACCESS,
         ], $this->secret, $this->algorithm);
@@ -94,7 +103,45 @@ class JwtService
             return null;
         }
 
+        // Revogados: todos os tokens do usuário emitidos antes de revogarTodos() (troca de senha,
+        // bloqueio, exclusão) e o refresh token entregue no logout
+        $revogadosAte = Cache::get(self::CHAVE_REVOGADOS.$payload['sub']);
+        $emitidoMs = (int) ($payload['iatm'] ?? ((int) ($payload['iat'] ?? 0) * 1000));
+        if ($revogadosAte !== null && $emitidoMs < (int) $revogadosAte) {
+            return null;
+        }
+        if (! empty($payload['jti']) && Cache::has(self::CHAVE_JTI.$payload['jti'])) {
+            return null;
+        }
+
         return $payload;
+    }
+
+    /**
+     * Invalida todos os tokens (access e refresh) já emitidos para o usuário. Tokens emitidos
+     * depois desta chamada continuam válidos.
+     */
+    public function revogarTodos(int $userId): void
+    {
+        Cache::put(self::CHAVE_REVOGADOS.$userId, self::agoraMs(), $this->refreshExpires);
+    }
+
+    /**
+     * Invalida um refresh token (logout). Fica na lista só até a data em que ele expiraria.
+     */
+    public function revogarRefresh(string $token): void
+    {
+        $payload = $this->validateToken($token, self::TYPE_REFRESH);
+        if (! $payload || empty($payload['jti'])) {
+            return;
+        }
+        $restante = max(1, (int) ($payload['exp'] ?? 0) - time());
+        Cache::put(self::CHAVE_JTI.$payload['jti'], true, $restante);
+    }
+
+    private static function agoraMs(): int
+    {
+        return (int) floor(microtime(true) * 1000);
     }
 
     public function getRefreshExpires(): int

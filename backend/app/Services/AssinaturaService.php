@@ -145,6 +145,39 @@ class AssinaturaService
     }
 
     /**
+     * Subscriptions do Stripe que ainda cobram o usuário (assinaturas ativas com recorrência).
+     *
+     * @return list<string>
+     */
+    public function subscriptionsStripeAtivas(int $usuarioId): array
+    {
+        return Assinatura::where('usuario_id', $usuarioId)
+            ->where('status', 'active')
+            ->whereNotNull('stripe_subscription_id')
+            ->pluck('stripe_subscription_id')
+            ->map(fn ($id) => (string) $id)
+            ->values()
+            ->all();
+    }
+
+    /**
+     * Cancela na hora as subscriptions do Stripe informadas. Falhas ficam no log para não
+     * interromper o fluxo que chamou (webhook, exclusão de conta).
+     *
+     * @param  list<string>  $subscriptionIds
+     */
+    public function cancelarNoStripe(array $subscriptionIds, StripeGatewayInterface $stripe): void
+    {
+        foreach ($subscriptionIds as $id) {
+            try {
+                $stripe->cancelarAgora($id);
+            } catch (\Throwable $e) {
+                Log::error("Não foi possível cancelar a subscription {$id} no Stripe: ".$e->getMessage());
+            }
+        }
+    }
+
+    /**
      * Atribui o plano gratuito, caso o usuário ainda não tenha nenhuma assinatura ativa.
      */
     public function ativarPlanoGratuito(int $usuarioId): ?Assinatura

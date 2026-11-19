@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\StripeGatewayInterface;
 use App\Exceptions\EmailAlreadyExistsException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\UserNotFoundException;
@@ -31,6 +32,7 @@ class UsersController extends Controller
         private AssinaturaService $assinaturaService,
         private SocialAuthService $socialAuthService,
         private PermissionService $permissionService,
+        private StripeGatewayInterface $stripe,
     ) {}
 
     // GET /user/permissions — permissões do usuário autenticado (admin recebe todas)
@@ -87,7 +89,15 @@ class UsersController extends Controller
             return $this->jsonError('Token de segurança não enviado', 400);
         }
 
-        if (! $this->validateRecaptcha((string) $recaptchaToken)) {
+        try {
+            $recaptchaValido = $this->validateRecaptcha((string) $recaptchaToken);
+        } catch (\Throwable $e) {
+            // Google fora do ar ou sem rede: 503 tratado, sem detalhes internos na resposta
+            Log::error('Falha ao consultar o reCAPTCHA: '.$e->getMessage());
+
+            return $this->jsonError('Verificação de segurança indisponível. Tente novamente em instantes.', 503);
+        }
+        if (! $recaptchaValido) {
             return $this->jsonError('Falha na verificação de segurança. Tente novamente.', 400);
         }
 
@@ -171,8 +181,14 @@ class UsersController extends Controller
     }
 
     // POST /auth/logout — o access token expira sozinho; aqui só o cookie de refresh é apagado
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
+        // Apagar o cookie não basta: uma cópia do refresh token continuaria valendo até expirar
+        $refreshToken = (string) $request->cookie(self::REFRESH_COOKIE);
+        if ($refreshToken !== '') {
+            $this->jwtService->revogarRefresh($refreshToken);
+        }
+
         return $this->jsonSuccess(null, 'Logout realizado com sucesso')->withCookie($this->refreshCookieExpirado());
     }
 
@@ -227,7 +243,7 @@ class UsersController extends Controller
         }
 
         $data = $this->requestData($request);
-        $editable = array_intersect_key($data, array_flip([...UserService::EDITABLE_FIELDS, 'senha']));
+        $editable = array_intersect_key($data, array_flip([...UserService::EDITABLE_FIELDS, 'senha', 'senha_atual']));
         $protected = [];
 
         if ($this->isAdmin()) {
@@ -250,9 +266,22 @@ class UsersController extends Controller
         }
 
         try {
-            $user = $this->userService->updateUser($userId, $editable, $protected);
+            $proprio = $userId === $this->currentUserId();
+            $user = $this->userService->updateUser($userId, $editable, $protected, $proprio);
+            $resposta = $this->jsonSuccess(['user' => $user], 'Perfil atualizado com sucesso');
 
-            return $this->jsonSuccess(['user' => $user], 'Perfil atualizado com sucesso');
+            // Senha nova, bloqueio ou mudança de role derrubam as sessões abertas com os tokens antigos
+            $trocouSenha = isset($editable['senha']) && $editable['senha'] !== '';
+            if ($trocouSenha || isset($protected['status']) || isset($protected['role'])) {
+                $this->jwtService->revogarTodos($userId);
+                if ($proprio) {
+                    // Quem trocou a própria senha continua logado nesta sessão com um refresh novo
+                    $tokens = $this->jwtService->generateTokens($this->dadosDoToken($user));
+                    $resposta->withCookie($this->refreshCookie($tokens['refresh_token'], time() + $this->jwtService->getRefreshExpires()));
+                }
+            }
+
+            return $resposta;
         } catch (UserNotFoundException $e) {
             return $this->jsonError($e->getMessage(), 404);
         } catch (EmailAlreadyExistsException|\InvalidArgumentException $e) {
@@ -282,7 +311,10 @@ class UsersController extends Controller
                 return $this->jsonError('Não é possível excluir um usuário administrador', 403);
             }
 
+            // Sem isto o Stripe continuaria cobrando uma conta que não existe mais
+            $this->assinaturaService->cancelarNoStripe($this->assinaturaService->subscriptionsStripeAtivas($userId), $this->stripe);
             $this->userService->deleteUser($userId);
+            $this->jwtService->revogarTodos($userId);
 
             return $this->jsonSuccess(null, 'Conta excluída com sucesso');
         } catch (UserNotFoundException $e) {
@@ -323,7 +355,9 @@ class UsersController extends Controller
         }
 
         try {
-            $this->userService->resetPassword($token, (string) $newPassword);
+            $userId = $this->userService->resetPassword($token, (string) $newPassword);
+            // Quem tinha a sessão (talvez quem roubou a senha antiga) é deslogado
+            $this->jwtService->revogarTodos($userId);
 
             return $this->jsonSuccess(null, 'Senha redefinida com sucesso');
         } catch (InvalidTokenException|WeakPasswordException $e) {

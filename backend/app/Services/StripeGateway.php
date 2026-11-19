@@ -35,6 +35,11 @@ class StripeGateway implements StripeGatewayInterface
         $this->client()->subscriptions->update($subscriptionId, ['cancel_at_period_end' => true]);
     }
 
+    public function cancelarAgora(string $subscriptionId): void
+    {
+        $this->client()->subscriptions->cancel($subscriptionId);
+    }
+
     public function criarSessaoPortal(string $customerId, string $returnUrl): string
     {
         $session = $this->client()->billingPortal->sessions->create([

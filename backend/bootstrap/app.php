@@ -24,6 +24,12 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Atrás de proxy ou load balancer, o IP real vem do X-Forwarded-For. Sem isto, o rate limit
+        // veria todos os clientes com o IP do proxy. TRUSTED_PROXIES: "*" ou lista separada por vírgula.
+        if ($proxies = env('TRUSTED_PROXIES')) {
+            $middleware->trustProxies(at: $proxies === '*' ? '*' : array_map('trim', explode(',', (string) $proxies)));
+        }
+
         $middleware->api(append: [LimitaRequisicoes::class]);
 
         $middleware->alias([

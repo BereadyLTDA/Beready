@@ -5076,6 +5076,12 @@ components:
       properties:
         nome:
           type: string
+        email:
+          type: string
+          format: email
+        senha_atual:
+          type: string
+          description: Obrigatória para trocar a própria senha ou o e-mail (contas com senha)
         role:
           type: string
         senha:

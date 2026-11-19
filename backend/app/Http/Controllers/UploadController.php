@@ -60,6 +60,6 @@ class UploadController extends Controller
         }
 
         // "url" na raiz mantém compatibilidade com o frontend (ProfileEdit)
-        return response()->json(['success' => true, 'url' => $url]);
+        return response()->json(['success' => true, 'message' => 'Foto enviada com sucesso', 'url' => $url]);
     }
 }

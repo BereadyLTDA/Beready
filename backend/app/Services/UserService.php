@@ -8,7 +8,9 @@ use App\Exceptions\UserNotFoundException;
 use App\Exceptions\WeakPasswordException;
 use App\Mail\BoasVindas;
 use App\Mail\RecuperarSenha;
+use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -56,6 +58,8 @@ class UserService
             throw new \InvalidArgumentException('Nome, e-mail e senha são obrigatórios');
         }
 
+        $data['email'] = $this->validarEmail((string) $data['email']);
+
         if (strlen((string) $data['senha']) < 6) {
             throw new WeakPasswordException('A senha deve ter pelo menos 6 caracteres');
         }
@@ -88,8 +92,10 @@ class UserService
             throw new \InvalidArgumentException('E-mail e senha são obrigatórios');
         }
 
-        $user = $this->findOne(['email' => $email]);
-        if (! $user || ! password_verify($password, (string) ($user['senha_hash'] ?? ''))) {
+        $user = $this->findPorEmail($email);
+        // Sem conta, compara com um hash qualquer: o tempo de resposta não revela quais e-mails existem
+        $hash = (string) ($user['senha_hash'] ?? self::hashFicticio());
+        if (! password_verify($password, $hash) || ! $user) {
             throw new \RuntimeException('E-mail ou senha inválidos', 401);
         }
 
@@ -154,14 +160,32 @@ class UserService
      * @param  array<string, mixed>  $protected  role/status, só quando quem edita é admin
      * @return array<string, mixed>
      */
-    public function updateUser(int $id, array $data, array $protected = []): array
+    public function updateUser(int $id, array $data, array $protected = [], bool $exigirSenhaAtual = false): array
     {
         $user = User::find($id);
         if (! $user) {
             throw new UserNotFoundException;
         }
 
-        if (isset($data['email']) && $this->emailExists((string) $data['email'], $id)) {
+        if (isset($data['email'])) {
+            $data['email'] = $this->validarEmail((string) $data['email']);
+        }
+        $trocaEmail = isset($data['email']) && $data['email'] !== mb_strtolower((string) $user->getAttribute('email'));
+        $trocaSenha = isset($data['senha']) && $data['senha'] !== '';
+
+        // Quem edita a própria conta confirma a senha atual para trocar e-mail ou senha: um token
+        // roubado não basta para tomar a conta. Conta só com login social (sem senha) não precisa.
+        if ($exigirSenhaAtual && ($trocaEmail || $trocaSenha) && ! empty($user->senha_hash)) {
+            if (! password_verify((string) ($data['senha_atual'] ?? ''), (string) $user->senha_hash)) {
+                throw new \InvalidArgumentException('Senha atual incorreta');
+            }
+        }
+
+        if (isset($data['foto_perfil']) && $data['foto_perfil'] !== '' && ! str_starts_with((string) $data['foto_perfil'], 'https://')) {
+            throw new \InvalidArgumentException('A foto de perfil deve ser um endereço https');
+        }
+
+        if ($trocaEmail && $this->emailExists((string) $data['email'], $id)) {
             throw new EmailAlreadyExistsException('Este e-mail já está em uso');
         }
 
@@ -188,7 +212,13 @@ class UserService
             throw new UserNotFoundException;
         }
 
-        return (bool) $user->delete();
+        return DB::transaction(function () use ($user) {
+            // Tags do usuário saem junto: com ON DELETE SET NULL virariam "sem dono" e colidiriam
+            // com o índice único de nome das tags sem dono quando outro usuário excluísse a conta
+            Tag::where('criado_por', $user->id)->delete();
+
+            return (bool) $user->delete();
+        });
     }
 
     /**
@@ -197,7 +227,7 @@ class UserService
      */
     public function forgotPassword(string $email): void
     {
-        $user = User::where('email', $email)->first();
+        $user = User::whereRaw('lower(email) = ?', [mb_strtolower(trim($email))])->first();
         if (! $user) {
             return;
         }
@@ -215,7 +245,10 @@ class UserService
         }
     }
 
-    public function resetPassword(string $token, string $newPassword): void
+    /**
+     * @return int id do usuário cuja senha foi redefinida
+     */
+    public function resetPassword(string $token, string $newPassword): int
     {
         $user = User::where('reset_token', hash('sha256', $token))
             ->where('reset_token_expires', '>', now())
@@ -234,11 +267,13 @@ class UserService
             'reset_token' => null,
             'reset_token_expires' => null,
         ])->saveOrFail();
+
+        return (int) $user->id;
     }
 
     public function emailExists(string $email, ?int $excludeId = null): bool
     {
-        return User::where('email', $email)
+        return User::whereRaw('lower(email) = ?', [mb_strtolower(trim($email))])
             ->when($excludeId, fn ($q) => $q->whereKeyNot($excludeId))
             ->exists();
     }
@@ -263,6 +298,40 @@ class UserService
         }
 
         return $data;
+    }
+
+    /**
+     * Hash de uma senha aleatória, gerado uma vez por processo, só para igualar o tempo do login
+     * quando o e-mail não tem conta.
+     */
+    private static function hashFicticio(): string
+    {
+        static $hash = null;
+
+        return $hash ??= password_hash(bin2hex(random_bytes(16)), PASSWORD_DEFAULT);
+    }
+
+    /**
+     * E-mail em minúsculas e com formato válido (o banco compara com lower(email)).
+     */
+    private function validarEmail(string $email): string
+    {
+        $email = mb_strtolower(trim($email));
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            throw new \InvalidArgumentException('E-mail inválido');
+        }
+
+        return $email;
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    private function findPorEmail(string $email): ?array
+    {
+        $user = User::query()->select(['id'])->whereRaw('lower(email) = ?', [mb_strtolower(trim($email))])->first();
+
+        return $user ? $this->findOne(['id' => $user->id]) : null;
     }
 
     private function enviarBoasVindas(User $user): void

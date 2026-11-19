@@ -88,7 +88,11 @@ class OwnershipTest extends ApiTestCase
 
     public function test_update_do_proprio_usuario_troca_senha_pelo_campo_senha(): void
     {
+        // Sem a senha atual, a troca é recusada
         $this->putJson('/users/update/'.$this->userA->id, ['senha' => 'novaSenha123']);
+        $this->assertResponseCode(400);
+
+        $this->putJson('/users/update/'.$this->userA->id, ['senha' => 'novaSenha123', 'senha_atual' => 'secret123']);
 
         $this->assertResponseOk();
         $user = $this->fetch('Users', $this->userA->id);

@@ -40,6 +40,11 @@ class FakeStripeGateway implements StripeGatewayInterface
         $this->registrar('cancelarNoFimDoPeriodo', compact('subscriptionId'));
     }
 
+    public function cancelarAgora(string $subscriptionId): void
+    {
+        $this->registrar('cancelarAgora', compact('subscriptionId'));
+    }
+
     public function criarSessaoPortal(string $customerId, string $returnUrl): string
     {
         $this->registrar('criarSessaoPortal', compact('customerId', 'returnUrl'));

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\StripeGatewayInterface;
 use App\Models\Plano;
 use App\Models\User;
 use App\Services\AssinaturaService;
@@ -24,7 +25,10 @@ use Stripe\Webhook;
  */
 class PaymentsController extends Controller
 {
-    public function __construct(private AssinaturaService $assinaturaService) {}
+    public function __construct(
+        private AssinaturaService $assinaturaService,
+        private StripeGatewayInterface $stripe,
+    ) {}
 
     // POST /payments/webhook (público; a autenticidade vem da assinatura Stripe-Signature)
     public function webhook(Request $request): JsonResponse
@@ -120,7 +124,10 @@ class PaymentsController extends Controller
         }
 
         $plano = Plano::findOrFail($planId);
+        // Dois checkouts pagos (ex.: duas abas) gerariam duas subscriptions cobrando: a nova substitui as anteriores
+        $anteriores = array_values(array_diff($this->assinaturaService->subscriptionsStripeAtivas($userId), [$subscriptionId]));
         $this->assinaturaService->ativar($userId, $plano, $ciclo, (string) $session['id'], $subscriptionId);
+        $this->assinaturaService->cancelarNoStripe($anteriores, $this->stripe);
 
         $this->guardarCustomer($userId, $this->idDe($session['customer'] ?? null));
     }

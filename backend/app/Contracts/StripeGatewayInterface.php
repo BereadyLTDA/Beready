@@ -28,6 +28,12 @@ interface StripeGatewayInterface
     public function cancelarNoFimDoPeriodo(string $subscriptionId): void;
 
     /**
+     * Cancela a subscription na hora (sem esperar o fim do período). Usado ao excluir a conta e
+     * quando uma assinatura nova substitui outra que ainda estava cobrando.
+     */
+    public function cancelarAgora(string $subscriptionId): void;
+
+    /**
      * Cria uma sessão do Billing Portal e devolve a URL.
      */
     public function criarSessaoPortal(string $customerId, string $returnUrl): string;

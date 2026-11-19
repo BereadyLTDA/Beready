@@ -71,6 +71,13 @@ class PlanosController extends Controller
 
         $preco = $this->assinaturaService->getPreco($plano, $ciclo);
 
+        // Plano pago sem preço neste ciclo (ex.: só tem mensal): ativar de graça daria acesso sem fim
+        $cobraEmAlgumCiclo = $this->assinaturaService->getPreco($plano, 'mensal') > 0
+            || $this->assinaturaService->getPreco($plano, 'anual') > 0;
+        if ($preco <= 0 && $cobraEmAlgumCiclo && (int) $plano->getAttribute('dias_trial') === 0) {
+            return $this->jsonError('Este plano não está disponível no ciclo '.$ciclo, 400);
+        }
+
         if ($preco <= 0) {
             try {
                 $assinatura = $this->assinaturaService->ativar($userId, $plano, $ciclo);
