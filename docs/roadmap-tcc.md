@@ -4,24 +4,58 @@ O que falta para o BeReady fechar como TCC de uma plataforma de ensino de idioma
 prioridade. Cada item diz o objetivo, o que fazer, os arquivos envolvidos, quem faz e quando está
 pronto.
 
-Situação em 19/11/2026:
+Situação em 20/11/2026: itens 2, 3, 4, 5 e 8 implementados e na `main`, com testes e CI verde.
 
-- Já pronto: backend em Laravel 13, contrato OpenAPI testado, CI verde, 14 idiomas,
-  acessibilidade testada com axe, Stripe, geração por IA, verificação de e-mail e a revisão de
-  segurança.
-- Itens 1 a 5: dá para implementar com o Claude, quando você pedir.
-- Itens 6 a 8: dependem de você; o Claude ajuda com textos, diagramas e código de apoio.
-
-| # | Item | Quem faz | Esforço |
+| # | Item | Situação | Falta |
 |---|---|---|---|
-| 1 | Colocar no ar | Claude + você (contas e domínio) | 1 dia |
-| 2 | Áudio e pronúncia | Claude | 1 a 2 dias |
-| 3 | Gamificação simples | Claude | 2 dias |
-| 4 | Teste de nivelamento | Claude + você (revisar as questões) | 1 a 2 dias |
-| 5 | Gráficos de progresso | Claude | 1 dia |
-| 6 | Validação com usuários | Você (Claude prepara o material) | 1 a 2 semanas de uso |
-| 7 | Documentação do TCC | Você (Claude gera diagramas e rascunhos) | contínuo |
-| 8 | LGPD: termos, privacidade e exportação | Claude (código) + você (revisar os textos) | 1 dia |
+| 1 | Colocar no ar | Pendente | Suas contas no Render/Railway e o domínio |
+| 2 | Áudio e pronúncia | Pronto | Nada |
+| 3 | Gamificação simples | Pronto | Cron do scheduler no deploy (item 1) |
+| 4 | Teste de nivelamento | Pronto | Revisar as 30 questões |
+| 5 | Gráficos de progresso | Pronto | Nada (tempo de estudo por semana ficou de fora, ver abaixo) |
+| 6 | Validação com usuários | Pendente | Você conduz; o Claude prepara o material quando você pedir |
+| 7 | Documentação do TCC | Pendente | Você escreve; o Claude gera os diagramas quando você pedir |
+| 8 | LGPD | Pronto | Revisar os textos e definir o e-mail de contato |
+
+### O que precisa da sua revisão
+
+- **Questões do nivelamento:**
+  - estão em `backend/database/migrations/2026_11_20_000000_cria_nivelamento.php`, 6 por nível;
+  - para corrigir alguma depois de aplicada, crie uma migration nova que atualize a tabela
+    `nivelamento_questoes`, em vez de editar essa.
+- **Termos e política de privacidade:**
+  - o texto está em `frontend/src/modules/legal/conteudo.ts`, em português e inglês;
+  - revise com o orientador;
+  - ao mudar o texto, atualize `VERSAO` nesse arquivo e `termos_versao` em
+    `backend/config/beready.php`.
+- **E-mail de contato de privacidade:**
+  - defina `VITE_CONTATO_EMAIL` no `frontend/.env` e no build de produção;
+  - sem ele, as páginas indicam o repositório do projeto.
+- **Tempo de estudo por semana:** não entrou nos gráficos. Hoje o backend só guarda o total
+  acumulado (`tempo_total_estudo`). Para ter o gráfico, seria preciso registrar cada sessão com a
+  data; os gráficos usam a nota média de pronúncia por semana no lugar.
+
+### Como ficou cada item implementado
+
+- **2. Áudio e pronúncia:**
+  - botão ouvir (normal e devagar) em flashcards, traduções e frases;
+  - exercício em `/pronuncia`, com a nota calculada no servidor pela maior sequência comum de
+    palavras.
+- **3. Gamificação:**
+  - meta de cards por dia nas preferências, mostrada no dashboard;
+  - 8 conquistas em `/conquistas`, conferidas no servidor;
+  - lembrete por e-mail com `php artisan beready:lembretes`, todo dia às 18h.
+- **4. Nivelamento:**
+  - em `/nivelamento`, adaptativo (começa no B1, 12 questões), corrigido no servidor;
+  - o resultado vira o `nivel_ingles` do aluno, e só dá para refazer depois de 30 dias.
+- **5. Gráficos:**
+  - em `/progresso`: revisões por dia, acerto e pronúncia por semana e distribuição dos cards;
+  - SVG próprio, cada gráfico com uma tabela equivalente.
+- **8. LGPD:**
+  - páginas `/termos` e `/privacidade`;
+  - aceite obrigatório no cadastro, com versão e data gravadas;
+  - "Exportar meus dados" no perfil;
+  - exclusão da conta confirmada por senha.
 
 ---
 

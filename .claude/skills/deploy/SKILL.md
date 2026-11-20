@@ -46,8 +46,17 @@ Sem elas a API sobe, mas a funcionalidade correspondente fica fora:
 - Fotos de perfil: `CLOUDINARY_*`.
 - IA: `ANTHROPIC_API_KEY` (opcional: `ANTHROPIC_MODEL`, `IA_LIMITE_DIARIO`).
 - Monitoramento: `SENTRY_LARAVEL_DSN`.
+- Atrás de proxy (Render, Railway, Fly): `TRUSTED_PROXIES=*`, senão o rate limit vê todos os
+  clientes com o IP do proxy.
 
 A lista completa, com comentários, está em `backend/.env.example`.
+
+### Tarefas agendadas
+
+O lembrete de estudo por e-mail (`php artisan beready:lembretes`, todo dia às 18h) roda pelo
+scheduler do Laravel. Em produção, crie um cron job (no Render: Cron Job; numa VPS: crontab)
+chamando `php artisan schedule:run` a cada minuto, com as mesmas variáveis de ambiente da API.
+Sem isso, os lembretes nunca saem.
 
 ## Frontend
 
@@ -56,6 +65,7 @@ docker build -f Dockerfile.frontend --target prod \
   --build-arg VITE_API_URL=https://api.exemplo.com \
   --build-arg VITE_RECAPTCHA_SITE_KEY=... \
   --build-arg VITE_STRIPE_PUBLIC_KEY=... \
+  --build-arg VITE_CONTATO_EMAIL=privacidade@exemplo.com \
   -t beready-web .
 docker run -p 8080:80 beready-web
 ```
