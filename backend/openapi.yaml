@@ -1372,6 +1372,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Erro'
+  /progresso/historico:
+    get:
+      operationId: progressoHistorico
+      summary: Séries para os gráficos de progresso do aluno
+      tags:
+        - Progresso
+      responses:
+        200:
+          description: Histórico
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/ProgressoHistorico'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
   '/progresso/usuario/{usuarioId}':
     get:
       operationId: progressoGetByUsuario
@@ -4133,6 +4165,77 @@ components:
         pode_refazer_em:
           type: string
           format: date-time
+    ProgressoHistorico:
+      type: object
+      required:
+        - revisoes_por_dia
+        - acertos_por_semana
+        - pronuncia_por_semana
+        - distribuicao_cards
+      properties:
+        revisoes_por_dia:
+          type: array
+          description: Últimos 30 dias, inclusive os sem revisão
+          items:
+            type: object
+            required:
+              - dia
+              - total
+            properties:
+              dia:
+                type: string
+                format: date
+              total:
+                type: integer
+        acertos_por_semana:
+          type: array
+          description: Últimas 12 semanas (a data é a segunda-feira)
+          items:
+            type: object
+            required:
+              - semana
+              - total
+              - corretas
+              - taxa
+            properties:
+              semana:
+                type: string
+                format: date
+              total:
+                type: integer
+              corretas:
+                type: integer
+              taxa:
+                type: integer
+        pronuncia_por_semana:
+          type: array
+          items:
+            type: object
+            required:
+              - semana
+              - tentativas
+              - media
+            properties:
+              semana:
+                type: string
+                format: date
+              tentativas:
+                type: integer
+              media:
+                type: integer
+        distribuicao_cards:
+          type: object
+          required:
+            - novos
+            - aprendendo
+            - dominados
+          properties:
+            novos:
+              type: integer
+            aprendendo:
+              type: integer
+            dominados:
+              type: integer
     AdminUser:
       type: object
       required:

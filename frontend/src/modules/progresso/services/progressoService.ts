@@ -1,5 +1,6 @@
 import api from '@/core/services/api'
 import type { ApiResponse, Progresso } from '@/core/types'
+import type { components } from '@/core/types/api.gen'
 
 export type { Progresso }
 
@@ -11,6 +12,11 @@ export const progressoService = {
 
   save(data: Progresso) {
     return api.post<ApiResponse<Progresso>>('/progresso', data)
+  },
+
+  // Séries para os gráficos (sempre do aluno logado)
+  historico() {
+    return api.get<ApiResponse<components['schemas']['ProgressoHistorico']>>('/progresso/historico')
   },
 
   // tempo_total_estudo é acumulado em segundos

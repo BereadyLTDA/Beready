@@ -168,6 +168,7 @@ Route::middleware('jwt')->group(function () use ($id, $uuid, $crud) {
     Route::get('/preferencias/usuario/{usuarioId}', [PreferenciasController::class, 'getByUsuario'])->where('usuarioId', $id);
     Route::post('/preferencias', [PreferenciasController::class, 'save']);
 
+    Route::get('/progresso/historico', [ProgressoController::class, 'historico']);
     Route::get('/progresso/usuario/{usuarioId}', [ProgressoController::class, 'getByUsuario'])->where('usuarioId', $id);
     Route::post('/progresso', [ProgressoController::class, 'save']);
     Route::post('/progresso/incrementar-tempo', [ProgressoController::class, 'incrementarTempo']);

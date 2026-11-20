@@ -56,6 +56,7 @@ test.describe('Responsivo em 360px', () => {
       '/pronuncia',
       '/conquistas',
       '/nivelamento',
+      '/progresso',
       '/profile',
     ]
     for (const path of telas) {

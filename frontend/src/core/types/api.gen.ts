@@ -470,6 +470,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/progresso/historico": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Séries para os gráficos de progresso do aluno */
+        get: operations["progressoHistorico"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/progresso/usuario/{usuarioId}": {
         parameters: {
             query?: never;
@@ -1550,6 +1567,33 @@ export interface components {
             concluido_em: string;
             /** Format: date-time */
             pode_refazer_em: string;
+        };
+        ProgressoHistorico: {
+            /** @description Últimos 30 dias, inclusive os sem revisão */
+            revisoes_por_dia: {
+                /** Format: date */
+                dia: string;
+                total: number;
+            }[];
+            /** @description Últimas 12 semanas (a data é a segunda-feira) */
+            acertos_por_semana: {
+                /** Format: date */
+                semana: string;
+                total: number;
+                corretas: number;
+                taxa: number;
+            }[];
+            pronuncia_por_semana: {
+                /** Format: date */
+                semana: string;
+                tentativas: number;
+                media: number;
+            }[];
+            distribuicao_cards: {
+                novos: number;
+                aprendendo: number;
+                dominados: number;
+            };
         };
         AdminUser: {
             criado_em: string;
@@ -3471,6 +3515,40 @@ export interface operations {
                         message: string;
                         /** @description Formato ainda não descrito */
                         data?: unknown;
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    progressoHistorico: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Histórico */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["ProgressoHistorico"];
                     };
                 };
             };

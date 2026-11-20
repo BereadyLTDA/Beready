@@ -4,12 +4,21 @@ namespace App\Services;
 
 use App\Models\Flashcard;
 use App\Models\ProgressoUsuario;
+use App\Models\PronunciaTentativa;
 use App\Models\Quiz;
 use App\Models\RespostaUsuario;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ProgressoService
 {
+    public const DIAS_HISTORICO = 30;
+
+    public const SEMANAS_HISTORICO = 12;
+
+    /** Intervalo (dias) a partir do qual o card conta como dominado */
+    public const DIAS_DOMINADO = 21;
+
     /**
      * Progresso salvo + taxa de acerto e progresso geral calculados.
      *
@@ -114,6 +123,84 @@ class ProgressoService
             ->update(['tempo_total_estudo' => DB::raw('tempo_total_estudo + '.$segundos)]);
 
         return $this->find($usuarioId)->toArray();
+    }
+
+    /**
+     * Séries para os gráficos de progresso, agrupadas no fuso da aplicação.
+     *
+     * @return array{
+     *     revisoes_por_dia: list<array{dia: string, total: int}>,
+     *     acertos_por_semana: list<array{semana: string, total: int, corretas: int, taxa: int}>,
+     *     pronuncia_por_semana: list<array{semana: string, tentativas: int, media: int}>,
+     *     distribuicao_cards: array{novos: int, aprendendo: int, dominados: int}
+     * }
+     */
+    public function historico(int $usuarioId): array
+    {
+        $hoje = Carbon::today();
+        $inicioDias = $hoje->copy()->subDays(self::DIAS_HISTORICO - 1);
+        $inicioSemanas = $hoje->copy()->startOfWeek()->subWeeks(self::SEMANAS_HISTORICO - 1);
+
+        // Agrupa em PHP (no fuso do app), não no SQL: o banco guarda sem fuso
+        $respostas = RespostaUsuario::where('usuario_id', $usuarioId)
+            ->where('criado_em', '>=', $inicioSemanas)
+            ->get(['tipo', 'correto', 'criado_em']);
+
+        $porDia = [];
+        for ($d = $inicioDias->copy(); $d->lte($hoje); $d->addDay()) {
+            $porDia[$d->toDateString()] = 0;
+        }
+        $porSemana = [];
+        for ($s = $inicioSemanas->copy(); $s->lte($hoje); $s->addWeek()) {
+            $porSemana[$s->toDateString()] = ['total' => 0, 'corretas' => 0];
+        }
+
+        foreach ($respostas as $r) {
+            $quando = Carbon::parse($r->getAttribute('criado_em'));
+            $dia = $quando->toDateString();
+            if ($r->getAttribute('tipo') === 'flashcard' && isset($porDia[$dia])) {
+                $porDia[$dia]++;
+            }
+            $semana = $quando->copy()->startOfWeek()->toDateString();
+            if (isset($porSemana[$semana])) {
+                $porSemana[$semana]['total']++;
+                $porSemana[$semana]['corretas'] += $r->getAttribute('correto') ? 1 : 0;
+            }
+        }
+
+        $pronuncia = array_fill_keys(array_keys($porSemana), []);
+        $tentativas = PronunciaTentativa::where('usuario_id', $usuarioId)
+            ->where('criado_em', '>=', $inicioSemanas)
+            ->get(['nota', 'criado_em']);
+        foreach ($tentativas as $t) {
+            $semana = Carbon::parse($t->getAttribute('criado_em'))->startOfWeek()->toDateString();
+            if (isset($pronuncia[$semana])) {
+                $pronuncia[$semana][] = (int) $t->getAttribute('nota');
+            }
+        }
+
+        // Pelo intervalo da repetição espaçada: nunca revisado, aprendendo, ou com intervalo longo
+        $cards = Flashcard::where('usuario_id', $usuarioId);
+
+        return [
+            'revisoes_por_dia' => array_map(fn ($dia, $total) => ['dia' => $dia, 'total' => $total], array_keys($porDia), $porDia),
+            'acertos_por_semana' => array_map(fn ($semana, $v) => [
+                'semana' => $semana,
+                'total' => $v['total'],
+                'corretas' => $v['corretas'],
+                'taxa' => $v['total'] > 0 ? (int) round($v['corretas'] / $v['total'] * 100) : 0,
+            ], array_keys($porSemana), $porSemana),
+            'pronuncia_por_semana' => array_map(fn ($semana, $notas) => [
+                'semana' => $semana,
+                'tentativas' => count($notas),
+                'media' => $notas ? (int) round(array_sum($notas) / count($notas)) : 0,
+            ], array_keys($pronuncia), $pronuncia),
+            'distribuicao_cards' => [
+                'novos' => (clone $cards)->where(fn ($q) => $q->whereNull('repeticoes')->orWhere('repeticoes', 0))->count(),
+                'aprendendo' => (clone $cards)->where('repeticoes', '>', 0)->where(fn ($q) => $q->whereNull('intervalo_dias')->orWhere('intervalo_dias', '<', self::DIAS_DOMINADO))->count(),
+                'dominados' => (clone $cards)->where('repeticoes', '>', 0)->where('intervalo_dias', '>=', self::DIAS_DOMINADO)->count(),
+            ],
+        ];
     }
 
     private function find(int $usuarioId): ?ProgressoUsuario

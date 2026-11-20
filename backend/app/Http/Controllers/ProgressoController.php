@@ -15,6 +15,16 @@ class ProgressoController extends Controller
 
     public function __construct(private ProgressoService $service) {}
 
+    // GET /progresso/historico — séries para os gráficos (sempre do próprio aluno)
+    public function historico(): JsonResponse
+    {
+        try {
+            return $this->jsonSuccess($this->service->historico($this->currentUserId()));
+        } catch (\Exception $e) {
+            return $this->errorResponse($e, 'Erro ao carregar o histórico de progresso');
+        }
+    }
+
     // GET /progresso/usuario/{usuarioId}
     public function getByUsuario(string $usuarioId): JsonResponse
     {

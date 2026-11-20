@@ -3,6 +3,9 @@ import { useAlert } from '@/shared/composables/useAlert'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/stores/auth'
 import { progressoService } from '../services/progressoService'
+import type { components } from '@/core/types/api.gen'
+
+type Historico = components['schemas']['ProgressoHistorico']
 import { formatTempoEstudo } from '@/shared/utils/formatTempoEstudo'
 
 export function useProgressoDashboard() {
@@ -19,6 +22,17 @@ export function useProgressoDashboard() {
     sequencia_atual: 0,
     maior_sequencia: 0,
   })
+
+  // Séries dos gráficos; se falhar, a página continua só com os números
+  const historico = ref<Historico | null>(null)
+  const loadHistorico = async () => {
+    try {
+      const { data } = await progressoService.historico()
+      historico.value = data.data
+    } catch {
+      historico.value = null
+    }
+  }
 
   const loadProgresso = async () => {
     const userId = authStore.user?.id
@@ -47,10 +61,12 @@ export function useProgressoDashboard() {
 
   onMounted(() => {
     loadProgresso()
+    loadHistorico()
   })
 
   return {
     progresso,
+    historico,
     loading,
     formatarTempo: formatTempoEstudo,
     loadProgresso,

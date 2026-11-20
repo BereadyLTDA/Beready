@@ -484,6 +484,17 @@ export class ApiMock {
       }),
     )
     this.def('GET', '/progresso/usuario/:id', requireUser(() => ok(s.progresso)))
+    // Séries fixas: 30 dias (revisões só nos 3 últimos) e 12 semanas a partir de 2026-08-31
+    this.def('GET', '/progresso/historico', requireUser(() => {
+      const dia = (n: number) => new Date(Date.UTC(2026, 9, 22 + n)).toISOString().slice(0, 10)
+      const semana = (n: number) => new Date(Date.UTC(2026, 7, 31 + n * 7)).toISOString().slice(0, 10)
+      return ok({
+        revisoes_por_dia: Array.from({ length: 30 }, (_, i) => ({ dia: dia(i), total: i >= 27 ? i - 24 : 0 })),
+        acertos_por_semana: Array.from({ length: 12 }, (_, i) => ({ semana: semana(i), total: i >= 9 ? 10 : 0, corretas: i >= 9 ? 5 + i - 9 : 0, taxa: i >= 9 ? (5 + i - 9) * 10 : 0 })),
+        pronuncia_por_semana: Array.from({ length: 12 }, (_, i) => ({ semana: semana(i), tentativas: i === 11 ? 2 : 0, media: i === 11 ? 85 : 0 })),
+        distribuicao_cards: { novos: 2, aprendendo: 1, dominados: 1 },
+      })
+    }))
     this.def('POST', '/progresso/incrementar-tempo', requireUser(() => ok(s.progresso)))
 
     // ---------------- nivelamento (mock com 3 questões; no backend são 12 e a regra é adaptativa)
