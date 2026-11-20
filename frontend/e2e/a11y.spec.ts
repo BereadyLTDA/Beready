@@ -62,6 +62,7 @@ test.describe('Acessibilidade (axe)', () => {
     '/preferencias',
     '/pronuncia',
     '/conquistas',
+    '/nivelamento',
   ]
 
   for (const path of telasLogadas) {

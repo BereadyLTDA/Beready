@@ -6,6 +6,17 @@
       icon="home"
     />
 
+    <!-- Convite para o nivelamento enquanto o aluno não fez o teste -->
+    <BaseCard v-if="semNivelamento" as="section" class="dashboard__nivelamento mb-4" highlight="primary">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="min-w-0 flex-1 basis-64">
+          <h2 class="text-base font-semibold text-text">{{ $t('nivelamento.convite') }}</h2>
+          <p class="mt-1 text-sm text-text-muted">{{ $t('nivelamento.conviteTexto') }}</p>
+        </div>
+        <BaseButton to="/nivelamento" icon="academic-cap" size="sm">{{ $t('nivelamento.comecar') }}</BaseButton>
+      </div>
+    </BaseCard>
+
     <!-- Meta do dia: cards revisados hoje x meta das preferências -->
     <BaseCard v-if="meta" as="section" class="dashboard__meta mb-4" :aria-label="$t('meta.titulo')">
       <div class="flex flex-wrap items-center justify-between gap-4">
@@ -114,6 +125,7 @@ import { useAlert } from '@/shared/composables/useAlert'
 import { useRevisaoPendentes } from '@/modules/flashcards/composables/useRevisao'
 import { useConquistas } from '@/modules/conquistas/composables/useConquistas'
 import { conquistaService, type MetaDiaria } from '@/modules/conquistas/services/conquistaService'
+import { nivelamentoService } from '@/modules/nivelamento/services/nivelamentoService'
 import {
   BaseButton,
   BaseCard,
@@ -135,6 +147,7 @@ const route = useRoute()
 const router = useRouter()
 const { warning } = useAlert()
 const meta = ref<MetaDiaria | null>(null)
+const semNivelamento = ref(false)
 const { checarNovas } = useConquistas()
 
 onMounted(() => {
@@ -144,6 +157,10 @@ onMounted(() => {
     .then(({ data }) => (meta.value = data.data))
     .catch(() => undefined)
   checarNovas()
+  nivelamentoService
+    .resultado()
+    .then(({ data }) => (semNivelamento.value = data.data === null))
+    .catch(() => undefined)
   if (route.query.error === 'no_permission') {
     warning(t('admin.noPermissionAction'))
     router.replace({ query: {} })

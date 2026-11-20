@@ -147,6 +147,12 @@ const router = createRouter({
           meta: { requiresAuth: true },
         },
         {
+          path: '/nivelamento',
+          name: 'nivelamento',
+          component: () => import('../modules/nivelamento/views/NivelamentoPage.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
           path: '/conquistas',
           name: 'conquistas',
           component: () => import('../modules/conquistas/views/ConquistasPage.vue'),

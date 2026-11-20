@@ -63,6 +63,8 @@ export interface MockState {
   tags: Tag[]
   metaDiaria: { meta: number; feitos_hoje: number; sequencia_atual: number }
   conquistas: ConquistaMock[]
+  /** true = o aluno já fez o nivelamento (o dashboard não mostra o convite) */
+  nivelamentoFeito: boolean
 }
 
 export interface ConquistaMock {
@@ -214,6 +216,7 @@ export class ApiMock {
       tags: makeTags(),
       metaDiaria: { meta: 10, feitos_hoje: 0, sequencia_atual: 0 },
       conquistas: makeConquistas(),
+      nivelamentoFeito: false,
     }
     this.registerDefaults()
   }
@@ -251,6 +254,11 @@ export class ApiMock {
 
   withPreferencias(overrides: Partial<Preferencia> = {}): this {
     this.state.preferencias = makePreferencias({ usuario_id: this.state.user?.id ?? 1, ...overrides })
+    return this
+  }
+
+  withNivelamentoFeito(): this {
+    this.state.nivelamentoFeito = true
     return this
   }
 
@@ -477,6 +485,41 @@ export class ApiMock {
     )
     this.def('GET', '/progresso/usuario/:id', requireUser(() => ok(s.progresso)))
     this.def('POST', '/progresso/incrementar-tempo', requireUser(() => ok(s.progresso)))
+
+    // ---------------- nivelamento (mock com 3 questões; no backend são 12 e a regra é adaptativa)
+    const niv = { respondidas: 0, acertos: 0 }
+    const questaoNiv = (n: number) => ({
+      id: 100 + n,
+      enunciado: `Question ${n + 1}: She ___ a teacher.`,
+      alternativas: ['is', 'are', 'am', 'be'],
+    })
+    const resultadoNiv = () => ({
+      nivel: niv.acertos >= 3 ? 'B2' : 'A2',
+      nivel_ingles: niv.acertos >= 3 ? 'intermediario' : 'iniciante',
+      acertos: niv.acertos,
+      total: 3,
+      concluido_em: '2026-11-20T10:00:00-03:00',
+      pode_refazer_em: '2026-12-20T10:00:00-03:00',
+    })
+    const estadoNiv = () => {
+      const concluido = niv.respondidas >= 3
+      return {
+        id: 1,
+        concluido,
+        respondidas: niv.respondidas,
+        total: 3,
+        questao: concluido ? null : questaoNiv(niv.respondidas),
+        resultado: concluido ? resultadoNiv() : null,
+      }
+    }
+    this.def('GET', '/nivelamento/resultado', requireUser(() => ok(s.nivelamentoFeito ? resultadoNiv() : null)))
+    this.def('POST', '/nivelamento/iniciar', requireUser(() => ok(estadoNiv())))
+    this.def('POST', '/nivelamento/:id/responder', requireUser(({ body }) => {
+      const correta = body.alternativa === 0
+      niv.respondidas++
+      if (correta) niv.acertos++
+      return ok({ correta, ...estadoNiv() })
+    }))
 
     // ---------------- gamificação (as regras reais ficam no backend)
     this.def('GET', '/meta-diaria', requireUser(() => ok(s.metaDiaria)))

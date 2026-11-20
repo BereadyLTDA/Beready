@@ -10,6 +10,7 @@ use App\Http\Controllers\FlashcardsController;
 use App\Http\Controllers\FlashcardTagsController;
 use App\Http\Controllers\FrasesSemelhantesController;
 use App\Http\Controllers\ImagensGeradasController;
+use App\Http\Controllers\NivelamentoController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\PlanosController;
 use App\Http\Controllers\PreferenciasController;
@@ -170,6 +171,11 @@ Route::middleware('jwt')->group(function () use ($id, $uuid, $crud) {
     Route::get('/progresso/usuario/{usuarioId}', [ProgressoController::class, 'getByUsuario'])->where('usuarioId', $id);
     Route::post('/progresso', [ProgressoController::class, 'save']);
     Route::post('/progresso/incrementar-tempo', [ProgressoController::class, 'incrementarTempo']);
+
+    // Teste de nivelamento adaptativo
+    Route::post('/nivelamento/iniciar', [NivelamentoController::class, 'iniciar']);
+    Route::post('/nivelamento/{id}/responder', [NivelamentoController::class, 'responder'])->where('id', $id);
+    Route::get('/nivelamento/resultado', [NivelamentoController::class, 'resultado']);
 
     // Gamificação: conquistas e meta diária
     Route::get('/conquistas', [ConquistasController::class, 'index']);

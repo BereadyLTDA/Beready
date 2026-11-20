@@ -1035,6 +1035,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/nivelamento/iniciar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Começa (ou continua) o teste de nivelamento e devolve a questão atual */
+        post: operations["nivelamentoIniciar"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nivelamento/{id}/responder": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Corrige a resposta no servidor e avança o teste */
+        post: operations["nivelamentoResponder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nivelamento/resultado": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Último resultado do nivelamento (null se nunca concluiu) */
+        get: operations["nivelamentoResultado"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/conquistas": {
         parameters: {
             query?: never;
@@ -1474,6 +1525,31 @@ export interface components {
             meta: number;
             feitos_hoje: number;
             sequencia_atual: number;
+        };
+        NivelamentoEstado: {
+            id: number;
+            concluido: boolean;
+            respondidas: number;
+            total: number;
+            /** @description Questão atual, sem a alternativa correta */
+            questao: {
+                id: number;
+                enunciado: string;
+                alternativas: string[];
+            } | null;
+            resultado: components["schemas"]["NivelamentoResultado"] | null;
+        };
+        NivelamentoResultado: {
+            /** @enum {string} */
+            nivel: "A1" | "A2" | "B1" | "B2" | "C1";
+            /** @enum {string} */
+            nivel_ingles: "iniciante" | "intermediario" | "avancado";
+            acertos: number;
+            total: number;
+            /** Format: date-time */
+            concluido_em: string;
+            /** Format: date-time */
+            pode_refazer_em: string;
         };
         AdminUser: {
             criado_em: string;
@@ -4925,6 +5001,119 @@ export interface operations {
                         message: string;
                         /** @description Formato ainda não descrito */
                         data?: unknown;
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    nivelamentoIniciar: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Estado do teste */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["NivelamentoEstado"];
+                    };
+                };
+            };
+            /** @description Erro (409 se concluiu há menos de 30 dias) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    nivelamentoResponder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /** @description Índice da alternativa escolhida (começa em 0) */
+                    alternativa: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Estado do teste depois da resposta */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["NivelamentoEstado"] & {
+                            correta: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    nivelamentoResultado: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Resultado */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["NivelamentoResultado"] | null;
                     };
                 };
             };

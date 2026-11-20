@@ -2866,6 +2866,128 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Erro'
+  /nivelamento/iniciar:
+    post:
+      operationId: nivelamentoIniciar
+      summary: Começa (ou continua) o teste de nivelamento e devolve a questão atual
+      tags:
+        - Nivelamento
+      responses:
+        200:
+          description: Estado do teste
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/NivelamentoEstado'
+        default:
+          description: 'Erro (409 se concluiu há menos de 30 dias)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  '/nivelamento/{id}/responder':
+    post:
+      operationId: nivelamentoResponder
+      summary: Corrige a resposta no servidor e avança o teste
+      tags:
+        - Nivelamento
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - alternativa
+              properties:
+                alternativa:
+                  type: integer
+                  description: Índice da alternativa escolhida (começa em 0)
+      responses:
+        200:
+          description: Estado do teste depois da resposta
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/NivelamentoEstado'
+                      - type: object
+                        required:
+                          - correta
+                        properties:
+                          correta:
+                            type: boolean
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /nivelamento/resultado:
+    get:
+      operationId: nivelamentoResultado
+      summary: Último resultado do nivelamento (null se nunca concluiu)
+      tags:
+        - Nivelamento
+      responses:
+        200:
+          description: Resultado
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/NivelamentoResultado'
+                    nullable: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
   /conquistas:
     get:
       operationId: conquistasIndex
@@ -3938,6 +4060,79 @@ components:
           type: integer
         sequencia_atual:
           type: integer
+    NivelamentoEstado:
+      type: object
+      required:
+        - id
+        - concluido
+        - respondidas
+        - total
+        - questao
+        - resultado
+      properties:
+        id:
+          type: integer
+        concluido:
+          type: boolean
+        respondidas:
+          type: integer
+        total:
+          type: integer
+        questao:
+          type: object
+          nullable: true
+          description: Questão atual, sem a alternativa correta
+          required:
+            - id
+            - enunciado
+            - alternativas
+          properties:
+            id:
+              type: integer
+            enunciado:
+              type: string
+            alternativas:
+              type: array
+              items:
+                type: string
+        resultado:
+          allOf:
+            - $ref: '#/components/schemas/NivelamentoResultado'
+          nullable: true
+    NivelamentoResultado:
+      type: object
+      required:
+        - nivel
+        - nivel_ingles
+        - acertos
+        - total
+        - concluido_em
+        - pode_refazer_em
+      properties:
+        nivel:
+          type: string
+          enum:
+            - A1
+            - A2
+            - B1
+            - B2
+            - C1
+        nivel_ingles:
+          type: string
+          enum:
+            - iniciante
+            - intermediario
+            - avancado
+        acertos:
+          type: integer
+        total:
+          type: integer
+        concluido_em:
+          type: string
+          format: date-time
+        pode_refazer_em:
+          type: string
+          format: date-time
     AdminUser:
       type: object
       required:
