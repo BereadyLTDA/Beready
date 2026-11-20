@@ -406,6 +406,20 @@ class QuizQuestoesTest extends ApiTestCase
         $this->assertSame(1, $this->responseJson()['data']['quizes_concluidos']);
     }
 
+    public function test_gabaritar_o_quiz_da_a_conquista(): void
+    {
+        $quiz = $this->quiz($this->userA);
+        $q1 = $this->questao($quiz, $this->multipla('Q1'));
+
+        // Errando, não ganha
+        $this->postJson("/quizes/{$quiz->id}/finalizar", ['respostas' => [['questao_id' => $q1['id'], 'alternativa_id' => $this->idErrada($q1)]]]);
+        $this->assertSame(0, $this->tabela('ConquistasUsuario')->where('codigo', 'quiz_gabaritado')->count());
+
+        $this->postJson("/quizes/{$quiz->id}/finalizar", ['respostas' => [['questao_id' => $q1['id'], 'alternativa_id' => $this->idCorreta($q1)]]]);
+        $this->assertResponseOk();
+        $this->assertSame(1, $this->tabela('ConquistasUsuario')->where(['usuario_id' => $this->userA->id, 'codigo' => 'quiz_gabaritado'])->count());
+    }
+
     public function test_finalizar_de_novo_nao_conta_o_quiz_outra_vez(): void
     {
         $quiz = $this->quiz($this->userA);

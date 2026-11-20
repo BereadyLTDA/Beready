@@ -6,6 +6,28 @@
       icon="home"
     />
 
+    <!-- Meta do dia: cards revisados hoje x meta das preferências -->
+    <BaseCard v-if="meta" as="section" class="dashboard__meta mb-4" :aria-label="$t('meta.titulo')">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="min-w-0 flex-1 basis-64">
+          <p class="text-sm font-semibold text-text">
+            {{ meta.feitos_hoje >= meta.meta ? $t('meta.batida') : $t('meta.titulo') }}
+          </p>
+          <BaseProgress
+            class="mt-2"
+            :value="Math.min(meta.feitos_hoje, meta.meta)"
+            :max="meta.meta"
+            :label="$t('meta.titulo')"
+            :value-text="$t('meta.andamento', { feitos: meta.feitos_hoje, meta: meta.meta })"
+            :variant="meta.feitos_hoje >= meta.meta ? 'success' : 'primary'"
+            show-label
+          />
+        </div>
+        <BaseButton v-if="meta.feitos_hoje < meta.meta" to="/flashcards/revisao" icon="refresh" size="sm">{{ $t('meta.revisar') }}</BaseButton>
+        <BaseButton v-else to="/conquistas" variant="secondary" icon="trophy" size="sm">{{ $t('conquistas.ver') }}</BaseButton>
+      </div>
+    </BaseCard>
+
     <!-- Estatísticas -->
     <div class="dashboard__stats grid grid-cols-fill-56 gap-4">
       <!-- Repetição espaçada: acesso direto à fila do dia -->
@@ -85,12 +107,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { useAlert } from '@/shared/composables/useAlert'
 import { useRevisaoPendentes } from '@/modules/flashcards/composables/useRevisao'
+import { useConquistas } from '@/modules/conquistas/composables/useConquistas'
+import { conquistaService, type MetaDiaria } from '@/modules/conquistas/services/conquistaService'
 import {
+  BaseButton,
   BaseCard,
   BaseIcon,
   BaseProgress,
@@ -109,8 +134,16 @@ const { total: paraRevisar, carregar: carregarRevisao } = useRevisaoPendentes()
 const route = useRoute()
 const router = useRouter()
 const { warning } = useAlert()
+const meta = ref<MetaDiaria | null>(null)
+const { checarNovas } = useConquistas()
+
 onMounted(() => {
   carregarRevisao()
+  conquistaService
+    .metaDiaria()
+    .then(({ data }) => (meta.value = data.data))
+    .catch(() => undefined)
+  checarNovas()
   if (route.query.error === 'no_permission') {
     warning(t('admin.noPermissionAction'))
     router.replace({ query: {} })
@@ -146,6 +179,13 @@ const features = computed<DashboardFeature[]>(() => [
     title: t('prompts.title'),
     description: t('dashboard.features.prompts.desc'),
     cta: t('dashboard.features.prompts.link'),
+  },
+  {
+    to: '/conquistas',
+    icon: 'trophy',
+    title: t('conquistas.titulo'),
+    description: t('conquistas.cardDescricao'),
+    cta: t('conquistas.ver'),
   },
   {
     to: '/pronuncia',

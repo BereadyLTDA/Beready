@@ -366,6 +366,9 @@ export default {
     successSave: 'Framsteg sparades framgångsrikt!',
   },
   preferencias: {
+    metaCards: 'Dagligt kortmål',
+    metaCardsHint: 'Visas på instrumentpanelen och räknar dagens repetitioner.',
+    metaCardsOpcao: '{n} kort per dag',
     title: 'Inställningar',
     subtitle: 'Anpassa din app-upplevelse',
     tema: 'Tema',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Det gick inte att använda mikrofonen. Försök igen.',
     cardDescricao: 'Lyssna på dina meningar och öva tal med direkt poäng.',
     cardLink: 'Öva uttal',
+  },
+  conquistas: {
+    titulo: 'Prestationer',
+    subtitulo: 'Mål som du når genom att plugga. Servern kontrollerar varje mål.',
+    total: '{feitas} av {total} prestationer',
+    conquistadaEm: 'Uppnådd {data}',
+    andamento: '{atual} av {alvo}',
+    nova: 'Ny prestation: {nome}!',
+    ver: 'Se prestationer',
+    cardDescricao: 'Se de mål du har nått och de nästa.',
+    itens: {
+      primeiro_card: {
+        nome: 'Första kortet',
+        descricao: 'Skapa ditt första kort.',
+      },
+      cards_50: {
+        nome: '50 repetitioner',
+        descricao: 'Repetera 50 kort.',
+      },
+      cards_200: {
+        nome: '200 repetitioner',
+        descricao: 'Repetera 200 kort.',
+      },
+      sequencia_7: {
+        nome: 'En vecka i rad',
+        descricao: 'Plugga 7 dagar i rad.',
+      },
+      sequencia_30: {
+        nome: 'En månad i rad',
+        descricao: 'Plugga 30 dagar i rad.',
+      },
+      quiz_gabaritado: {
+        nome: 'Fullpott!',
+        descricao: 'Svara rätt på alla frågor i ett quiz.',
+      },
+      frases_ia_10: {
+        nome: 'Kreativ',
+        descricao: 'Ha 10 liknande meningar i dina promptar.',
+      },
+      pronuncia_90: {
+        nome: 'Skarpt uttal',
+        descricao: 'Få 90 eller mer i uttalsövningen.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Dagens mål',
+    batida: 'Dagens mål uppnått!',
+    andamento: '{feitos} av {meta} kort',
+    revisar: 'Repetera nu',
   },
   planos: {
     loginToSubscribe: 'Logga in för att teckna ett abonnemang.',

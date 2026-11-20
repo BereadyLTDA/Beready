@@ -366,6 +366,9 @@ export default {
     successSave: 'Progrès enregistré avec succès !',
   },
   preferencias: {
+    metaCards: 'Objectif de cartes par jour',
+    metaCardsHint: 'Affiché sur le tableau de bord ; compte les révisions du jour.',
+    metaCardsOpcao: '{n} cartes par jour',
     title: 'Préférences',
     subtitle: 'Personnalisez votre expérience',
     tema: 'Thème',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Impossible d’utiliser le micro. Réessayez.',
     cardDescricao: 'Écoutez vos phrases et entraînez votre oral avec une note immédiate.',
     cardLink: 'Pratiquer la prononciation',
+  },
+  conquistas: {
+    titulo: 'Succès',
+    subtitulo: 'Des objectifs atteints en étudiant. Le serveur vérifie chacun d’eux.',
+    total: '{feitas} succès sur {total}',
+    conquistadaEm: 'Obtenu le {data}',
+    andamento: '{atual} sur {alvo}',
+    nova: 'Nouveau succès : {nome} !',
+    ver: 'Voir les succès',
+    cardDescricao: 'Voyez les objectifs atteints et les prochains.',
+    itens: {
+      primeiro_card: {
+        nome: 'Première carte',
+        descricao: 'Créez votre première carte.',
+      },
+      cards_50: {
+        nome: '50 révisions',
+        descricao: 'Révisez 50 cartes.',
+      },
+      cards_200: {
+        nome: '200 révisions',
+        descricao: 'Révisez 200 cartes.',
+      },
+      sequencia_7: {
+        nome: 'Une semaine d’affilée',
+        descricao: 'Étudiez 7 jours d’affilée.',
+      },
+      sequencia_30: {
+        nome: 'Un mois d’affilée',
+        descricao: 'Étudiez 30 jours d’affilée.',
+      },
+      quiz_gabaritado: {
+        nome: 'Sans faute !',
+        descricao: 'Répondez juste à toutes les questions d’un quiz.',
+      },
+      frases_ia_10: {
+        nome: 'Créatif',
+        descricao: 'Ayez 10 phrases similaires dans vos prompts.',
+      },
+      pronuncia_90: {
+        nome: 'Prononciation affûtée',
+        descricao: 'Obtenez 90 ou plus à l’exercice de prononciation.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Objectif du jour',
+    batida: 'Objectif du jour atteint !',
+    andamento: '{feitos} cartes sur {meta}',
+    revisar: 'Réviser maintenant',
   },
   planos: {
     loginToSubscribe: 'Connectez-vous pour souscrire à un forfait.',

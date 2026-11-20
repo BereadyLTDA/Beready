@@ -366,6 +366,9 @@ export default {
     successSave: 'تم حفظ التقدم بنجاح!',
   },
   preferencias: {
+    metaCards: 'هدف البطاقات اليومي',
+    metaCardsHint: 'يظهر في لوحة التحكم ويحسب مراجعات اليوم.',
+    metaCardsOpcao: '{n} بطاقات يوميًا',
     title: 'التفضيلات',
     subtitle: 'خصص تجربتك في التطبيق',
     tema: 'المظهر',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'تعذّر استخدام الميكروفون. حاول مجددًا.',
     cardDescricao: 'استمع إلى جملك وتدرّب على التحدث مع درجة فورية.',
     cardLink: 'تدرّب على النطق',
+  },
+  conquistas: {
+    titulo: 'الإنجازات',
+    subtitulo: 'أهداف تحققها أثناء الدراسة. يتحقق الخادم من كل واحد منها.',
+    total: '{feitas} من {total} إنجازات',
+    conquistadaEm: 'تحقق في {data}',
+    andamento: '{atual} من {alvo}',
+    nova: 'إنجاز جديد: {nome}!',
+    ver: 'عرض الإنجازات',
+    cardDescricao: 'شاهد الأهداف التي حققتها والأهداف التالية.',
+    itens: {
+      primeiro_card: {
+        nome: 'البطاقة الأولى',
+        descricao: 'أنشئ أول بطاقة تعليمية.',
+      },
+      cards_50: {
+        nome: '50 مراجعة',
+        descricao: 'راجع 50 بطاقة.',
+      },
+      cards_200: {
+        nome: '200 مراجعة',
+        descricao: 'راجع 200 بطاقة.',
+      },
+      sequencia_7: {
+        nome: 'أسبوع متواصل',
+        descricao: 'ادرس 7 أيام متتالية.',
+      },
+      sequencia_30: {
+        nome: 'شهر متواصل',
+        descricao: 'ادرس 30 يومًا متتاليًا.',
+      },
+      quiz_gabaritado: {
+        nome: 'علامة كاملة!',
+        descricao: 'أجب عن جميع أسئلة اختبار بشكل صحيح.',
+      },
+      frases_ia_10: {
+        nome: 'مبدع',
+        descricao: 'اجمع 10 جمل مشابهة في مطالباتك.',
+      },
+      pronuncia_90: {
+        nome: 'نطق متقن',
+        descricao: 'احصل على 90 أو أكثر في تمرين النطق.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'هدف اليوم',
+    batida: 'تم تحقيق هدف اليوم!',
+    andamento: '{feitos} من {meta} بطاقات',
+    revisar: 'راجع الآن',
   },
   planos: {
     loginToSubscribe: 'سجّل الدخول للاشتراك في خطة.',

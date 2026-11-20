@@ -248,6 +248,7 @@ export interface Preferencia {
   traducao_automatica: boolean
   preferencia_dificuldade: NivelDificuldade | 'adaptativo'
   meta_diaria_minutos: number
+  meta_diaria_cards?: number
   criado_em?: string
   atualizado_em?: string
 }

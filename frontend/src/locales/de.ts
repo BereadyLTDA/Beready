@@ -366,6 +366,9 @@ export default {
     successSave: 'Fortschritt erfolgreich gespeichert!',
   },
   preferencias: {
+    metaCards: 'Tägliches Kartenziel',
+    metaCardsHint: 'Wird im Dashboard angezeigt und zählt die heutigen Wiederholungen.',
+    metaCardsOpcao: '{n} Karten pro Tag',
     title: 'Einstellungen',
     subtitle: 'Passen Sie Ihre App-Erfahrung an',
     tema: 'Design',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Das Mikrofon konnte nicht verwendet werden. Versuche es erneut.',
     cardDescricao: 'Hör dir deine Sätze an und übe das Sprechen mit sofortiger Note.',
     cardLink: 'Aussprache üben',
+  },
+  conquistas: {
+    titulo: 'Erfolge',
+    subtitulo: 'Ziele, die du beim Lernen erreichst. Der Server prüft jedes einzelne.',
+    total: '{feitas} von {total} Erfolgen',
+    conquistadaEm: 'Erreicht am {data}',
+    andamento: '{atual} von {alvo}',
+    nova: 'Neuer Erfolg: {nome}!',
+    ver: 'Erfolge ansehen',
+    cardDescricao: 'Sieh dir erreichte und kommende Ziele an.',
+    itens: {
+      primeiro_card: {
+        nome: 'Erste Karte',
+        descricao: 'Erstelle deine erste Karteikarte.',
+      },
+      cards_50: {
+        nome: '50 Wiederholungen',
+        descricao: 'Wiederhole 50 Karteikarten.',
+      },
+      cards_200: {
+        nome: '200 Wiederholungen',
+        descricao: 'Wiederhole 200 Karteikarten.',
+      },
+      sequencia_7: {
+        nome: 'Eine Woche am Stück',
+        descricao: 'Lerne 7 Tage in Folge.',
+      },
+      sequencia_30: {
+        nome: 'Ein Monat am Stück',
+        descricao: 'Lerne 30 Tage in Folge.',
+      },
+      quiz_gabaritado: {
+        nome: 'Volltreffer!',
+        descricao: 'Beantworte alle Fragen eines Quiz richtig.',
+      },
+      frases_ia_10: {
+        nome: 'Kreativ',
+        descricao: 'Habe 10 ähnliche Sätze in deinen Prompts.',
+      },
+      pronuncia_90: {
+        nome: 'Saubere Aussprache',
+        descricao: 'Erreiche 90 oder mehr in der Ausspracheübung.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Tagesziel',
+    batida: 'Tagesziel erreicht!',
+    andamento: '{feitos} von {meta} Karten',
+    revisar: 'Jetzt wiederholen',
   },
   planos: {
     loginToSubscribe: 'Melde dich an, um einen Tarif abzuschließen.',

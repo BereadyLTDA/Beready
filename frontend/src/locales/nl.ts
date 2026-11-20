@@ -366,6 +366,9 @@ export default {
     successSave: 'Vooruitgang succesvol opgeslagen!',
   },
   preferencias: {
+    metaCards: 'Dagelijks kaartdoel',
+    metaCardsHint: 'Staat op het dashboard en telt de herhalingen van vandaag.',
+    metaCardsOpcao: '{n} kaarten per dag',
     title: 'Voorkeuren',
     subtitle: 'Pas uw app-ervaring aan',
     tema: 'Thema',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'De microfoon kon niet worden gebruikt. Probeer het opnieuw.',
     cardDescricao: 'Luister naar je zinnen en oefen spreken met een directe score.',
     cardLink: 'Uitspraak oefenen',
+  },
+  conquistas: {
+    titulo: 'Prestaties',
+    subtitulo: 'Doelen die je haalt door te studeren. De server controleert ze allemaal.',
+    total: '{feitas} van {total} prestaties',
+    conquistadaEm: 'Behaald op {data}',
+    andamento: '{atual} van {alvo}',
+    nova: 'Nieuwe prestatie: {nome}!',
+    ver: 'Prestaties bekijken',
+    cardDescricao: 'Bekijk je behaalde en volgende doelen.',
+    itens: {
+      primeiro_card: {
+        nome: 'Eerste kaart',
+        descricao: 'Maak je eerste flashcard.',
+      },
+      cards_50: {
+        nome: '50 herhalingen',
+        descricao: 'Herhaal 50 flashcards.',
+      },
+      cards_200: {
+        nome: '200 herhalingen',
+        descricao: 'Herhaal 200 flashcards.',
+      },
+      sequencia_7: {
+        nome: 'Een week achter elkaar',
+        descricao: 'Studeer 7 dagen achter elkaar.',
+      },
+      sequencia_30: {
+        nome: 'Een maand achter elkaar',
+        descricao: 'Studeer 30 dagen achter elkaar.',
+      },
+      quiz_gabaritado: {
+        nome: 'Alles goed!',
+        descricao: 'Beantwoord alle vragen van een quiz goed.',
+      },
+      frases_ia_10: {
+        nome: 'Creatief',
+        descricao: 'Heb 10 vergelijkbare zinnen in je prompts.',
+      },
+      pronuncia_90: {
+        nome: 'Scherpe uitspraak',
+        descricao: 'Haal 90 of meer bij de uitspraakoefening.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Doel van vandaag',
+    batida: 'Doel van vandaag gehaald!',
+    andamento: '{feitos} van {meta} kaarten',
+    revisar: 'Nu herhalen',
   },
   planos: {
     loginToSubscribe: 'Log in om je op een abonnement te abonneren.',

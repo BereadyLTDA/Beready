@@ -2866,6 +2866,91 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Erro'
+  /conquistas:
+    get:
+      operationId: conquistasIndex
+      summary: Catálogo de conquistas com o andamento do aluno (verificadas no servidor)
+      tags:
+        - Gamificacao
+      responses:
+        200:
+          description: Conquistas
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Conquista'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /conquistas/vistas:
+    post:
+      operationId: conquistasMarcarVistas
+      summary: Marca como vistas as conquistas novas
+      tags:
+        - Gamificacao
+      responses:
+        200:
+          description: Marcadas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SucessoSemDados'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+  /meta-diaria:
+    get:
+      operationId: metaDiaria
+      summary: Meta de cards do dia, revisões de hoje e sequência atual
+      tags:
+        - Gamificacao
+      responses:
+        200:
+          description: Meta diária
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/MetaDiaria'
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
   /pronuncia/frases:
     get:
       operationId: pronunciaFrases
@@ -3812,6 +3897,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PronunciaTentativa'
+    Conquista:
+      type: object
+      required:
+        - codigo
+        - icone
+        - alvo
+        - atual
+        - conquistada
+        - conquistada_em
+        - nova
+      properties:
+        codigo:
+          type: string
+        icone:
+          type: string
+        alvo:
+          type: integer
+        atual:
+          type: integer
+        conquistada:
+          type: boolean
+        conquistada_em:
+          type: string
+          format: date-time
+          nullable: true
+        nova:
+          type: boolean
+          description: Conquistada e ainda não vista pelo aluno
+    MetaDiaria:
+      type: object
+      required:
+        - meta
+        - feitos_hoje
+        - sequencia_atual
+      properties:
+        meta:
+          type: integer
+        feitos_hoje:
+          type: integer
+        sequencia_atual:
+          type: integer
     AdminUser:
       type: object
       required:

@@ -366,6 +366,9 @@ export default {
     successSave: 'İlerleme başarıyla kaydedildi!',
   },
   preferencias: {
+    metaCards: 'Günlük kart hedefi',
+    metaCardsHint: 'Panelde görünür ve bugünkü tekrarları sayar.',
+    metaCardsOpcao: 'Günde {n} kart',
     title: 'Tercihler',
     subtitle: 'Uygulama deneyiminizi kişiselleştirin',
     tema: 'Tema',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Mikrofon kullanılamadı. Tekrar deneyin.',
     cardDescricao: 'Cümlelerinizi dinleyin ve anında puanla konuşma pratiği yapın.',
     cardLink: 'Telaffuz çalış',
+  },
+  conquistas: {
+    titulo: 'Başarılar',
+    subtitulo: 'Çalışarak ulaştığınız hedefler. Her biri sunucu tarafından kontrol edilir.',
+    total: '{total} başarıdan {feitas} tanesi',
+    conquistadaEm: '{data} tarihinde kazanıldı',
+    andamento: '{atual} / {alvo}',
+    nova: 'Yeni başarı: {nome}!',
+    ver: 'Başarıları gör',
+    cardDescricao: 'Ulaştığınız ve sıradaki hedefleri görün.',
+    itens: {
+      primeiro_card: {
+        nome: 'İlk kart',
+        descricao: 'İlk kartınızı oluşturun.',
+      },
+      cards_50: {
+        nome: '50 tekrar',
+        descricao: '50 kartı tekrar edin.',
+      },
+      cards_200: {
+        nome: '200 tekrar',
+        descricao: '200 kartı tekrar edin.',
+      },
+      sequencia_7: {
+        nome: 'Bir hafta aralıksız',
+        descricao: '7 gün üst üste çalışın.',
+      },
+      sequencia_30: {
+        nome: 'Bir ay aralıksız',
+        descricao: '30 gün üst üste çalışın.',
+      },
+      quiz_gabaritado: {
+        nome: 'Tam puan!',
+        descricao: 'Bir quizdeki tüm soruları doğru yanıtlayın.',
+      },
+      frases_ia_10: {
+        nome: 'Yaratıcı',
+        descricao: 'Promptlarınızda 10 benzer cümle olsun.',
+      },
+      pronuncia_90: {
+        nome: 'Keskin telaffuz',
+        descricao: 'Telaffuz alıştırmasında 90 veya üzeri alın.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Bugünün hedefi',
+    batida: 'Bugünün hedefine ulaşıldı!',
+    andamento: '{meta} karttan {feitos} tanesi',
+    revisar: 'Şimdi tekrar et',
   },
   planos: {
     loginToSubscribe: 'Bir plana abone olmak için giriş yapın.',

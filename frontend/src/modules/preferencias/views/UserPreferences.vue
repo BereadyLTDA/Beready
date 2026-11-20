@@ -105,6 +105,13 @@
           </div>
         </div>
 
+        <BaseSelect
+          v-model.number="form.meta_diaria_cards"
+          :label="$t('preferencias.metaCards')"
+          :hint="$t('preferencias.metaCardsHint')"
+          :options="metaCardsOptions"
+        />
+
         <BaseButton type="submit" size="lg" block :loading="saving">
           {{ saving ? $t('preferencias.salvando') : $t('preferencias.salvar') }}
         </BaseButton>
@@ -148,6 +155,11 @@ const onLocaleChange = async (value: string | number | null | undefined) => {
 
 const localeOptions = computed<SelectOption[]>(() =>
   SUPPORTED_LOCALES.map((code) => ({ value: code, label: t(`idiomas.${code}`) })),
+)
+
+// Meta de cards revisados por dia (o dashboard mostra o andamento)
+const metaCardsOptions = computed<SelectOption[]>(() =>
+  [5, 10, 20, 30].map((n) => ({ value: n, label: t('preferencias.metaCardsOpcao', { n }) })),
 )
 
 const temaOptions = computed(() => [

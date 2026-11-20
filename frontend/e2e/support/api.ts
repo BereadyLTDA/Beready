@@ -61,7 +61,40 @@ export interface MockState {
   flashcards: Flashcard[]
   quizes: QuizMock[]
   tags: Tag[]
+  metaDiaria: { meta: number; feitos_hoje: number; sequencia_atual: number }
+  conquistas: ConquistaMock[]
 }
+
+export interface ConquistaMock {
+  codigo: string
+  icone: string
+  alvo: number
+  atual: number
+  conquistada: boolean
+  conquistada_em: string | null
+  nova: boolean
+}
+
+/** Catálogo como o backend devolve, com nada conquistado */
+export const makeConquistas = (): ConquistaMock[] =>
+  [
+    ['primeiro_card', 'document', 1],
+    ['cards_50', 'refresh', 50],
+    ['cards_200', 'star', 200],
+    ['sequencia_7', 'clock', 7],
+    ['sequencia_30', 'chart-bar', 30],
+    ['quiz_gabaritado', 'check-circle', 1],
+    ['frases_ia_10', 'chat', 10],
+    ['pronuncia_90', 'microphone', 90],
+  ].map(([codigo, icone, alvo]) => ({
+    codigo: String(codigo),
+    icone: String(icone),
+    alvo: Number(alvo),
+    atual: 0,
+    conquistada: false,
+    conquistada_em: null,
+    nova: false,
+  }))
 
 export interface HandlerContext {
   request: Request
@@ -179,6 +212,8 @@ export class ApiMock {
       flashcards: [],
       quizes: [],
       tags: makeTags(),
+      metaDiaria: { meta: 10, feitos_hoje: 0, sequencia_atual: 0 },
+      conquistas: makeConquistas(),
     }
     this.registerDefaults()
   }
@@ -216,6 +251,16 @@ export class ApiMock {
 
   withPreferencias(overrides: Partial<Preferencia> = {}): this {
     this.state.preferencias = makePreferencias({ usuario_id: this.state.user?.id ?? 1, ...overrides })
+    return this
+  }
+
+  withConquistas(conquistas: ConquistaMock[]): this {
+    this.state.conquistas = conquistas
+    return this
+  }
+
+  withMetaDiaria(meta: Partial<MockState['metaDiaria']>): this {
+    this.state.metaDiaria = { ...this.state.metaDiaria, ...meta }
     return this
   }
 
@@ -432,6 +477,14 @@ export class ApiMock {
     )
     this.def('GET', '/progresso/usuario/:id', requireUser(() => ok(s.progresso)))
     this.def('POST', '/progresso/incrementar-tempo', requireUser(() => ok(s.progresso)))
+
+    // ---------------- gamificação (as regras reais ficam no backend)
+    this.def('GET', '/meta-diaria', requireUser(() => ok(s.metaDiaria)))
+    this.def('GET', '/conquistas', requireUser(() => ok(s.conquistas)))
+    this.def('POST', '/conquistas/vistas', requireUser(() => {
+      s.conquistas = s.conquistas.map((c) => ({ ...c, nova: false }))
+      return ok(null, 'Conquistas marcadas como vistas')
+    }))
 
     // ---------------- pronúncia (a nota real é calculada pelo backend; aqui, só igual ou diferente)
     const pronuncia = { notas: [] as number[] }

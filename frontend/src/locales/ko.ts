@@ -366,6 +366,9 @@ export default {
     successSave: '진행도가 저장되었습니다!',
   },
   preferencias: {
+    metaCards: '하루 카드 목표',
+    metaCardsHint: '대시보드에 표시되며 오늘의 복습 수를 셉니다.',
+    metaCardsOpcao: '하루 {n}장',
     title: '환경설정',
     subtitle: '앱 환경을 맞춤 설정하세요',
     tema: '테마',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: '마이크를 사용할 수 없습니다. 다시 시도하세요.',
     cardDescricao: '내 문장을 듣고 바로 점수를 받으며 말하기를 연습하세요.',
     cardLink: '발음 연습하기',
+  },
+  conquistas: {
+    titulo: '업적',
+    subtitulo: '공부하며 달성하는 목표입니다. 모두 서버가 확인합니다.',
+    total: '{total}개 중 {feitas}개 달성',
+    conquistadaEm: '{data}에 달성',
+    andamento: '{alvo} 중 {atual}',
+    nova: '새 업적: {nome}!',
+    ver: '업적 보기',
+    cardDescricao: '달성한 목표와 다음 목표를 확인하세요.',
+    itens: {
+      primeiro_card: {
+        nome: '첫 카드',
+        descricao: '첫 플래시카드를 만드세요.',
+      },
+      cards_50: {
+        nome: '복습 50회',
+        descricao: '플래시카드를 50번 복습하세요.',
+      },
+      cards_200: {
+        nome: '복습 200회',
+        descricao: '플래시카드를 200번 복습하세요.',
+      },
+      sequencia_7: {
+        nome: '일주일 연속',
+        descricao: '7일 연속으로 공부하세요.',
+      },
+      sequencia_30: {
+        nome: '한 달 연속',
+        descricao: '30일 연속으로 공부하세요.',
+      },
+      quiz_gabaritado: {
+        nome: '만점!',
+        descricao: '퀴즈의 모든 문제를 맞히세요.',
+      },
+      frases_ia_10: {
+        nome: '창의적',
+        descricao: '프롬프트에 비슷한 문장을 10개 만드세요.',
+      },
+      pronuncia_90: {
+        nome: '정확한 발음',
+        descricao: '발음 연습에서 90점 이상을 받으세요.',
+      },
+    },
+  },
+  meta: {
+    titulo: '오늘의 목표',
+    batida: '오늘의 목표 달성!',
+    andamento: '{meta}장 중 {feitos}장',
+    revisar: '지금 복습하기',
   },
   planos: {
     loginToSubscribe: '요금제를 구독하려면 로그인하세요.',

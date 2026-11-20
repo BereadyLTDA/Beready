@@ -33,6 +33,7 @@ export function usePreferencias() {
       | 'avancado'
       | 'adaptativo',
     meta_diaria_minutos: 45,
+    meta_diaria_cards: 10,
   })
 
   // Classes de tema são escritas só por useTheme.applyTheme (fonte única)
@@ -55,6 +56,7 @@ export function usePreferencias() {
           data.traducao_automatica !== undefined ? data.traducao_automatica : true
         form.preferencia_dificuldade = data.preferencia_dificuldade || 'intermediario'
         form.meta_diaria_minutos = data.meta_diaria_minutos || 45
+        form.meta_diaria_cards = data.meta_diaria_cards || 10
         aplicarPreferenciasGlobais()
       }
       return form
@@ -82,6 +84,7 @@ export function usePreferencias() {
         traducao_automatica: form.traducao_automatica,
         preferencia_dificuldade: form.preferencia_dificuldade,
         meta_diaria_minutos: form.meta_diaria_minutos,
+        meta_diaria_cards: form.meta_diaria_cards,
       }
 
       const response = await preferenciaService.save(data)

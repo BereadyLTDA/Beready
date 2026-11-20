@@ -1,6 +1,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAlert } from '@/shared/composables/useAlert'
+import { useConquistas } from '@/modules/conquistas/composables/useConquistas'
 import { getApiErrorMessage } from '@/core/services/api'
 import { progressoService } from '@/modules/progresso/services/progressoService'
 import { flashcardService } from '../services/flashcardService'
@@ -48,6 +49,7 @@ export function useFlashcardStudy() {
   const authStore = useAuthStore()
   const { error } = useAlert()
   const { t } = useI18n()
+  const { checarNovas } = useConquistas()
 
   const isReview = computed(() => route.name === 'flashcard-review')
 
@@ -215,6 +217,7 @@ export function useFlashcardStudy() {
   }
 
   const finishStudy = () => {
+    checarNovas()
     const userId = authStore.user?.id
 
     if (userId) {

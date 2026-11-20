@@ -366,6 +366,9 @@ export default {
     successSave: 'Postęp zapisany pomyślnie!',
   },
   preferencias: {
+    metaCards: 'Dzienny cel fiszek',
+    metaCardsHint: 'Widoczny na pulpicie; liczy dzisiejsze powtórki.',
+    metaCardsOpcao: '{n} fiszek dziennie',
     title: 'Preferencje',
     subtitle: 'Dostosuj swoje doświadczenie w aplikacji',
     tema: 'Motyw',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Nie udało się użyć mikrofonu. Spróbuj ponownie.',
     cardDescricao: 'Słuchaj swoich zdań i ćwicz mówienie z natychmiastową oceną.',
     cardLink: 'Ćwicz wymowę',
+  },
+  conquistas: {
+    titulo: 'Osiągnięcia',
+    subtitulo: 'Cele, które osiągasz, ucząc się. Każdy sprawdza serwer.',
+    total: '{feitas} z {total} osiągnięć',
+    conquistadaEm: 'Zdobyte {data}',
+    andamento: '{atual} z {alvo}',
+    nova: 'Nowe osiągnięcie: {nome}!',
+    ver: 'Zobacz osiągnięcia',
+    cardDescricao: 'Zobacz osiągnięte i kolejne cele.',
+    itens: {
+      primeiro_card: {
+        nome: 'Pierwsza fiszka',
+        descricao: 'Utwórz pierwszą fiszkę.',
+      },
+      cards_50: {
+        nome: '50 powtórek',
+        descricao: 'Powtórz 50 fiszek.',
+      },
+      cards_200: {
+        nome: '200 powtórek',
+        descricao: 'Powtórz 200 fiszek.',
+      },
+      sequencia_7: {
+        nome: 'Tydzień z rzędu',
+        descricao: 'Ucz się 7 dni z rzędu.',
+      },
+      sequencia_30: {
+        nome: 'Miesiąc z rzędu',
+        descricao: 'Ucz się 30 dni z rzędu.',
+      },
+      quiz_gabaritado: {
+        nome: 'Komplet!',
+        descricao: 'Odpowiedz poprawnie na wszystkie pytania quizu.',
+      },
+      frases_ia_10: {
+        nome: 'Kreatywny',
+        descricao: 'Miej 10 podobnych zdań w swoich promptach.',
+      },
+      pronuncia_90: {
+        nome: 'Świetna wymowa',
+        descricao: 'Zdobądź 90 lub więcej w ćwiczeniu wymowy.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Cel na dziś',
+    batida: 'Cel na dziś osiągnięty!',
+    andamento: '{feitos} z {meta} fiszek',
+    revisar: 'Powtórz teraz',
   },
   planos: {
     loginToSubscribe: 'Zaloguj się, aby wykupić plan.',

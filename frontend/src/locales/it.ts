@@ -366,6 +366,9 @@ export default {
     successSave: 'Progresso salvato con successo!',
   },
   preferencias: {
+    metaCards: 'Obiettivo di carte al giorno',
+    metaCardsHint: 'Appare nella dashboard e conta i ripassi di oggi.',
+    metaCardsOpcao: '{n} carte al giorno',
     title: 'Preferenze',
     subtitle: 'Personalizza la tua esperienza nell\'app',
     tema: 'Tema',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Impossibile usare il microfono. Riprova.',
     cardDescricao: 'Ascolta le tue frasi ed esercitati a parlare con un voto immediato.',
     cardLink: 'Esercita la pronuncia',
+  },
+  conquistas: {
+    titulo: 'Traguardi',
+    subtitulo: 'Obiettivi che raggiungi studiando. Il server li verifica uno per uno.',
+    total: '{feitas} di {total} traguardi',
+    conquistadaEm: 'Ottenuto il {data}',
+    andamento: '{atual} di {alvo}',
+    nova: 'Nuovo traguardo: {nome}!',
+    ver: 'Vedi i traguardi',
+    cardDescricao: 'Guarda gli obiettivi raggiunti e i prossimi.',
+    itens: {
+      primeiro_card: {
+        nome: 'Prima carta',
+        descricao: 'Crea la tua prima flashcard.',
+      },
+      cards_50: {
+        nome: '50 ripassi',
+        descricao: 'Ripassa 50 flashcard.',
+      },
+      cards_200: {
+        nome: '200 ripassi',
+        descricao: 'Ripassa 200 flashcard.',
+      },
+      sequencia_7: {
+        nome: 'Una settimana di fila',
+        descricao: 'Studia 7 giorni di fila.',
+      },
+      sequencia_30: {
+        nome: 'Un mese di fila',
+        descricao: 'Studia 30 giorni di fila.',
+      },
+      quiz_gabaritado: {
+        nome: 'Punteggio pieno!',
+        descricao: 'Rispondi bene a tutte le domande di un quiz.',
+      },
+      frases_ia_10: {
+        nome: 'Creativo',
+        descricao: 'Abbi 10 frasi simili nei tuoi prompt.',
+      },
+      pronuncia_90: {
+        nome: 'Pronuncia perfetta',
+        descricao: 'Ottieni 90 o più nell’esercizio di pronuncia.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Obiettivo di oggi',
+    batida: 'Obiettivo di oggi raggiunto!',
+    andamento: '{feitos} di {meta} carte',
+    revisar: 'Ripassa ora',
   },
   planos: {
     loginToSubscribe: 'Accedi per abbonarti a un piano.',

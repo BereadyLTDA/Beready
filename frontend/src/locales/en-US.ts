@@ -366,6 +366,9 @@ export default {
     successSave: 'Progress saved successfully!',
   },
   preferencias: {
+    metaCards: 'Daily card goal',
+    metaCardsHint: 'Shown on the dashboard; counts today’s reviews.',
+    metaCardsOpcao: '{n} cards per day',
     title: 'Preferences',
     subtitle: 'Customize your app experience',
     tema: 'Theme',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Could not use the microphone. Please try again.',
     cardDescricao: 'Listen to your sentences and practice speaking with an instant score.',
     cardLink: 'Practice pronunciation',
+  },
+  conquistas: {
+    titulo: 'Achievements',
+    subtitulo: 'Goals you reach by studying. Each one is checked by the server.',
+    total: '{feitas} of {total} achievements',
+    conquistadaEm: 'Earned on {data}',
+    andamento: '{atual} of {alvo}',
+    nova: 'New achievement: {nome}!',
+    ver: 'See achievements',
+    cardDescricao: 'See the goals you have reached and the next ones.',
+    itens: {
+      primeiro_card: {
+        nome: 'First card',
+        descricao: 'Create your first flashcard.',
+      },
+      cards_50: {
+        nome: '50 reviews',
+        descricao: 'Review 50 flashcards.',
+      },
+      cards_200: {
+        nome: '200 reviews',
+        descricao: 'Review 200 flashcards.',
+      },
+      sequencia_7: {
+        nome: 'One week streak',
+        descricao: 'Study 7 days in a row.',
+      },
+      sequencia_30: {
+        nome: 'One month streak',
+        descricao: 'Study 30 days in a row.',
+      },
+      quiz_gabaritado: {
+        nome: 'Perfect score!',
+        descricao: 'Answer every question of a quiz correctly.',
+      },
+      frases_ia_10: {
+        nome: 'Creative',
+        descricao: 'Have 10 similar sentences in your prompts.',
+      },
+      pronuncia_90: {
+        nome: 'Sharp pronunciation',
+        descricao: 'Score 90 or more in the pronunciation exercise.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Today’s goal',
+    batida: 'Today’s goal reached!',
+    andamento: '{feitos} of {meta} cards',
+    revisar: 'Review now',
   },
   planos: {
     loginToSubscribe: 'Sign in to subscribe to a plan.',

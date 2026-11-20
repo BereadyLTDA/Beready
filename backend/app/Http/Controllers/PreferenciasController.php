@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PreferenciaUsuario;
+use App\Services\ConquistaService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class PreferenciasController extends Controller
 
     private const CAMPOS = [
         'tema', 'modo_daltonico', 'notificacoes_ativas', 'som_ativo',
-        'traducao_automatica', 'preferencia_dificuldade', 'meta_diaria_minutos',
+        'traducao_automatica', 'preferencia_dificuldade', 'meta_diaria_minutos', 'meta_diaria_cards',
     ];
 
     // GET /preferencias/usuario/{usuarioId}
@@ -48,6 +49,11 @@ class PreferenciasController extends Controller
         try {
             $usuarioId = $this->currentUserId();
             $data = array_intersect_key($this->requestData($request), array_flip(self::CAMPOS));
+            if (isset($data['meta_diaria_cards']) && ! in_array((int) $data['meta_diaria_cards'], ConquistaService::METAS_PERMITIDAS, true)) {
+                return $this->jsonError('Meta diária inválida', 422, [
+                    'meta_diaria_cards' => ['inList' => 'Use: '.implode(', ', ConquistaService::METAS_PERMITIDAS)],
+                ]);
+            }
 
             $preferencias = PreferenciaUsuario::firstOrNew(['usuario_id' => $usuarioId]);
             $preferencias->fill($data + ['usuario_id' => $usuarioId])->saveOrFail();

@@ -80,6 +80,7 @@ import { useI18n } from 'vue-i18n'
 import { getApiErrorMessage } from '@/core/services/api'
 import { useAlert } from '@/shared/composables/useAlert'
 import { useReconhecimentoVoz } from '@/shared/composables/useReconhecimentoVoz'
+import { useConquistas } from '@/modules/conquistas/composables/useConquistas'
 import {
   BaseAlert,
   BaseButton,
@@ -96,6 +97,7 @@ import { pronunciaService, type FrasePronuncia, type PronunciaResultado } from '
 const { t } = useI18n()
 const { error } = useAlert()
 const reconhecimento = useReconhecimentoVoz()
+const { checarNovas } = useConquistas()
 
 const carregando = ref(true)
 const enviando = ref(false)
@@ -174,6 +176,7 @@ const alternarMicrofone = async () => {
     const { data } = await pronunciaService.registrar(frase.texto, reconhecido.value)
     resultado.value = data.data
     await carregarResumo()
+    checarNovas()
   } catch (err: unknown) {
     error(getApiErrorMessage(err) || t('errors.networkError'))
   } finally {

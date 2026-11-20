@@ -1035,6 +1035,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/conquistas": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Catálogo de conquistas com o andamento do aluno (verificadas no servidor) */
+        get: operations["conquistasIndex"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/conquistas/vistas": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Marca como vistas as conquistas novas */
+        post: operations["conquistasMarcarVistas"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/meta-diaria": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Meta de cards do dia, revisões de hoje e sequência atual */
+        get: operations["metaDiaria"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/pronuncia/frases": {
         parameters: {
             query?: never;
@@ -1407,6 +1458,22 @@ export interface components {
             media: number;
             melhor: number;
             recentes: components["schemas"]["PronunciaTentativa"][];
+        };
+        Conquista: {
+            codigo: string;
+            icone: string;
+            alvo: number;
+            atual: number;
+            conquistada: boolean;
+            /** Format: date-time */
+            conquistada_em: string | null;
+            /** @description Conquistada e ainda não vista pelo aluno */
+            nova: boolean;
+        };
+        MetaDiaria: {
+            meta: number;
+            feitos_hoje: number;
+            sequencia_atual: number;
         };
         AdminUser: {
             criado_em: string;
@@ -4858,6 +4925,103 @@ export interface operations {
                         message: string;
                         /** @description Formato ainda não descrito */
                         data?: unknown;
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    conquistasIndex: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Conquistas */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["Conquista"][];
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    conquistasMarcarVistas: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Marcadas */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SucessoSemDados"];
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    metaDiaria: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Meta diária */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: components["schemas"]["MetaDiaria"];
                     };
                 };
             };

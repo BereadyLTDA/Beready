@@ -28,6 +28,7 @@ class PreferenciaUsuario extends Model
         'traducao_automatica',
         'preferencia_dificuldade',
         'meta_diaria_minutos',
+        'meta_diaria_cards',
     ];
 
     /**
@@ -40,6 +41,7 @@ class PreferenciaUsuario extends Model
             'notificacoes_ativas' => 'boolean',
             'som_ativo' => 'boolean',
             'traducao_automatica' => 'boolean',
+            'meta_diaria_cards' => 'integer',
             'criado_em' => 'datetime',
             'atualizado_em' => 'datetime',
         ];

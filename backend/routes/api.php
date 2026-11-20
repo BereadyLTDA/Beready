@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminPermissionsController;
 use App\Http\Controllers\AdminPlanosController;
 use App\Http\Controllers\AdminRolesController;
 use App\Http\Controllers\AssinaturasController;
+use App\Http\Controllers\ConquistasController;
 use App\Http\Controllers\FlashcardsController;
 use App\Http\Controllers\FlashcardTagsController;
 use App\Http\Controllers\FrasesSemelhantesController;
@@ -169,6 +170,11 @@ Route::middleware('jwt')->group(function () use ($id, $uuid, $crud) {
     Route::get('/progresso/usuario/{usuarioId}', [ProgressoController::class, 'getByUsuario'])->where('usuarioId', $id);
     Route::post('/progresso', [ProgressoController::class, 'save']);
     Route::post('/progresso/incrementar-tempo', [ProgressoController::class, 'incrementarTempo']);
+
+    // Gamificação: conquistas e meta diária
+    Route::get('/conquistas', [ConquistasController::class, 'index']);
+    Route::post('/conquistas/vistas', [ConquistasController::class, 'marcarVistas']);
+    Route::get('/meta-diaria', [ConquistasController::class, 'metaDiaria']);
 
     // Pronúncia (exercício "Repita a frase")
     Route::get('/pronuncia/frases', [PronunciaController::class, 'frases']);

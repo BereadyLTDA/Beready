@@ -366,6 +366,9 @@ export default {
     successSave: 'Progresso salvo com sucesso!',
   },
   preferencias: {
+    metaCards: 'Meta de cards por dia',
+    metaCardsHint: 'Aparece no dashboard e conta as revisões do dia.',
+    metaCardsOpcao: '{n} cards por dia',
     title: 'Preferências',
     subtitle: 'Personalize sua experiência no aplicativo',
     tema: 'Tema',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'Não foi possível usar o microfone. Tente de novo.',
     cardDescricao: 'Ouça as suas frases e treine a fala com nota na hora.',
     cardLink: 'Praticar pronúncia',
+  },
+  conquistas: {
+    titulo: 'Conquistas',
+    subtitulo: 'Metas que você alcança estudando. Cada uma é conferida pelo servidor.',
+    total: '{feitas} de {total} conquistas',
+    conquistadaEm: 'Conquistada em {data}',
+    andamento: '{atual} de {alvo}',
+    nova: 'Nova conquista: {nome}!',
+    ver: 'Ver conquistas',
+    cardDescricao: 'Veja as metas que você já alcançou e as próximas.',
+    itens: {
+      primeiro_card: {
+        nome: 'Primeiro card',
+        descricao: 'Crie seu primeiro flashcard.',
+      },
+      cards_50: {
+        nome: '50 revisões',
+        descricao: 'Revise 50 flashcards.',
+      },
+      cards_200: {
+        nome: '200 revisões',
+        descricao: 'Revise 200 flashcards.',
+      },
+      sequencia_7: {
+        nome: 'Uma semana seguida',
+        descricao: 'Estude 7 dias seguidos.',
+      },
+      sequencia_30: {
+        nome: 'Um mês seguido',
+        descricao: 'Estude 30 dias seguidos.',
+      },
+      quiz_gabaritado: {
+        nome: 'Gabaritou!',
+        descricao: 'Acerte todas as questões de um quiz.',
+      },
+      frases_ia_10: {
+        nome: 'Criativo',
+        descricao: 'Tenha 10 frases semelhantes nos seus prompts.',
+      },
+      pronuncia_90: {
+        nome: 'Pronúncia afiada',
+        descricao: 'Tire 90 ou mais no exercício de pronúncia.',
+      },
+    },
+  },
+  meta: {
+    titulo: 'Meta de hoje',
+    batida: 'Meta de hoje batida!',
+    andamento: '{feitos} de {meta} cards',
+    revisar: 'Revisar agora',
   },
   planos: {
     loginToSubscribe: 'Entre na sua conta para assinar um plano.',

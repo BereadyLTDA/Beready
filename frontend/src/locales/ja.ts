@@ -366,6 +366,9 @@ export default {
     successSave: '進捗が保存されました！',
   },
   preferencias: {
+    metaCards: '1 日のカード目標',
+    metaCardsHint: 'ダッシュボードに表示され、今日の復習数を数えます。',
+    metaCardsOpcao: '1 日 {n} 枚',
     title: '設定',
     subtitle: 'アプリの体験をカスタマイズ',
     tema: 'テーマ',
@@ -681,6 +684,56 @@ export default {
     erroMicrofone: 'マイクを使用できませんでした。もう一度お試しください。',
     cardDescricao: '自分の文を聞いて、その場で点数付きの発話練習をしましょう。',
     cardLink: '発音を練習する',
+  },
+  conquistas: {
+    titulo: '実績',
+    subtitulo: '学習で達成した目標です。すべてサーバーが確認します。',
+    total: '{total} 個中 {feitas} 個',
+    conquistadaEm: '{data} に獲得',
+    andamento: '{alvo} 中 {atual}',
+    nova: '新しい実績：{nome}！',
+    ver: '実績を見る',
+    cardDescricao: '達成した目標と次の目標を確認しましょう。',
+    itens: {
+      primeiro_card: {
+        nome: '最初のカード',
+        descricao: '最初のフラッシュカードを作成する。',
+      },
+      cards_50: {
+        nome: '50 回の復習',
+        descricao: 'フラッシュカードを 50 回復習する。',
+      },
+      cards_200: {
+        nome: '200 回の復習',
+        descricao: 'フラッシュカードを 200 回復習する。',
+      },
+      sequencia_7: {
+        nome: '1 週間連続',
+        descricao: '7 日連続で学習する。',
+      },
+      sequencia_30: {
+        nome: '1 か月連続',
+        descricao: '30 日連続で学習する。',
+      },
+      quiz_gabaritado: {
+        nome: '全問正解！',
+        descricao: 'クイズの全問に正解する。',
+      },
+      frases_ia_10: {
+        nome: 'クリエイティブ',
+        descricao: 'プロンプトに類似文を 10 個そろえる。',
+      },
+      pronuncia_90: {
+        nome: '見事な発音',
+        descricao: '発音練習で 90 点以上を取る。',
+      },
+    },
+  },
+  meta: {
+    titulo: '今日の目標',
+    batida: '今日の目標を達成！',
+    andamento: '{meta} 枚中 {feitos} 枚',
+    revisar: '今すぐ復習',
   },
   planos: {
     loginToSubscribe: 'プランを申し込むにはログインしてください。',

@@ -5,6 +5,7 @@ import { progressoService } from '@/modules/progresso/services/progressoService'
 import { quizService } from '../services/quizService'
 import { getApiErrorMessage } from '@/core/services/api'
 import { useAlert } from '@/shared/composables/useAlert'
+import { useConquistas } from '@/modules/conquistas/composables/useConquistas'
 import { useAuthStore } from '@/stores/auth'
 import { usePermissionStore } from '@/stores/permissionStore'
 import type { Quiz, QuizCorrecao, QuizQuestao, QuizRespostaQuestao, QuizResultado } from '@/core/types'
@@ -26,6 +27,7 @@ export function useQuizPlay() {
   const route = useRoute()
   const router = useRouter()
   const { t } = useI18n()
+  const { checarNovas } = useConquistas()
   const { error } = useAlert()
   const authStore = useAuthStore()
   const permissionStore = usePermissionStore()
@@ -123,6 +125,7 @@ export function useQuizPlay() {
       const response = await quizService.finalizar(quiz.value.id, respostas.value)
       resultado.value = response.data.data
       await registrarTempo()
+      checarNovas()
       focar('quiz-play-result')
     } catch (err) {
       error(getApiErrorMessage(err) || t('quizPlay.errorFinish'))

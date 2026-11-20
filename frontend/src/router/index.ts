@@ -147,6 +147,12 @@ const router = createRouter({
           meta: { requiresAuth: true },
         },
         {
+          path: '/conquistas',
+          name: 'conquistas',
+          component: () => import('../modules/conquistas/views/ConquistasPage.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
           path: '/pronuncia',
           name: 'pronuncia',
           component: () => import('../modules/pronuncia/views/PronunciaPratica.vue'),

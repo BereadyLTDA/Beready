@@ -70,6 +70,7 @@ abstract class ApiTestCase extends TestCase
         'ImagensGeradas' => Models\ImagemGerada::class,
         'FrasesSemelhantes' => Models\FraseSemelhante::class,
         'PronunciaTentativas' => Models\PronunciaTentativa::class,
+        'ConquistasUsuario' => Models\ConquistaUsuario::class,
     ];
 
     /**

@@ -20,6 +20,7 @@ class QuizTentativaService
     public function __construct(
         private QuizQuestaoService $questoes,
         private ProgressoService $progresso,
+        private ConquistaService $conquistas,
     ) {}
 
     /**
@@ -68,6 +69,10 @@ class QuizTentativaService
 
         $acertos = count(array_filter($correcao, fn (array $item) => $item['correta']));
         $total = count($correcao);
+
+        if ($total > 0 && $acertos === $total) {
+            $this->conquistas->conceder($usuarioId, 'quiz_gabaritado');
+        }
 
         $primeiraConclusao = DB::transaction(function () use ($usuarioId, $quizId, $correcao) {
             // quizes_concluidos conta cada quiz uma vez por usuário; jogar de novo só registra as respostas
