@@ -12,6 +12,10 @@ return [
     // URL do frontend: destino dos redirecionamentos do login social e links dos e-mails
     'frontend_url' => rtrim((string) env('APP_BASE_URL', 'http://localhost:5173/'), '/').'/',
 
+    // Versão vigente dos termos de uso e da política de privacidade (gravada no aceite do cadastro).
+    // Ao mudar o texto das páginas /termos e /privacidade, atualize esta data.
+    'termos_versao' => '2026-11-20',
+
     'jwt' => [
         'secret' => env('JWT_SECRET'),
         'algorithm' => 'HS256',

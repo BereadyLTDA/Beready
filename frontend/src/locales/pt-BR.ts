@@ -436,6 +436,11 @@ export default {
     ptBR: 'Português (Brasil)',
   },
   profile: {
+    exportar: 'Exportar meus dados',
+    exportado: 'Seus dados foram baixados em beready-meus-dados.json.',
+    deleteApaga: 'Serão apagados: perfil, flashcards, tags, quizzes, prompts, traduções, frases, progresso, conquistas e histórico. A assinatura paga é cancelada no Stripe.',
+    deleteSenha: 'Sua senha',
+    deleteSenhaHint: 'Contas criadas só com Google, Facebook ou LinkedIn não têm senha: deixe em branco.',
     title: 'Meu Perfil',
     editProfile: 'Editar Perfil',
     nome: 'Nome Completo',
@@ -797,6 +802,16 @@ export default {
         descricao: 'Usa a língua com flexibilidade em contextos sociais, acadêmicos e profissionais.',
       },
     },
+  },
+  legal: {
+    termos: 'Termos de uso',
+    privacidade: 'Política de privacidade',
+    atualizadoEm: 'Atualizado em {data}',
+    soPtEn: '',
+    aceite: 'Li e aceito os {termos} e a {privacidade}.',
+    aceiteObrigatorio: 'Aceite os termos de uso e a política de privacidade para criar a conta.',
+    avisoSocial: 'Ao continuar com uma rede social, você aceita os {termos} e a {privacidade}.',
+    rodape: 'Documentos legais',
   },
   planos: {
     loginToSubscribe: 'Entre na sua conta para assinar um plano.',

@@ -711,6 +711,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/users/me/exportar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** LGPD: todos os dados do aluno logado em JSON (download) */
+        get: operations["usersExportar"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/users/me": {
         parameters: {
             query?: never;
@@ -2057,6 +2074,9 @@ export interface components {
             };
         };
         RegisterInput: {
+            /** @description Aceite obrigatório dos termos de uso e da política de privacidade */
+            aceite_termos?: boolean;
+            recaptcha_token?: string;
             email?: string;
             nome?: string;
             role?: string;
@@ -4298,6 +4318,61 @@ export interface operations {
                         message: string;
                         /** @description Formato ainda não descrito */
                         data?: unknown;
+                    };
+                };
+            };
+            /** @description Erro (4xx/5xx) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Erro"];
+                };
+            };
+        };
+    };
+    usersExportar: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Dados do aluno */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        success: true;
+                        message: string;
+                        data: {
+                            /** Format: date-time */
+                            gerado_em: string;
+                            termos: {
+                                versao_aceita?: string | null;
+                                aceitos_em?: string | null;
+                            };
+                            perfil: {
+                                [key: string]: unknown;
+                            };
+                            flashcards: {
+                                [key: string]: unknown;
+                            }[];
+                            prompts: {
+                                [key: string]: unknown;
+                            }[];
+                            respostas: {
+                                [key: string]: unknown;
+                            }[];
+                        } & {
+                            [key: string]: unknown;
+                        };
                     };
                 };
             };

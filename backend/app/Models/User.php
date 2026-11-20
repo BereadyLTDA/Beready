@@ -42,6 +42,8 @@ class User extends Model
         'verificacao_token',
         'verificacao_token_expira',
         'email_verificado_em',
+        'termos_aceitos_em',
+        'ultimo_lembrete_em',
         'token',
         'token_expires',
         'reset_token',

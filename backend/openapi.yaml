@@ -2163,6 +2163,77 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Erro'
+  /users/me/exportar:
+    get:
+      operationId: usersExportar
+      summary: 'LGPD: todos os dados do aluno logado em JSON (download)'
+      tags:
+        - Users
+      responses:
+        200:
+          description: Dados do aluno
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    required:
+                      - gerado_em
+                      - termos
+                      - perfil
+                      - flashcards
+                      - prompts
+                      - respostas
+                    additionalProperties: true
+                    properties:
+                      gerado_em:
+                        type: string
+                        format: date-time
+                      termos:
+                        type: object
+                        properties:
+                          versao_aceita:
+                            type: string
+                            nullable: true
+                          aceitos_em:
+                            type: string
+                            nullable: true
+                      perfil:
+                        type: object
+                        additionalProperties: true
+                      flashcards:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties: true
+                      prompts:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties: true
+                      respostas:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties: true
+        default:
+          description: 'Erro (4xx/5xx)'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
   /users/me:
     get:
       operationId: usersMe
@@ -5490,6 +5561,11 @@ components:
     RegisterInput:
       type: object
       properties:
+        aceite_termos:
+          type: boolean
+          description: Aceite obrigatório dos termos de uso e da política de privacidade
+        recaptcha_token:
+          type: string
         email:
           type: string
         nome:

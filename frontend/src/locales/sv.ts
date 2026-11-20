@@ -436,6 +436,11 @@ export default {
     ptBR: 'Portugisiska (Brasilien)',
   },
   profile: {
+    exportar: 'Exportera mina data',
+    exportado: 'Dina data har laddats ner som beready-meus-dados.json.',
+    deleteApaga: 'Raderas: profil, kort, taggar, quiz, promptar, översättningar, meningar, framsteg, prestationer och historik. En betald prenumeration sägs upp hos Stripe.',
+    deleteSenha: 'Ditt lösenord',
+    deleteSenhaHint: 'Konton som bara skapats med Google, Facebook eller LinkedIn har inget lösenord: lämna tomt.',
     title: 'Min Profil',
     editProfile: 'Redigera profil',
     nome: 'Fullständigt namn',
@@ -797,6 +802,16 @@ export default {
         descricao: 'Använder språket flexibelt i sociala, akademiska och yrkesmässiga sammanhang.',
       },
     },
+  },
+  legal: {
+    termos: 'Användarvillkor',
+    privacidade: 'Integritetspolicy',
+    atualizadoEm: 'Uppdaterad {data}',
+    soPtEn: 'Texten finns bara på portugisiska och engelska. Den engelska versionen visas.',
+    aceite: 'Jag har läst och godkänner {termos} och {privacidade}.',
+    aceiteObrigatorio: 'Godkänn användarvillkoren och integritetspolicyn för att skapa kontot.',
+    avisoSocial: 'Genom att fortsätta med ett socialt nätverk godkänner du {termos} och {privacidade}.',
+    rodape: 'Juridiska dokument',
   },
   planos: {
     loginToSubscribe: 'Logga in för att teckna ett abonnemang.',

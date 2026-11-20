@@ -108,6 +108,7 @@ Route::middleware('jwt')->group(function () use ($id, $uuid, $crud) {
 
     // Usuários (UUID primeiro, ID como fallback)
     Route::get('/users/me', [UsersController::class, 'me']);
+    Route::get('/users/me/exportar', [UsersController::class, 'exportar']);
     Route::get('/users/{uuid}', [UsersController::class, 'viewByUuid'])->where('uuid', $uuid);
     Route::get('/users/view/{id}', [UsersController::class, 'view'])->where('id', $id);
     Route::get('/users/{id}', [UsersController::class, 'view'])->where('id', $id);

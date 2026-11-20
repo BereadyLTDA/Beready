@@ -436,6 +436,11 @@ export default {
     ptBR: 'Portekizce (Brezilya)',
   },
   profile: {
+    exportar: 'Verilerimi dışa aktar',
+    exportado: 'Verileriniz beready-meus-dados.json olarak indirildi.',
+    deleteApaga: 'Silinecekler: profil, kartlar, etiketler, quizler, promptlar, çeviriler, cümleler, ilerleme, başarılar ve geçmiş. Ücretli abonelik Stripe’ta iptal edilir.',
+    deleteSenha: 'Şifreniz',
+    deleteSenhaHint: 'Yalnızca Google, Facebook veya LinkedIn ile oluşturulan hesapların şifresi yoktur: boş bırakın.',
     title: 'Profilim',
     editProfile: 'Profili Düzenle',
     nome: 'Ad Soyad',
@@ -797,6 +802,16 @@ export default {
         descricao: 'Dili sosyal, akademik ve profesyonel ortamlarda esnek biçimde kullanır.',
       },
     },
+  },
+  legal: {
+    termos: 'Kullanım koşulları',
+    privacidade: 'Gizlilik politikası',
+    atualizadoEm: '{data} tarihinde güncellendi',
+    soPtEn: 'Bu metin yalnızca Portekizce ve İngilizce olarak mevcuttur. İngilizce sürüm gösteriliyor.',
+    aceite: '{termos} ve {privacidade} metinlerini okudum ve kabul ediyorum.',
+    aceiteObrigatorio: 'Hesap oluşturmak için kullanım koşullarını ve gizlilik politikasını kabul edin.',
+    avisoSocial: 'Bir sosyal ağ ile devam ederek {termos} ve {privacidade} metinlerini kabul etmiş olursunuz.',
+    rodape: 'Yasal belgeler',
   },
   planos: {
     loginToSubscribe: 'Bir plana abone olmak için giriş yapın.',

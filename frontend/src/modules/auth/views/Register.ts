@@ -17,6 +17,7 @@ interface RegisterForm {
   nivel_ingles: string
   idioma_preferido: string
   objetivos_aprendizado: string
+  aceite_termos: boolean
 }
 
 // Interface para erros
@@ -25,6 +26,7 @@ interface RegisterErrors {
   email: string
   senha: string
   confirmar_senha: string
+  aceite_termos: string
 }
 
 // Exportação principal da função useRegister
@@ -47,6 +49,7 @@ export function useRegister() {
     nivel_ingles: 'iniciante',
     idioma_preferido: 'pt-BR',
     objetivos_aprendizado: '',
+    aceite_termos: false,
   })
 
   const errors = reactive<RegisterErrors>({
@@ -54,6 +57,7 @@ export function useRegister() {
     email: '',
     senha: '',
     confirmar_senha: '',
+    aceite_termos: '',
   })
 
   const passwordsMatch = computed(() => form.senha === form.confirmar_senha)
@@ -115,6 +119,14 @@ export function useRegister() {
       errors.confirmar_senha = ''
     }
 
+    // LGPD: sem o aceite dos termos e da política, a conta não é criada (o backend também confere)
+    if (!form.aceite_termos) {
+      errors.aceite_termos = t('legal.aceiteObrigatorio')
+      valid = false
+    } else {
+      errors.aceite_termos = ''
+    }
+
     // Validar telefone - já usa tradução via phoneError
     const digits = form.telefone.replace(/\D/g, '')
     if (digits.length > 0 && digits.length < 11) {
@@ -161,6 +173,7 @@ export function useRegister() {
 
       const { data } = await api.post('/auth/register', {
         recaptcha_token: recaptchaToken,
+        aceite_termos: form.aceite_termos,
         nome: form.nome,
         email: form.email,
         senha: form.senha,

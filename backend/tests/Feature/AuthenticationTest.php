@@ -179,7 +179,9 @@ class AuthenticationTest extends ApiTestCase
     {
         $this->withBearer(null);
         $this->recaptchaAprova();
-        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste',
+        $this->postJson('/auth/register', [
+            'recaptcha_token' => 'token-de-teste',
+            'aceite_termos' => true,
             'nome' => 'Novo Usuário',
             'email' => 'novo@teste.local',
             'senha' => 'senhaForte1',
@@ -212,7 +214,7 @@ class AuthenticationTest extends ApiTestCase
 
         $this->withBearer(null);
         $this->recaptchaAprova();
-        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'nome' => 'Outro', 'email' => $existente->email, 'senha' => 'senhaForte1']);
+        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'aceite_termos' => true, 'nome' => 'Outro', 'email' => $existente->email, 'senha' => 'senhaForte1']);
 
         $this->assertResponseCode(409);
     }

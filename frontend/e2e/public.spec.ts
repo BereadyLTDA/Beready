@@ -145,6 +145,9 @@ test.describe('Cadastro', () => {
     await page.getByRole('textbox', { name: t('register.senha'), exact: true }).fill('Senha@123')
     await page.getByRole('textbox', { name: t('register.confirmarSenha'), exact: true }).fill('Senha@123')
     await page.getByLabel(t('profile.idiomaPreferido')).selectOption('en')
+    // LGPD: o aceite é obrigatório
+    await page.locator('.user-register__aceite .ui-check__box').click()
+    await expect(page.getByRole('checkbox')).toBeChecked()
 
     const register = api.waitFor('POST', '/auth/register')
     await page.getByRole('button', { name: t('register.createAccount') }).click()
@@ -157,6 +160,7 @@ test.describe('Cadastro', () => {
       nivel_ingles: 'iniciante',
       idioma_preferido: 'en',
       recaptcha_token: 'e2e-recaptcha-token',
+      aceite_termos: true,
     })
     // A conta só entra depois do link: a tela mostra o aviso e o reenvio
     await expect(page.getByRole('heading', { name: t('verificarEmail.confiraTitulo') })).toBeVisible()

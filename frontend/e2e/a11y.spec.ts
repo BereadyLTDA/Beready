@@ -42,7 +42,7 @@ const verificar = async (page: Page, tela: string): Promise<void> => {
 }
 
 test.describe('Acessibilidade (axe)', () => {
-  for (const path of ['/', '/login', '/register', '/planos']) {
+  for (const path of ['/', '/login', '/register', '/planos', '/termos', '/privacidade']) {
     test(`pública ${path}`, async ({ page }) => {
       await open(page, path)
       await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible()

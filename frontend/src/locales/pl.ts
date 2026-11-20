@@ -436,6 +436,11 @@ export default {
     ptBR: 'Portugalski (Brazylia)',
   },
   profile: {
+    exportar: 'Eksportuj moje dane',
+    exportado: 'Twoje dane zostały pobrane jako beready-meus-dados.json.',
+    deleteApaga: 'Zostaną usunięte: profil, fiszki, tagi, quizy, prompty, tłumaczenia, zdania, postępy, osiągnięcia i historia. Płatna subskrypcja zostanie anulowana w Stripe.',
+    deleteSenha: 'Twoje hasło',
+    deleteSenhaHint: 'Konta utworzone tylko przez Google, Facebook lub LinkedIn nie mają hasła: zostaw puste.',
     title: 'Mój profil',
     editProfile: 'Edytuj profil',
     nome: 'Imię i nazwisko',
@@ -797,6 +802,16 @@ export default {
         descricao: 'Swobodnie używa języka w kontekstach społecznych, akademickich i zawodowych.',
       },
     },
+  },
+  legal: {
+    termos: 'Warunki korzystania',
+    privacidade: 'Polityka prywatności',
+    atualizadoEm: 'Zaktualizowano {data}',
+    soPtEn: 'Ten tekst jest dostępny tylko po portugalsku i angielsku. Wyświetlana jest wersja angielska.',
+    aceite: 'Przeczytałem i akceptuję {termos} oraz {privacidade}.',
+    aceiteObrigatorio: 'Zaakceptuj warunki korzystania i politykę prywatności, aby utworzyć konto.',
+    avisoSocial: 'Kontynuując przez sieć społecznościową, akceptujesz {termos} oraz {privacidade}.',
+    rodape: 'Dokumenty prawne',
   },
   planos: {
     loginToSubscribe: 'Zaloguj się, aby wykupić plan.',

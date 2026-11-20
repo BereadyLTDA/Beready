@@ -10,6 +10,9 @@
         <BaseButton variant="secondary" icon="pencil" to="/profile/edit">
           {{ $t('common.editar') }} {{ $t('common.perfil') }}
         </BaseButton>
+        <BaseButton variant="secondary" icon="download" :loading="exportando" @click="exportarDados">
+          {{ $t('profile.exportar') }}
+        </BaseButton>
         <BaseButton variant="danger" icon="trash" @click="showDeleteModal = true">
           {{ $t('profile.deleteAccount') }}
         </BaseButton>
@@ -77,12 +80,20 @@
       <div class="user-profile__delete flex flex-col gap-4">
         <p class="user-profile__delete-text text-text">{{ $t('profile.deleteConfirmMessage') }}</p>
         <BaseAlert variant="danger" :message="$t('profile.deleteWarning')" />
+        <p class="user-profile__delete-apaga text-sm text-text-muted">{{ $t('profile.deleteApaga') }}</p>
         <BaseInput
           v-model="confirmEmail"
           type="email"
           :label="`${$t('profile.deleteConfirmLabel')} ${user?.email || ''}:`"
           :placeholder="user?.email || ''"
           autocomplete="off"
+        />
+        <BaseInput
+          v-model="senhaExclusao"
+          type="password"
+          :label="$t('profile.deleteSenha')"
+          :hint="$t('profile.deleteSenhaHint')"
+          autocomplete="current-password"
         />
       </div>
       <template #footer="{ close }">
@@ -124,5 +135,8 @@ const {
   getNivelIngles,
   getIdiomaPreferido,
   handleDeleteAccount,
+  senhaExclusao,
+  exportando,
+  exportarDados,
 } = useProfile()
 </script>

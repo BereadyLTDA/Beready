@@ -1,5 +1,5 @@
 <template>
-  <main class="auth-card flex min-h-viewport items-center justify-center bg-bg px-gutter py-6">
+  <main class="auth-card flex min-h-viewport flex-col items-center justify-center bg-bg px-gutter py-6">
     <BaseCard class="auth-card__card w-full" :class="sizeClasses[size]" padding="lg">
       <template #header>
         <div class="auth-card__header flex flex-col items-center gap-2 text-center">
@@ -19,6 +19,7 @@
         </div>
       </template>
     </BaseCard>
+    <LinksLegais class="mt-4" />
   </main>
 </template>
 
@@ -27,6 +28,7 @@
 // esqueci/redefinir senha, retorno OAuth): página centralizada + card com
 // ícone, título (<h1>) e subtítulo. Só apresentação.
 import { BaseCard, BaseIcon, type IconName } from '@/shared/components/ui'
+import LinksLegais from '@/components/layout/LinksLegais.vue'
 
 type Size = 'sm' | 'lg'
 

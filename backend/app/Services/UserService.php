@@ -6,6 +6,7 @@ use App\Exceptions\EmailAlreadyExistsException;
 use App\Exceptions\EmailNaoVerificadoException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\UserNotFoundException;
+use App\Exceptions\ValidationException;
 use App\Exceptions\WeakPasswordException;
 use App\Mail\BoasVindas;
 use App\Mail\RecuperarSenha;
@@ -62,6 +63,13 @@ class UserService
 
         $data['email'] = $this->validarEmail((string) $data['email']);
 
+        // LGPD: o cadastro só segue com o aceite explícito dos termos e da política de privacidade
+        if (! filter_var($data['aceite_termos'] ?? false, FILTER_VALIDATE_BOOLEAN)) {
+            throw new ValidationException('Aceite os termos de uso e a política de privacidade para criar a conta', [
+                'aceite_termos' => ['obrigatorio' => 'Aceite obrigatório'],
+            ]);
+        }
+
         if (strlen((string) $data['senha']) < 6) {
             throw new WeakPasswordException('A senha deve ter pelo menos 6 caracteres');
         }
@@ -76,6 +84,8 @@ class UserService
             'senha_hash' => password_hash((string) $data['senha'], PASSWORD_DEFAULT),
             'role' => 'user',
             'status' => self::STATUS_ATIVO,
+            'termos_versao' => (string) config('beready.termos_versao'),
+            'termos_aceitos_em' => now(),
         ])->saveOrFail();
 
         // As boas-vindas saem depois da confirmação (verificarEmail)
@@ -217,6 +227,16 @@ class UserService
         }
 
         return $user->toArray();
+    }
+
+    /**
+     * Confere a senha do usuário. Conta só com login social (sem senha) não tem o que conferir.
+     */
+    public function confirmarSenha(int $id, string $senha): bool
+    {
+        $hash = User::whereKey($id)->value('senha_hash');
+
+        return empty($hash) || password_verify($senha, (string) $hash);
     }
 
     public function deleteUser(int $id): bool

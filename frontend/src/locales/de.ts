@@ -436,6 +436,11 @@ export default {
     ptBR: 'Portugiesisch (Brasilien)',
   },
   profile: {
+    exportar: 'Meine Daten exportieren',
+    exportado: 'Deine Daten wurden als beready-meus-dados.json heruntergeladen.',
+    deleteApaga: 'Gelöscht werden: Profil, Karteikarten, Tags, Quiz, Prompts, Übersetzungen, Sätze, Fortschritt, Erfolge und Verlauf. Ein bezahltes Abo wird bei Stripe gekündigt.',
+    deleteSenha: 'Dein Passwort',
+    deleteSenhaHint: 'Konten, die nur mit Google, Facebook oder LinkedIn erstellt wurden, haben kein Passwort: leer lassen.',
     title: 'Mein Profil',
     editProfile: 'Profil bearbeiten',
     nome: 'Vollständiger Name',
@@ -797,6 +802,16 @@ export default {
         descricao: 'Nutzt die Sprache flexibel im sozialen, akademischen und beruflichen Umfeld.',
       },
     },
+  },
+  legal: {
+    termos: 'Nutzungsbedingungen',
+    privacidade: 'Datenschutzerklärung',
+    atualizadoEm: 'Aktualisiert am {data}',
+    soPtEn: 'Dieser Text ist nur auf Portugiesisch und Englisch verfügbar. Die englische Fassung wird angezeigt.',
+    aceite: 'Ich habe die {termos} und die {privacidade} gelesen und akzeptiere sie.',
+    aceiteObrigatorio: 'Akzeptiere die Nutzungsbedingungen und die Datenschutzerklärung, um das Konto zu erstellen.',
+    avisoSocial: 'Wenn du mit einem sozialen Netzwerk fortfährst, akzeptierst du die {termos} und die {privacidade}.',
+    rodape: 'Rechtliche Dokumente',
   },
   planos: {
     loginToSubscribe: 'Melde dich an, um einen Tarif abzuschließen.',

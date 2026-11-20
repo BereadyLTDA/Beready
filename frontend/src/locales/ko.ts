@@ -436,6 +436,11 @@ export default {
     ptBR: '포르투갈어(브라질)',
   },
   profile: {
+    exportar: '내 데이터 내보내기',
+    exportado: '데이터를 beready-meus-dados.json 파일로 내려받았습니다.',
+    deleteApaga: '삭제되는 항목: 프로필, 플래시카드, 태그, 퀴즈, 프롬프트, 번역, 문장, 진행 상황, 업적, 기록. 유료 구독은 Stripe에서 해지됩니다.',
+    deleteSenha: '비밀번호',
+    deleteSenhaHint: 'Google, Facebook, LinkedIn으로만 만든 계정은 비밀번호가 없습니다. 비워 두세요.',
     title: '내 프로필',
     editProfile: '프로필 편집',
     nome: '이름',
@@ -797,6 +802,16 @@ export default {
         descricao: '사회·학업·직업 상황에서 언어를 유연하게 사용합니다.',
       },
     },
+  },
+  legal: {
+    termos: '이용약관',
+    privacidade: '개인정보 처리방침',
+    atualizadoEm: '{data} 업데이트',
+    soPtEn: '이 문서는 포르투갈어와 영어로만 제공됩니다. 영어 버전을 표시합니다.',
+    aceite: '{termos} 및 {privacidade}을 읽었으며 동의합니다.',
+    aceiteObrigatorio: '계정을 만들려면 이용약관과 개인정보 처리방침에 동의하세요.',
+    avisoSocial: '소셜 계정으로 계속하면 {termos} 및 {privacidade}에 동의하는 것으로 간주됩니다.',
+    rodape: '법적 문서',
   },
   planos: {
     loginToSubscribe: '요금제를 구독하려면 로그인하세요.',

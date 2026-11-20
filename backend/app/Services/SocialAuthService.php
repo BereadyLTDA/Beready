@@ -72,7 +72,14 @@ class SocialAuthService
             'idioma_preferido' => 'pt-BR',
             'foto_perfil' => $picture ? $this->fotoPermanente($picture) : null,
         ]);
-        $user->forceFill(['status' => 'ativo', 'role' => 'user', 'email_verificado_em' => now()])->saveOrFail();
+        // No login social, o aviso na tela de entrada diz que continuar é aceitar os termos
+        $user->forceFill([
+            'status' => 'ativo',
+            'role' => 'user',
+            'email_verificado_em' => now(),
+            'termos_versao' => (string) config('beready.termos_versao'),
+            'termos_aceitos_em' => now(),
+        ])->saveOrFail();
 
         try {
             $this->assinaturaService->ativarPlanoGratuito((int) $user->id);

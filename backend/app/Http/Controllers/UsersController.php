@@ -7,8 +7,10 @@ use App\Exceptions\EmailAlreadyExistsException;
 use App\Exceptions\EmailNaoVerificadoException;
 use App\Exceptions\InvalidTokenException;
 use App\Exceptions\UserNotFoundException;
+use App\Exceptions\ValidationException;
 use App\Exceptions\WeakPasswordException;
 use App\Services\AssinaturaService;
+use App\Services\DadosPessoaisService;
 use App\Services\JwtService;
 use App\Services\PermissionService;
 use App\Services\SocialAuthService;
@@ -73,6 +75,8 @@ class UsersController extends Controller
             }
 
             return $this->jsonSuccess(['user' => $user], 'Conta criada. Enviamos um link para confirmar seu e-mail.', 201);
+        } catch (ValidationException $e) {
+            return $this->errorResponse($e, 'Dados inválidos');
         } catch (EmailAlreadyExistsException|\InvalidArgumentException $e) {
             return $this->jsonError($e->getMessage(), $this->httpStatusFrom($e, 400));
         } catch (\Exception $e) {
@@ -165,6 +169,17 @@ class UsersController extends Controller
             $this->jwtService->generateAccessToken($this->dadosDoToken($user)) + ['user' => $user],
             'Token renovado com sucesso',
         );
+    }
+
+    // GET /users/me/exportar — LGPD: todos os dados do aluno logado, em JSON
+    public function exportar(DadosPessoaisService $dados): JsonResponse
+    {
+        try {
+            return $this->jsonSuccess($dados->exportar($this->currentUserId()), 'Dados exportados')
+                ->header('Content-Disposition', 'attachment; filename="beready-meus-dados.json"');
+        } catch (\Exception $e) {
+            return $this->errorResponse($e, 'Erro ao exportar os dados');
+        }
     }
 
     // GET /users/me
@@ -325,7 +340,7 @@ class UsersController extends Controller
     }
 
     // DELETE /users/delete/{id}
-    public function delete(string $id): JsonResponse
+    public function delete(Request $request, string $id): JsonResponse
     {
         $userId = (int) $id;
         if (! $userId) {
@@ -340,6 +355,12 @@ class UsersController extends Controller
             $user = $this->userService->getUserById($userId);
             if ($user['role'] === 'admin') {
                 return $this->jsonError('Não é possível excluir um usuário administrador', 403);
+            }
+
+            // Excluir a própria conta pede a senha: um token roubado não basta para apagar tudo
+            if ($userId === $this->currentUserId()
+                && ! $this->userService->confirmarSenha($userId, (string) ($this->requestData($request)['senha'] ?? ''))) {
+                return $this->jsonError('Senha incorreta', 400, ['senha' => ['incorreta' => 'Confirme com a sua senha']]);
             }
 
             // Sem isto o Stripe continuaria cobrando uma conta que não existe mais

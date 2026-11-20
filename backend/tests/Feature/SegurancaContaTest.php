@@ -80,7 +80,7 @@ class SegurancaContaTest extends ApiTestCase
 
         $this->withBearer(null);
         $this->recaptchaAprova();
-        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'nome' => 'Outra', 'email' => 'MARIA@Teste.Local', 'senha' => 'senha123']);
+        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'aceite_termos' => true, 'nome' => 'Outra', 'email' => 'MARIA@Teste.Local', 'senha' => 'senha123']);
 
         $this->assertResponseCode(409);
     }
@@ -89,7 +89,7 @@ class SegurancaContaTest extends ApiTestCase
     {
         $this->withBearer(null);
         $this->recaptchaAprova();
-        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'nome' => 'Fulano', 'email' => 'nao-e-email', 'senha' => 'senha123']);
+        $this->postJson('/auth/register', ['recaptcha_token' => 'token-de-teste', 'aceite_termos' => true, 'nome' => 'Fulano', 'email' => 'nao-e-email', 'senha' => 'senha123']);
 
         $this->assertResponseCode(400);
     }
@@ -136,7 +136,7 @@ class SegurancaContaTest extends ApiTestCase
         $this->insert('Tags', ['nome' => 'Verbs', 'criado_por' => $user->id]);
 
         $this->actingAs($user);
-        $this->deleteJson('/users/delete/'.$user->id);
+        $this->deleteJson('/users/delete/'.$user->id, ['senha' => 'secret123']);
 
         $this->assertResponseOk();
         $this->assertSame([['subscriptionId' => 'sub_que_cobra']], $fake->chamadasDe('cancelarAgora'));

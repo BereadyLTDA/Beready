@@ -30,6 +30,7 @@ class VerificacaoEmailTest extends ApiTestCase
     {
         $this->postJson('/auth/register', [
             'recaptcha_token' => 'token-de-teste',
+            'aceite_termos' => true,
             'nome' => 'Nova Pessoa',
             'email' => $email,
             'senha' => 'senhaForte1',

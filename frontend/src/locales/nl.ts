@@ -436,6 +436,11 @@ export default {
     ptBR: 'Portugees (Brazilië)',
   },
   profile: {
+    exportar: 'Mijn gegevens exporteren',
+    exportado: 'Je gegevens zijn gedownload als beready-meus-dados.json.',
+    deleteApaga: 'Worden verwijderd: profiel, flashcards, tags, quizzen, prompts, vertalingen, zinnen, voortgang, prestaties en geschiedenis. Een betaald abonnement wordt bij Stripe opgezegd.',
+    deleteSenha: 'Je wachtwoord',
+    deleteSenhaHint: 'Accounts die alleen met Google, Facebook of LinkedIn zijn gemaakt, hebben geen wachtwoord: laat leeg.',
     title: 'Mijn Profiel',
     editProfile: 'Profiel bewerken',
     nome: 'Volledige naam',
@@ -797,6 +802,16 @@ export default {
         descricao: 'Gebruikt de taal flexibel in sociale, academische en professionele situaties.',
       },
     },
+  },
+  legal: {
+    termos: 'Gebruiksvoorwaarden',
+    privacidade: 'Privacybeleid',
+    atualizadoEm: 'Bijgewerkt op {data}',
+    soPtEn: 'Deze tekst is alleen in het Portugees en Engels beschikbaar. De Engelse versie wordt getoond.',
+    aceite: 'Ik heb de {termos} en het {privacidade} gelezen en ga ermee akkoord.',
+    aceiteObrigatorio: 'Ga akkoord met de gebruiksvoorwaarden en het privacybeleid om het account aan te maken.',
+    avisoSocial: 'Door verder te gaan met een sociaal netwerk ga je akkoord met de {termos} en het {privacidade}.',
+    rodape: 'Juridische documenten',
   },
   planos: {
     loginToSubscribe: 'Log in om je op een abonnement te abonneren.',

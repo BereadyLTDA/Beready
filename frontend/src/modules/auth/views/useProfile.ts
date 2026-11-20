@@ -14,6 +14,28 @@ export function useProfile() {
   const user = computed(() => authStore.user)
   const showDeleteModal = ref(false)
   const confirmEmail = ref('')
+  const senhaExclusao = ref('')
+  const exportando = ref(false)
+
+  // LGPD: baixa um JSON com tudo o que o BeReady guarda sobre o aluno
+  const exportarDados = async () => {
+    exportando.value = true
+    try {
+      const { data } = await api.get('/users/me/exportar')
+      const blob = new Blob([JSON.stringify(data.data, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = 'beready-meus-dados.json'
+      link.click()
+      URL.revokeObjectURL(url)
+      success(t('profile.exportado'))
+    } catch (err: unknown) {
+      error(getApiErrorMessage(err) || t('errors.networkError'))
+    } finally {
+      exportando.value = false
+    }
+  }
   const deleteLoading = ref(false)
 
   const formattedPhone = computed(() => {
@@ -43,7 +65,8 @@ export function useProfile() {
 
     deleteLoading.value = true
     try {
-      const response = await api.delete(`/users/delete/${currentUser.id}`)
+      // A senha confirma que é o dono da conta (contas só com login social não têm senha)
+      const response = await api.delete(`/users/delete/${currentUser.id}`, { data: { senha: senhaExclusao.value } })
       if (response.data.success) {
         success(t('profile.deleteSuccess'))
         // Encerra a sessão (limpa cookie e stores) e leva ao cadastro
@@ -66,6 +89,7 @@ export function useProfile() {
       deleteLoading.value = false
       showDeleteModal.value = false
       confirmEmail.value = ''
+      senhaExclusao.value = ''
     }
   }
 
@@ -103,5 +127,8 @@ export function useProfile() {
     getNivelIngles,
     getIdiomaPreferido,
     handleDeleteAccount,
+    senhaExclusao,
+    exportando,
+    exportarDados,
   }
 }

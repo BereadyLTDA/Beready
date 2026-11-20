@@ -6,6 +6,9 @@
     <main id="conteudo" ref="mainRef" class="app-layout__main min-w-0 flex-1 outline-hidden" tabindex="-1">
       <router-view />
     </main>
+    <footer class="app-layout__footer border-0 border-t border-solid border-border px-gutter py-4">
+      <LinksLegais />
+    </footer>
   </div>
 </template>
 
@@ -13,6 +16,7 @@
 // Layout das páginas autenticadas: link "pular para o conteúdo", navbar e <main>
 import { ref } from 'vue'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
+import LinksLegais from '@/components/layout/LinksLegais.vue'
 
 const mainRef = ref<HTMLElement | null>(null)
 

@@ -436,6 +436,11 @@ export default {
     ptBR: 'ポルトガル語（ブラジル）',
   },
   profile: {
+    exportar: 'データをエクスポート',
+    exportado: 'データを beready-meus-dados.json としてダウンロードしました。',
+    deleteApaga: '削除されるもの：プロフィール、フラッシュカード、タグ、クイズ、プロンプト、翻訳、文、進捗、実績、履歴。有料プランは Stripe で解約されます。',
+    deleteSenha: 'パスワード',
+    deleteSenhaHint: 'Google・Facebook・LinkedIn だけで作成したアカウントにはパスワードがありません。空欄のままにしてください。',
     title: 'マイプロフィール',
     editProfile: 'プロフィールを編集',
     nome: 'フルネーム',
@@ -797,6 +802,16 @@ export default {
         descricao: '社会・学術・仕事の場面で言語を柔軟に使える。',
       },
     },
+  },
+  legal: {
+    termos: '利用規約',
+    privacidade: 'プライバシーポリシー',
+    atualizadoEm: '{data} 更新',
+    soPtEn: 'この文書はポルトガル語と英語のみです。英語版を表示しています。',
+    aceite: '{termos}と{privacidade}を読み、同意します。',
+    aceiteObrigatorio: 'アカウントを作成するには、利用規約とプライバシーポリシーに同意してください。',
+    avisoSocial: 'SNS アカウントで続行すると、{termos}と{privacidade}に同意したものとみなされます。',
+    rodape: '法的文書',
   },
   planos: {
     loginToSubscribe: 'プランを申し込むにはログインしてください。',

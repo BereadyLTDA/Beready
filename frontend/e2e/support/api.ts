@@ -420,6 +420,12 @@ export class ApiMock {
       body: `<!doctype html><title>OAuth ${params.provider}</title><h1>OAuth ${params.provider} (mock)</h1>`,
     }))
     this.def('GET', '/users/me', requireUser(() => ok(s.user)))
+    this.def('GET', '/users/me/exportar', requireUser(() =>
+      ok({ gerado_em: '2026-11-20T10:00:00-03:00', termos: { versao_aceita: '2026-11-20', aceitos_em: null }, perfil: s.user, flashcards: s.flashcards, prompts: [], respostas: [] }, 'Dados exportados'),
+    ))
+    this.def('DELETE', '/users/delete/:id', requireUser(({ body }) =>
+      body.senha === 'senhaCerta1' ? ok(null, 'Conta excluída com sucesso') : fail(400, 'Senha incorreta'),
+    ))
     this.def(
       'PUT',
       '/users/update/:id',

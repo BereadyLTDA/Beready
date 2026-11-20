@@ -127,6 +127,21 @@
         </fieldset>
       </div>
 
+      <!-- LGPD: aceite explícito (os links abrem em outra aba para não perder o formulário) -->
+      <div class="user-register__aceite flex flex-col gap-1">
+        <BaseCheckbox v-model="form.aceite_termos" :aria-invalid="!!errors.aceite_termos" aria-describedby="register-aceite-erro">
+          <I18nT keypath="legal.aceite" tag="span" scope="global">
+            <template #termos>
+              <router-link to="/termos" target="_blank" rel="noopener">{{ $t('legal.termos') }}</router-link>
+            </template>
+            <template #privacidade>
+              <router-link to="/privacidade" target="_blank" rel="noopener">{{ $t('legal.privacidade') }}</router-link>
+            </template>
+          </I18nT>
+        </BaseCheckbox>
+        <p v-if="errors.aceite_termos" id="register-aceite-erro" class="text-sm text-danger" role="alert">{{ errors.aceite_termos }}</p>
+      </div>
+
       <div class="user-register__actions flex flex-wrap justify-end gap-3 *:grow *:basis-40 md:*:shrink-0 md:*:grow-0 md:*:basis-auto">
         <BaseButton variant="secondary" to="/login">{{ $t('common.cancelar') }}</BaseButton>
         <BaseButton type="submit" :loading="loading">
@@ -147,7 +162,8 @@ defineOptions({
   name: 'UserRegister',
 })
 
-import { BaseButton, BaseIcon, BaseInput, BaseSelect, BaseTextarea } from '@/shared/components/ui'
+import { I18nT } from 'vue-i18n'
+import { BaseButton, BaseCheckbox, BaseIcon, BaseInput, BaseSelect, BaseTextarea } from '@/shared/components/ui'
 import AuthCard from '../components/AuthCard.vue'
 import PasswordStrength from '../components/PasswordStrength.vue'
 import { useRegister } from './Register'

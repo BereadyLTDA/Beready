@@ -67,6 +67,18 @@
       </BaseButton>
     </div>
 
+    <!-- LGPD: quem entra pela primeira vez com uma rede social aceita os termos por aqui -->
+    <p class="user-login__aviso-social mt-3 text-center text-xs text-text-muted">
+      <I18nT keypath="legal.avisoSocial" tag="span" scope="global">
+        <template #termos>
+          <router-link to="/termos">{{ $t('legal.termos') }}</router-link>
+        </template>
+        <template #privacidade>
+          <router-link to="/privacidade">{{ $t('legal.privacidade') }}</router-link>
+        </template>
+      </I18nT>
+    </p>
+
     <template #footer>
       {{ $t('login.noAccount') }}
       <router-link to="/register" class="font-semibold">{{ $t('register.title') }}</router-link>
@@ -75,6 +87,7 @@
 </template>
 
 <script setup lang="ts">
+import { I18nT } from 'vue-i18n'
 import { useLogin } from './Login'
 import { BaseButton, BaseInput } from '@/shared/components/ui'
 import AuthCard from '../components/AuthCard.vue'

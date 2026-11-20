@@ -58,6 +58,20 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
+      path: '/termos',
+      name: 'termos',
+      component: () => import('../modules/legal/views/LegalPage.vue'),
+      props: { tipo: 'termos' },
+      meta: { requiresAuth: false },
+    },
+    {
+      path: '/privacidade',
+      name: 'privacidade',
+      component: () => import('../modules/legal/views/LegalPage.vue'),
+      props: { tipo: 'privacidade' },
+      meta: { requiresAuth: false },
+    },
+    {
       path: '/verificar-email/:token',
       name: 'verificar-email',
       component: () => import('../modules/auth/views/VerificarEmail.vue'),
