@@ -4,17 +4,19 @@ O que falta para o BeReady fechar como TCC de uma plataforma de ensino de idioma
 prioridade. Cada item diz o objetivo, o que fazer, os arquivos envolvidos, quem faz e quando está
 pronto.
 
-Situação em 20/11/2026: itens 2, 3, 4, 5 e 8 implementados e na `main`, com testes e CI verde.
+Situação em 28/11/2026: itens 2, 3, 4, 5 e 8 implementados e na `main`, com testes e CI verde. Do
+item 1, o Blueprint do Render está pronto; do 6, o material e a exportação; do 7, os diagramas e
+os rascunhos. O que falta nos três depende de você.
 
 | # | Item | Situação | Falta |
 |---|---|---|---|
-| 1 | Colocar no ar | Pendente | Suas contas no Render/Railway e o domínio |
+| 1 | Colocar no ar | Preparado | Criar o Blueprint no Render com as suas contas ([passo a passo](deploy-render.md)) |
 | 2 | Áudio e pronúncia | Pronto | Nada |
 | 3 | Gamificação simples | Pronto | Cron do scheduler no deploy (item 1) |
 | 4 | Teste de nivelamento | Pronto | Revisar as 30 questões |
 | 5 | Gráficos de progresso | Pronto | Nada (tempo de estudo por semana ficou de fora, ver abaixo) |
-| 6 | Validação com usuários | Pendente | Você conduz; o Claude prepara o material quando você pedir |
-| 7 | Documentação do TCC | Pendente | Você escreve; o Claude gera os diagramas quando você pedir |
+| 6 | Validação com usuários | Material pronto | Conduzir o estudo ([docs/validacao](validacao/README.md)) |
+| 7 | Documentação do TCC | Diagramas prontos | Escrever o texto e preencher os `[preencher]` ([docs/tcc](tcc/README.md)) |
 | 8 | LGPD | Pronto | Revisar os textos e definir o e-mail de contato |
 
 ### O que precisa da sua revisão
@@ -34,6 +36,24 @@ Situação em 20/11/2026: itens 2, 3, 4, 5 e 8 implementados e na `main`, com te
 - **Tempo de estudo por semana:** não entrou nos gráficos. Hoje o backend só guarda o total
   acumulado (`tempo_total_estudo`). Para ter o gráfico, seria preciso registrar cada sessão com a
   data; os gráficos usam a nota média de pronúncia por semana no lugar.
+
+### Como ficaram os itens 1, 6 e 7
+
+- **1. Colocar no ar:**
+  - `render.yaml` cria a API (Docker), o cron do lembrete (21h UTC) e o frontend estático;
+  - `docs/deploy-render.md` tem as variáveis, os passos nos consoles (Supabase, reCAPTCHA, OAuth,
+    Stripe) e o teste de fumaça;
+  - ainda não foi testado num deploy real.
+- **6. Validação com usuários:**
+  - `docs/validacao/`: TCLE, formulários (perfil e SUS), roteiro da tarefa guiada com folha de
+    observação e modelo do capítulo de resultados;
+  - `php artisan beready:relatorio-estudo` exporta as métricas em CSV, anonimizadas (P01, P02...);
+  - `NIVELAMENTO_DIAS_PARA_REFAZER` encurta o prazo de 30 dias para o teste final do protocolo.
+- **7. Documentação:**
+  - `docs/tcc/`: 12 diagramas Mermaid (componentes, implantação, casos de uso, DER, 4 sequências)
+    e o rascunho de decisões técnicas, qualidade e trabalhos futuros;
+  - os números que não dá para medir no repositório (Lighthouse, desempenho) estão marcados com
+    `[preencher]`.
 
 ### Como ficou cada item implementado
 
