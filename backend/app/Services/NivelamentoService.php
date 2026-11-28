@@ -25,6 +25,7 @@ class NivelamentoService
 
     public const SEGUIDAS_PARA_MUDAR = 2;
 
+    /** Padrão; o valor efetivo vem de NIVELAMENTO_DIAS_PARA_REFAZER (ver diasParaRefazer) */
     public const DIAS_PARA_REFAZER = 30;
 
     /** Nível do CEFR => nível usado no resto do app (users.nivel_ingles) */
@@ -49,8 +50,8 @@ class NivelamentoService
         }
 
         $ultimo = $this->ultimoConcluido($usuarioId);
-        if ($ultimo && $ultimo->getAttribute('concluido_em')->gt(now()->subDays(self::DIAS_PARA_REFAZER))) {
-            $quando = $ultimo->getAttribute('concluido_em')->addDays(self::DIAS_PARA_REFAZER);
+        if ($ultimo && $ultimo->getAttribute('concluido_em')->gt(now()->subDays($this->diasParaRefazer()))) {
+            $quando = $ultimo->getAttribute('concluido_em')->addDays($this->diasParaRefazer());
             throw new NivelamentoBloqueadoException('Você poderá refazer o teste a partir de '.$quando->format('d/m/Y').'.');
         }
 
@@ -139,7 +140,7 @@ class NivelamentoService
             'acertos' => count(array_filter($respostas, fn ($r) => ! empty($r['correta']))),
             'total' => count($respostas),
             'concluido_em' => $ultimo->getAttribute('concluido_em')->toAtomString(),
-            'pode_refazer_em' => $ultimo->getAttribute('concluido_em')->addDays(self::DIAS_PARA_REFAZER)->toAtomString(),
+            'pode_refazer_em' => $ultimo->getAttribute('concluido_em')->addDays($this->diasParaRefazer())->toAtomString(),
         ];
     }
 
@@ -223,5 +224,14 @@ class NivelamentoService
     private function ultimoConcluido(int $usuarioId): ?Nivelamento
     {
         return Nivelamento::where('usuario_id', $usuarioId)->whereNotNull('concluido_em')->latest('concluido_em')->first();
+    }
+
+    /**
+     * Dias até poder refazer o teste. Na validação com usuários, o teste é refeito ao fim de 1 a 2
+     * semanas, então o prazo pode ser encurtado (até 0) por NIVELAMENTO_DIAS_PARA_REFAZER.
+     */
+    private function diasParaRefazer(): int
+    {
+        return max(0, (int) config('beready.nivelamento.dias_para_refazer', self::DIAS_PARA_REFAZER));
     }
 }

@@ -131,6 +131,31 @@ class NivelamentoTest extends ApiTestCase
         $this->assertNotSame($id, $this->responseJson()['data']['id']);
     }
 
+    public function test_prazo_para_refazer_vem_da_configuracao(): void
+    {
+        // Na validação com usuários o teste final é refeito em 1 a 2 semanas
+        config(['beready.nivelamento.dias_para_refazer' => 7]);
+
+        $this->postJson('/nivelamento/iniciar');
+        $id = $this->responseJson()['data']['id'];
+        for ($i = 0; $i < 12; $i++) {
+            $this->responder($id, true);
+        }
+
+        Nivelamento::whereKey($id)->update(['concluido_em' => now()->subDays(6)]);
+        $this->postJson('/nivelamento/iniciar');
+        $this->assertResponseCode(409);
+
+        Nivelamento::whereKey($id)->update(['concluido_em' => now()->subDays(8)]);
+        $this->getJson('/nivelamento/resultado');
+        $this->assertSame(
+            Nivelamento::findOrFail($id)->getAttribute('concluido_em')->addDays(7)->toAtomString(),
+            $this->responseJson()['data']['pode_refazer_em']
+        );
+        $this->postJson('/nivelamento/iniciar');
+        $this->assertResponseOk();
+    }
+
     public function test_alternativa_invalida_e_teste_de_outro_aluno_sao_recusados(): void
     {
         $this->postJson('/nivelamento/iniciar');

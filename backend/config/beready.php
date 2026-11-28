@@ -47,6 +47,11 @@ return [
         'limite_diario' => (int) (env('IA_LIMITE_DIARIO') ?: 50),
     ],
 
+    'nivelamento' => [
+        // "0" é válido (refazer quando quiser), por isso não usa ?: como os outros
+        'dias_para_refazer' => is_numeric(env('NIVELAMENTO_DIAS_PARA_REFAZER')) ? (int) env('NIVELAMENTO_DIAS_PARA_REFAZER') : 30,
+    ],
+
     'recaptcha' => [
         'secret' => env('RECAPTCHA_SECRET_KEY'),
         'verify_url' => env('RECAPTCHA_VERIFY_URL', 'https://www.google.com/recaptcha/api/siteverify'),
