@@ -77,6 +77,14 @@ em variável `VITE_*`: tudo nelas fica público no JavaScript.
 O Nginx (`docker/nginx.conf`) serve a SPA, manda as rotas do vue-router para o `index.html` e
 cacheia para sempre os arquivos de `/assets/` (têm hash no nome).
 
+## Render (caminho preparado)
+
+O `render.yaml` da raiz é um Blueprint com a API (Docker, estágio `prod`), o cron job do lembrete
+(`php artisan beready:lembretes` às 21h UTC, sem precisar do `schedule:run`) e o frontend como site
+estático. O passo a passo, com a tabela de variáveis e os problemas comuns, está em
+`docs/deploy-render.md`. Ao mudar variáveis de ambiente da API, atualize os três: `.env.example`,
+`render.yaml` (grupo `beready-api`) e `docs/deploy-render.md`.
+
 ## Checklist antes de publicar
 
 1. Testes verdes (skill `rodar-testes`) e CI verde no GitHub.
